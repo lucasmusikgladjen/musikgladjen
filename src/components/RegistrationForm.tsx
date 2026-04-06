@@ -119,7 +119,7 @@ export default function RegistrationForm({
       grade: formData.grade,
       instruments: formData.instruments,
       instrumentOther: formData.instrumentOther || null,
-      expectations: [],
+      expectations: formData.expectations,
       studentName: formData.studentName,
       guardianName: formData.guardianName,
       address: formData.address,
