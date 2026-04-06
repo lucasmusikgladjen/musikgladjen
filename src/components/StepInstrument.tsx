@@ -52,10 +52,10 @@ export default function StepInstrument({
               key={name}
               type="button"
               onClick={() => toggle(name)}
-              className={`flex items-center gap-2.5 px-4 py-3.5 rounded-xl text-left transition-all duration-200 min-h-[48px] border ${
+              className={`flex items-center gap-3 px-4 py-4 rounded-xl text-left transition-all duration-200 min-h-[56px] border-2 ${
                 selected
-                  ? "bg-bg-accent border-primary text-text-primary ring-1 ring-primary"
-                  : "bg-white border-border hover:border-primary/40 text-text-primary"
+                  ? "bg-accent-soft border-primary text-primary ring-1 ring-primary"
+                  : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
               }`}
             >
               <span className="text-2xl flex-shrink-0">{emoji}</span>
@@ -66,7 +66,7 @@ export default function StepInstrument({
       </div>
 
       {showOtherField && (
-        <div className="mt-4">
+        <div className="mt-4 animate-fade-in-up">
           <label
             htmlFor="instrumentOther"
             className="block text-sm font-medium text-text-primary mb-1"
@@ -79,7 +79,7 @@ export default function StepInstrument({
             value={otherValue}
             onChange={(e) => onOtherChange(e.target.value)}
             placeholder="T.ex. ukulele, cello..."
-            className="w-full px-4 py-3 rounded-xl border border-border focus:border-border-focus focus:ring-1 focus:ring-primary outline-none text-base"
+            className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-base bg-bg-white"
             maxLength={100}
           />
         </div>

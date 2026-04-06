@@ -103,9 +103,13 @@ export default function StepContact({
       onNext={handleSubmit(onSubmit)}
       ctaText="Nästa: se upplägg & pris →"
     >
-      <h2 className="text-2xl font-bold text-text-primary mb-5 mt-2">
-        Dina uppgifter
+      {/* Motivating headline */}
+      <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">
+        Snart klart — vi hittar rätt lärare åt er!
       </h2>
+      <p className="text-sm text-text-secondary mb-5">
+        Fyll i era uppgifter för ett personligt, kostnadsfritt och inte bindande förslag.
+      </p>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -130,10 +134,10 @@ export default function StepContact({
               aria-describedby={
                 errors[field.name] ? `${field.name}-error` : undefined
               }
-              className={`w-full px-4 py-3 rounded-xl border outline-none text-base transition-colors ${
+              className={`w-full px-4 py-3 rounded-xl border-2 outline-none text-base transition-colors bg-bg-white ${
                 errors[field.name]
                   ? "border-error focus:ring-1 focus:ring-error"
-                  : "border-border focus:border-border-focus focus:ring-1 focus:ring-primary"
+                  : "border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary"
               }`}
             />
             {errors[field.name] && (
@@ -150,6 +154,14 @@ export default function StepContact({
         {/* Hidden submit to allow Enter key */}
         <button type="submit" className="hidden" />
       </form>
+
+      {/* Privacy assurance */}
+      <div className="flex items-center gap-2 mt-5 text-xs text-text-secondary">
+        <svg className="w-4 h-4 flex-shrink-0 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+        <span>Vi behandlar dina uppgifter säkert och delar aldrig vidare dem.</span>
+      </div>
     </StepWrapper>
   );
 }
