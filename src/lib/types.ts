@@ -1,6 +1,7 @@
 export interface FormData {
   // Step 1
   grade: string;
+  gradeOther: string;
   // Step 2
   instruments: string[];
   instrumentOther: string;
@@ -30,9 +31,10 @@ export interface UTMParams {
   utmContent: string | null;
 }
 
-export interface WebhookPayload extends Omit<FormData, "formVariant" | "instrumentOther"> {
+export interface WebhookPayload extends Omit<FormData, "formVariant" | "instrumentOther" | "gradeOther"> {
   formVariant: string;
   instrumentOther: string | null;
+  gradeOther: string | null;
   honeypot?: string;
   meta: {
     submittedAt: string;

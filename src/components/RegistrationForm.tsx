@@ -42,6 +42,7 @@ export default function RegistrationForm({
   // Form state
   const [formData, setFormData] = useState<FormData>({
     grade: "",
+    gradeOther: "",
     instruments: [],
     instrumentOther: "",
     expectations: [],
@@ -117,6 +118,7 @@ export default function RegistrationForm({
 
     const payload: WebhookPayload = {
       grade: formData.grade,
+      gradeOther: formData.gradeOther || null,
       instruments: formData.instruments,
       instrumentOther: formData.instrumentOther || null,
       expectations: formData.expectations,
@@ -220,7 +222,9 @@ export default function RegistrationForm({
           {step === 0 && (
             <StepGrade
               value={formData.grade}
+              otherValue={formData.gradeOther}
               onChange={(v) => updateField("grade", v)}
+              onOtherChange={(v) => updateField("gradeOther", v)}
               onNext={goNext}
             />
           )}

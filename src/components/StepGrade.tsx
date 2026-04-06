@@ -1,23 +1,23 @@
 "use client";
 
-import { useState } from "react";
 import { GRADES } from "@/lib/types";
 import StepWrapper from "./StepWrapper";
 
 interface StepGradeProps {
   value: string;
+  otherValue: string;
   onChange: (grade: string) => void;
+  onOtherChange: (value: string) => void;
   onNext: () => void;
 }
 
-export default function StepGrade({ value, onChange, onNext }: StepGradeProps) {
-  const [otherText, setOtherText] = useState("");
+export default function StepGrade({ value, otherValue, onChange, onOtherChange, onNext }: StepGradeProps) {
   const isOther = value === "Äldre";
 
   const handleSelect = (grade: string) => {
     onChange(grade);
     if (grade !== "Äldre") {
-      setOtherText("");
+      onOtherChange("");
     }
   };
 
@@ -72,8 +72,8 @@ export default function StepGrade({ value, onChange, onNext }: StepGradeProps) {
           <input
             id="gradeOther"
             type="text"
-            value={otherText}
-            onChange={(e) => setOtherText(e.target.value)}
+            value={otherValue}
+            onChange={(e) => onOtherChange(e.target.value)}
             placeholder="T.ex. gymnasiet, vuxen..."
             className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-base bg-bg-white"
             maxLength={80}
