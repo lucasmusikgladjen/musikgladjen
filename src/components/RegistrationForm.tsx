@@ -256,9 +256,11 @@ export default function RegistrationForm({
               frequency={formData.frequency}
               lessonLength={formData.lessonLength}
               startPreference={formData.startPreference}
+              expectations={formData.expectations}
               onFrequencyChange={(v) => updateField("frequency", v)}
               onLessonLengthChange={(v) => updateField("lessonLength", v)}
               onStartPreferenceChange={(v) => updateField("startPreference", v)}
+              onExpectationsChange={(v) => updateField("expectations", v)}
               onSubmit={handleSubmit}
               onBack={goBack}
               isSubmitting={isSubmitting}
