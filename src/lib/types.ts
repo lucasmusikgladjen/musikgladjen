@@ -83,11 +83,13 @@ export const INSTRUMENTS = [
 ];
 
 export const EXPECTATIONS = [
-  "En rolig fritidsaktivitet som barnet ser fram emot",
-  "Att barnet lär sig spela ett instrument på riktigt",
-  "En trygg vuxen förebild som kommer hem till er",
-  "Bättre fokus och koncentration (en bonus med musik!)",
-  "Slipper logistiken — vi kommer till er",
+  "En rolig fritidsaktivitet",
+  "Att eleven utvecklas och lär sig spela instrumentet",
+  "En äldre förebild för eleven",
+  "Bättre koncentrationsförmåga",
+  "En aktivitet som inte kräver planering och logistik",
+  "Att barnet hittar ett eget intresse utanför skolan",
+  "Trygg undervisning i hemmiljö",
 ];
 
 export const STEP_NAMES_A = ["Årskurs", "Instrument", "Önskemål", "Kontakt", "Pris & upplägg"];
