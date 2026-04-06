@@ -96,52 +96,52 @@ export default function StepPricing({
         </div>
       </div>
 
-      {/* Lesson length + Start preference side by side */}
-      <div className="grid grid-cols-2 gap-3 mb-4">
-        <div>
-          <p className="text-xs font-medium text-text-primary mb-1.5">Lektionslängd</p>
-          <div className="space-y-1.5">
-            {(["45-60", "90", "120"] as const).map((v) => (
+      {/* Lesson length */}
+      <div className="mb-4">
+        <p className="text-xs font-medium text-text-primary mb-1.5">Hur långa lektioner?</p>
+        <div className="grid grid-cols-3 gap-2">
+          {(["45-60", "90", "120"] as const).map((v) => (
+            <button
+              key={v}
+              type="button"
+              onClick={() => onLessonLengthChange(v)}
+              className={`py-3 px-3 rounded-xl text-sm font-medium transition-all duration-200 min-h-[48px] border-2 ${
+                lessonLength === v
+                  ? "bg-accent-soft border-primary text-primary ring-1 ring-primary"
+                  : "bg-bg-white text-text-primary border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50"
+              }`}
+            >
+              {getLessonLabel(v)}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Start preference */}
+      <div className="mb-4">
+        <p className="text-xs font-medium text-text-primary mb-1.5">När vill ni börja?</p>
+        <div className="grid grid-cols-3 gap-2">
+          {(["asap", "within_month", "next_term"] as const).map((v) => {
+            const labels: Record<string, string> = {
+              asap: "Så snart som möjligt",
+              within_month: "Inom en månad",
+              next_term: "Nästa termin",
+            };
+            return (
               <button
                 key={v}
                 type="button"
-                onClick={() => onLessonLengthChange(v)}
-                className={`w-full py-2.5 px-2 rounded-lg text-sm font-medium transition-all duration-200 border-2 ${
-                  lessonLength === v
+                onClick={() => onStartPreferenceChange(v)}
+                className={`py-3 px-3 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 min-h-[48px] border-2 ${
+                  startPreference === v
                     ? "bg-accent-soft border-primary text-primary ring-1 ring-primary"
                     : "bg-bg-white text-text-primary border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50"
                 }`}
               >
-                {getLessonLabel(v)}
+                {labels[v]}
               </button>
-            ))}
-          </div>
-        </div>
-        <div>
-          <p className="text-xs font-medium text-text-primary mb-1.5">När börja?</p>
-          <div className="space-y-1.5">
-            {(["asap", "within_month", "next_term"] as const).map((v) => {
-              const labels: Record<string, string> = {
-                asap: "Så snart som möjligt",
-                within_month: "Inom en månad",
-                next_term: "Nästa termin",
-              };
-              return (
-                <button
-                  key={v}
-                  type="button"
-                  onClick={() => onStartPreferenceChange(v)}
-                  className={`w-full py-2.5 px-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 border-2 ${
-                    startPreference === v
-                      ? "bg-accent-soft border-primary text-primary ring-1 ring-primary"
-                      : "bg-bg-white text-text-primary border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50"
-                  }`}
-                >
-                  {labels[v]}
-                </button>
-              );
-            })}
-          </div>
+            );
+          })}
         </div>
       </div>
 

@@ -61,14 +61,11 @@ export default function StepContact({
     <StepWrapper
       onBack={onBack}
       onNext={handleSubmit(onSubmit)}
-      ctaText="Nästa: se upplägg & pris →"
+      ctaText="Se ert pris & upplägg"
     >
-      <h2 className="text-xl font-bold text-text-primary mb-1 mt-2">
-        Snart klart — vi hittar rätt lärare åt er!
+      <h2 className="text-xl font-bold text-text-primary mb-4 mt-2">
+        Kontaktuppgifter
       </h2>
-      <p className="text-sm text-text-secondary mb-4">
-        Fyll i era uppgifter för ett personligt och kostnadsfritt förslag.
-      </p>
 
       <form
         onSubmit={handleSubmit(onSubmit)}

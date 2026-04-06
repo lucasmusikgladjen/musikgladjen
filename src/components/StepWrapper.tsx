@@ -28,7 +28,7 @@ export default function StepWrapper({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    containerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
 
   return (
@@ -36,7 +36,7 @@ export default function StepWrapper({
       <div className="flex-1 px-4 pb-28 md:pb-8 md:px-0">{children}</div>
 
       {showCta && (
-        <div className="fixed bottom-0 left-0 right-0 md:static md:mt-4 bg-white border-t border-border md:border-0 shadow-[0_-2px_8px_rgba(0,0,0,0.08)] md:shadow-none p-4 md:px-0 z-20">
+        <div className="fixed bottom-0 left-0 right-0 md:static md:mt-4 bg-white border-t border-border md:border-0 shadow-[0_-2px_8px_rgba(0,0,0,0.08)] md:shadow-none p-4 z-20">
           <div className="max-w-[560px] mx-auto flex items-center gap-4">
             {showBack && onBack && (
               <button

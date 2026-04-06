@@ -29,7 +29,6 @@ export default function FormHeader() {
             ))}
           </span>
           <span>4.9/5</span>
-          <span className="opacity-80">|</span>
           <span>Hundratals nöjda familjer</span>
         </div>
       </div>

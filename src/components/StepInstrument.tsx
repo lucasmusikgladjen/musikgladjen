@@ -28,7 +28,7 @@ export default function StepInstrument({
     }
   };
 
-  const showOtherField = value.includes("Övrigt");
+  const showOtherField = value.includes("Annat");
 
   return (
     <StepWrapper
@@ -38,10 +38,10 @@ export default function StepInstrument({
       ctaDisabled={value.length === 0}
     >
       <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">
-        Vilket eller vilka instrument är intressanta?
+        Vilket instrument vill eleven spela?
       </h2>
       <p className="text-sm text-text-secondary mb-5">
-        Välj gärna flera — det hjälper oss hitta rätt lärare.
+        Om de kan tänka sig spela flera så markera det. Ju fler instrument ni markerar desto snabbare kan vi hitta en lärare.
       </p>
 
       <div className="grid grid-cols-2 gap-2.5 md:grid-cols-3">

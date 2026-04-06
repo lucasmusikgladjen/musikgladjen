@@ -60,16 +60,10 @@ export const PRICE_TABLE: Record<string, Record<string, number>> = {
 
 export const GRADES = [
   "Förskola",
-  "F-klass",
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
+  "Lågstadiet",
+  "Mellanstadiet",
+  "Högstadiet",
+  "Äldre",
 ];
 
 export const INSTRUMENTS = [
@@ -79,7 +73,7 @@ export const INSTRUMENTS = [
   { name: "Fiol", emoji: "\u{1F3BB}" },
   { name: "Trummor", emoji: "\u{1F941}" },
   { name: "Bas", emoji: "\u{1F3B5}" },
-  { name: "Övrigt", emoji: "\u2728" },
+  { name: "Annat", emoji: "\u2728" },
 ];
 
 export const EXPECTATIONS = [
@@ -88,8 +82,6 @@ export const EXPECTATIONS = [
   "En äldre förebild för eleven",
   "Bättre koncentrationsförmåga",
   "En aktivitet som inte kräver planering och logistik",
-  "Att barnet hittar ett eget intresse utanför skolan",
-  "Trygg undervisning i hemmiljö",
 ];
 
 export const STEP_NAMES_A = ["Årskurs", "Instrument", "Önskemål", "Kontakt", "Pris & upplägg"];
