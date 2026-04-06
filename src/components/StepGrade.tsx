@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { GRADES } from "@/lib/types";
 import StepWrapper from "./StepWrapper";
 
@@ -10,13 +11,18 @@ interface StepGradeProps {
 }
 
 export default function StepGrade({ value, onChange, onNext }: StepGradeProps) {
+  const [otherText, setOtherText] = useState("");
+  const isOther = value === "Äldre";
+
   const handleSelect = (grade: string) => {
     onChange(grade);
-    setTimeout(onNext, 300);
+    if (grade !== "Äldre") {
+      setOtherText("");
+    }
   };
 
   return (
-    <StepWrapper onNext={onNext} ctaText="Nästa" ctaDisabled={!value} showBack={false} showCta={false}>
+    <StepWrapper onNext={onNext} ctaText="Nästa" ctaDisabled={!value} showBack={false}>
       {/* Welcome message */}
       <div className="flex items-start gap-3 bg-bg-white rounded-xl p-4 mb-6 border border-gray-100 shadow-sm animate-fade-in-up">
         {/* PLACEHOLDER IMAGE: Vänligt foto på grundaren/en lärare — leende, ung, ca 25-30 år, håller en gitarr eller sitter vid piano */}
@@ -57,6 +63,23 @@ export default function StepGrade({ value, onChange, onNext }: StepGradeProps) {
           );
         })}
       </div>
+
+      {isOther && (
+        <div className="mt-4 animate-fade-in-up">
+          <label htmlFor="gradeOther" className="block text-sm font-medium text-text-primary mb-1">
+            Beskriv kort
+          </label>
+          <input
+            id="gradeOther"
+            type="text"
+            value={otherText}
+            onChange={(e) => setOtherText(e.target.value)}
+            placeholder="T.ex. gymnasiet, vuxen..."
+            className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-base bg-bg-white"
+            maxLength={80}
+          />
+        </div>
+      )}
     </StepWrapper>
   );
 }
