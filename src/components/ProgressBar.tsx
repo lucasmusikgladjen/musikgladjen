@@ -36,9 +36,6 @@ export default function ProgressBar({
           );
         })}
       </div>
-      <p className="text-center text-xs text-text-secondary mt-2">
-        Steg {currentStep + 1} av {totalSteps}
-      </p>
     </div>
   );
 }

@@ -39,6 +39,32 @@ function getFrequencyLabel(freq: string): string {
   return freq === "weekly" ? "Varje vecka" : "Varannan vecka";
 }
 
+function PillButton({
+  selected,
+  onClick,
+  children,
+  className = "",
+}: {
+  selected: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`relative py-3 px-4 rounded-full text-sm font-semibold transition-all duration-200 min-h-[44px] ${
+        selected
+          ? "bg-gradient-to-b from-[#e8501a] to-[#da3111] text-white shadow-md shadow-primary/25"
+          : "bg-bg-white text-text-primary border border-gray-200 hover:border-primary/30 hover:shadow-sm"
+      } ${className}`}
+    >
+      {children}
+    </button>
+  );
+}
+
 export default function StepPricing({
   frequency,
   lessonLength,
@@ -71,90 +97,82 @@ export default function StepPricing({
       ctaLoading={isSubmitting}
       subtext="Anmälan är inte bindande. Vi hör av oss inom 24 timmar."
     >
-      <h2 className="text-xl font-bold text-text-primary mb-4 mt-2">
+      <h2 className="text-xl font-bold text-text-primary mb-5 mt-2">
         Välj ert upplägg
       </h2>
 
       {/* Frequency */}
-      <div className="mb-4">
-        <p className="text-xs font-medium text-text-primary mb-1.5">Hur ofta?</p>
-        <div className="grid grid-cols-2 gap-2">
-          {(["weekly", "biweekly"] as const).map((v) => (
-            <button
-              key={v}
-              type="button"
-              onClick={() => onFrequencyChange(v)}
-              className={`py-3 px-3 rounded-xl text-sm font-medium transition-all duration-200 min-h-[48px] border-2 ${
-                frequency === v
-                  ? "bg-accent-soft border-primary text-primary ring-1 ring-primary"
-                  : "bg-bg-white text-text-primary border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50"
-              }`}
-            >
-              {v === "weekly" ? "Varje vecka" : "Varannan vecka"}
-            </button>
-          ))}
+      <div className="mb-5">
+        <p className="text-sm font-semibold text-text-primary mb-2.5">Hur ofta?</p>
+        <div className="flex gap-2">
+          <PillButton
+            selected={frequency === "weekly"}
+            onClick={() => onFrequencyChange("weekly")}
+            className="flex-1"
+          >
+            Varje vecka
+          </PillButton>
+          <PillButton
+            selected={frequency === "biweekly"}
+            onClick={() => onFrequencyChange("biweekly")}
+            className="flex-1"
+          >
+            Varannan vecka
+          </PillButton>
         </div>
       </div>
 
       {/* Lesson length */}
-      <div className="mb-4">
-        <p className="text-xs font-medium text-text-primary mb-1.5">Hur långa lektioner?</p>
-        <div className="grid grid-cols-3 gap-2">
+      <div className="mb-5">
+        <p className="text-sm font-semibold text-text-primary mb-2.5">Hur långa lektioner?</p>
+        <div className="flex gap-2">
           {(["45-60", "90", "120"] as const).map((v) => (
-            <button
+            <PillButton
               key={v}
-              type="button"
+              selected={lessonLength === v}
               onClick={() => onLessonLengthChange(v)}
-              className={`py-3 px-3 rounded-xl text-sm font-medium transition-all duration-200 min-h-[48px] border-2 ${
-                lessonLength === v
-                  ? "bg-accent-soft border-primary text-primary ring-1 ring-primary"
-                  : "bg-bg-white text-text-primary border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50"
-              }`}
+              className="flex-1"
             >
               {getLessonLabel(v)}
-            </button>
+            </PillButton>
           ))}
         </div>
       </div>
 
       {/* Start preference */}
-      <div className="mb-4">
-        <p className="text-xs font-medium text-text-primary mb-1.5">När vill ni börja?</p>
-        <div className="grid grid-cols-3 gap-2">
+      <div className="mb-6">
+        <p className="text-sm font-semibold text-text-primary mb-2.5">När vill ni börja?</p>
+        <div className="flex gap-2">
           {(["asap", "within_month", "next_term"] as const).map((v) => {
             const labels: Record<string, string> = {
-              asap: "Så snart som möjligt",
+              asap: "Direkt",
               within_month: "Inom en månad",
               next_term: "Nästa termin",
             };
             return (
-              <button
+              <PillButton
                 key={v}
-                type="button"
+                selected={startPreference === v}
                 onClick={() => onStartPreferenceChange(v)}
-                className={`py-3 px-3 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 min-h-[48px] border-2 ${
-                  startPreference === v
-                    ? "bg-accent-soft border-primary text-primary ring-1 ring-primary"
-                    : "bg-bg-white text-text-primary border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50"
-                }`}
+                className="flex-1"
               >
                 {labels[v]}
-              </button>
+              </PillButton>
             );
           })}
         </div>
       </div>
 
       {/* Price display */}
-      <div className="bg-bg-white rounded-2xl p-5 text-center mb-5 border-2 border-primary/20 shadow-sm">
-        <p className="text-xs text-text-secondary mb-0.5">Ert månadspris</p>
-        <p className="text-3xl font-bold text-text-primary price-transition">
-          {formatPrice(price)} kr/mån
+      <div className="bg-gradient-to-br from-white to-[#fef8f6] rounded-2xl p-6 text-center mb-5 border border-primary/15 shadow-sm">
+        <p className="text-xs text-text-secondary mb-1 uppercase tracking-wide">Ert månadspris</p>
+        <p className="text-4xl font-extrabold text-text-primary price-transition">
+          {formatPrice(price)} <span className="text-lg font-semibold text-text-secondary">kr/mån</span>
         </p>
-        <p className="text-xs text-text-secondary mt-1">
+        <p className="text-sm text-text-secondary mt-2">
           {getLessonLabel(lessonLength)} · {getFrequencyLabel(frequency)}
         </p>
-        <p className="text-xs text-success font-medium mt-0.5">
+        <p className="text-xs text-success font-semibold mt-1">
           ✓ Ingen bindningstid
         </p>
       </div>
