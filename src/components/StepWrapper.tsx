@@ -42,16 +42,19 @@ export default function StepWrapper({
               <button
                 type="button"
                 onClick={onBack}
-                className="text-text-secondary text-sm hover:text-text-primary transition-colors flex-shrink-0"
+                className="flex items-center justify-center w-12 h-12 rounded-xl border-2 border-gray-200 text-text-secondary hover:border-primary/40 hover:text-text-primary transition-colors flex-shrink-0"
+                aria-label="Tillbaka"
               >
-                Tillbaka
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
               </button>
             )}
             <button
               type="button"
               onClick={onNext}
               disabled={ctaDisabled || ctaLoading}
-              className="flex-1 bg-primary hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3.5 px-6 rounded-xl text-base transition-all duration-200 flex items-center justify-center gap-2 min-h-[48px]"
+              className="flex-1 bg-primary hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl text-base transition-all duration-200 flex items-center justify-center gap-2 min-h-[56px] shadow-lg shadow-primary/20"
             >
               {ctaLoading ? (
                 <svg

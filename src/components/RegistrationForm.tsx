@@ -4,7 +4,6 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import {
   FormData,
   PRICE_TABLE,
-  STEP_NAMES_B,
   STEP_TRACKING_NAMES_B,
 } from "@/lib/types";
 import {
@@ -15,7 +14,9 @@ import {
   getUserAgent,
 } from "@/lib/tracking";
 import { WebhookPayload } from "@/lib/types";
+import FormHeader from "./FormHeader";
 import ProgressBar from "./ProgressBar";
+import TrustBanner from "./TrustBanner";
 import StepGrade from "./StepGrade";
 import StepInstrument from "./StepInstrument";
 import StepContact from "./StepContact";
@@ -192,77 +193,79 @@ export default function RegistrationForm({
   }, [formData, honeypot, onComplete]);
 
   return (
-    <div className="w-full max-w-[560px] mx-auto min-h-screen flex flex-col">
-      <ProgressBar
-        currentStep={step}
-        totalSteps={TOTAL_STEPS}
-        stepNames={STEP_NAMES_B}
-      />
+    <div className="w-full min-h-screen flex flex-col">
+      <FormHeader />
 
-      {/* Honeypot field */}
-      <div
-        aria-hidden="true"
-        style={{ position: "absolute", left: "-9999px", top: "-9999px" }}
-      >
-        <input
-          type="text"
-          name="website"
-          tabIndex={-1}
-          autoComplete="off"
-          value={honeypot}
-          onChange={(e) => setHoneypot(e.target.value)}
-        />
-      </div>
+      <div className="w-full max-w-[560px] mx-auto flex-1 flex flex-col">
+        <ProgressBar currentStep={step} totalSteps={TOTAL_STEPS} />
 
-      <div className="flex-1">
-        {step === 0 && (
-          <StepGrade
-            value={formData.grade}
-            onChange={(v) => updateField("grade", v)}
-            onNext={goNext}
+        <TrustBanner step={step} />
+
+        {/* Honeypot field */}
+        <div
+          aria-hidden="true"
+          style={{ position: "absolute", left: "-9999px", top: "-9999px" }}
+        >
+          <input
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
           />
-        )}
-        {step === 1 && (
-          <StepInstrument
-            value={formData.instruments}
-            otherValue={formData.instrumentOther}
-            onChange={(v) => updateField("instruments", v)}
-            onOtherChange={(v) => updateField("instrumentOther", v)}
-            onNext={goNext}
-            onBack={goBack}
-          />
-        )}
-        {step === 2 && (
-          <StepContact
-            values={{
-              studentName: formData.studentName,
-              guardianName: formData.guardianName,
-              address: formData.address,
-              postalCode: formData.postalCode,
-              phone: formData.phone,
-              email: formData.email,
-            }}
-            onChange={(data) => {
-              setFormData((prev) => ({ ...prev, ...data }));
-            }}
-            onNext={goNext}
-            onBack={goBack}
-          />
-        )}
-        {step === 3 && (
-          <StepPricing
-            frequency={formData.frequency}
-            lessonLength={formData.lessonLength}
-            startPreference={formData.startPreference}
-            onFrequencyChange={(v) => updateField("frequency", v)}
-            onLessonLengthChange={(v) => updateField("lessonLength", v)}
-            onStartPreferenceChange={(v) => updateField("startPreference", v)}
-            onSubmit={handleSubmit}
-            onBack={goBack}
-            isSubmitting={isSubmitting}
-            submitError={submitError}
-          />
-        )}
+        </div>
+
+        <div className="flex-1">
+          {step === 0 && (
+            <StepGrade
+              value={formData.grade}
+              onChange={(v) => updateField("grade", v)}
+              onNext={goNext}
+            />
+          )}
+          {step === 1 && (
+            <StepInstrument
+              value={formData.instruments}
+              otherValue={formData.instrumentOther}
+              onChange={(v) => updateField("instruments", v)}
+              onOtherChange={(v) => updateField("instrumentOther", v)}
+              onNext={goNext}
+              onBack={goBack}
+            />
+          )}
+          {step === 2 && (
+            <StepContact
+              values={{
+                studentName: formData.studentName,
+                guardianName: formData.guardianName,
+                address: formData.address,
+                postalCode: formData.postalCode,
+                phone: formData.phone,
+                email: formData.email,
+              }}
+              onChange={(data) => {
+                setFormData((prev) => ({ ...prev, ...data }));
+              }}
+              onNext={goNext}
+              onBack={goBack}
+            />
+          )}
+          {step === 3 && (
+            <StepPricing
+              frequency={formData.frequency}
+              lessonLength={formData.lessonLength}
+              startPreference={formData.startPreference}
+              onFrequencyChange={(v) => updateField("frequency", v)}
+              onLessonLengthChange={(v) => updateField("lessonLength", v)}
+              onStartPreferenceChange={(v) => updateField("startPreference", v)}
+              onSubmit={handleSubmit}
+              onBack={goBack}
+              isSubmitting={isSubmitting}
+              submitError={submitError}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
