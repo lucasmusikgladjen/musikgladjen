@@ -61,3 +61,18 @@ textarea {
 .animate-fade-in-up {
   animation: fadeInUp 300ms ease forwards;
 }
+
+/* Toast slide up from bottom */
+@keyframes toastSlideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+.animate-toast {
+  animation: toastSlideUp 250ms ease forwards;
+}
