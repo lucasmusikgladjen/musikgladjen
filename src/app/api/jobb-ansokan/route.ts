@@ -33,10 +33,6 @@ export async function POST(req: NextRequest) {
       ? data.areas.map((a: string) => toStartCase(a.trim())).join(", ")
       : toStartCase(data.areas.trim());
 
-    const motivationsStr = Array.isArray(data.motivations)
-      ? data.motivations.join(", ")
-      : data.motivations;
-
     const fields: Record<string, unknown> = {
       Namn: toStartCase(data.name.trim()),
       Födelseår: data.birthYear,
@@ -51,7 +47,7 @@ export async function POST(req: NextRequest) {
       Musikerfarenheter: data.musicExperience.trim(),
       "Erfarenheter med barn": data.childrenExperience.trim(),
       "Hur hittade du oss?": data.howFound,
-      "Vad vill du ha ut av jobbet?": motivationsStr,
+      "Vad vill du ha ut av jobbet?": Array.isArray(data.motivations) ? data.motivations : [],
       Kommentar: JSON.stringify(
         { ...data, submittedAt: new Date().toISOString() },
         null,
