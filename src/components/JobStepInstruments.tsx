@@ -102,7 +102,7 @@ export default function JobStepInstruments({
             value={otherValue}
             onChange={(e) => onOtherChange(e.target.value)}
             placeholder="T.ex. ukulele, cello"
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-base bg-bg-white transition-colors placeholder:text-gray-400 placeholder:text-sm"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white placeholder:text-gray-400 placeholder:text-sm"
             maxLength={100}
           />
         </div>

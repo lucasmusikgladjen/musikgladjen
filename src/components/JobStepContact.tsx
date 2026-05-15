@@ -97,7 +97,7 @@ export default function JobStepContact({
   };
 
   const fieldBase =
-    "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary bg-bg-white transition-colors";
+    "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none bg-bg-white";
   const inputClass = `${fieldBase} text-base placeholder:text-gray-400 placeholder:text-sm`;
   const selectClass = `${fieldBase} text-sm pr-10 appearance-none`;
   const labelClass = "block text-sm font-semibold text-text-primary mb-1";

@@ -75,7 +75,7 @@ export default function JobStepJobDetails({
           Skriv gärna flera områden, t.ex. där du bor, pluggar eller pendlar.
         </p>
         <div
-          className="min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] bg-bg-white transition-colors cursor-text focus-within:ring-2 focus-within:ring-primary/40 focus-within:border-primary"
+          className="min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] bg-bg-white cursor-text"
           onClick={() => document.getElementById("areas")?.focus()}
         >
           {areas.map((tag) => (
