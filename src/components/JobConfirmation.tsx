@@ -20,9 +20,8 @@ export default function JobConfirmation({ data }: JobConfirmationProps) {
             <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4 leading-tight">
               Tack{firstName ? `, ${firstName}` : ""}!
             </h1>
-            <p className="text-lg text-[#444] mb-8 leading-relaxed max-w-md">
-              Din ansökan har skickats. Vi går igenom den och hör av oss via
-              telefon eller e-post inom kort.
+            <p className="text-lg text-[#444] mb-8">
+              Vi hör av oss inom kort.
             </p>
             <a
               href="https://www.musikgladjen.se/jobb"
