@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { JobFormData } from "@/lib/job-types";
 import JobApplicationForm from "@/components/JobApplicationForm";
 import JobConfirmation from "@/components/JobConfirmation";
 
-export default function JobbPage() {
+function JobbPageInner() {
   const [completed, setCompleted] = useState(false);
   const [submittedData, setSubmittedData] = useState<JobFormData | null>(null);
 
@@ -24,4 +24,12 @@ export default function JobbPage() {
   }
 
   return <JobApplicationForm onComplete={handleComplete} />;
+}
+
+export default function JobbPage() {
+  return (
+    <Suspense>
+      <JobbPageInner />
+    </Suspense>
+  );
 }
