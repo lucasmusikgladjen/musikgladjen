@@ -49,7 +49,7 @@ export default function ConfirmationPage({
   const [copied, setCopied] = useState(false);
   const guardianFirst = getFirstName(data.guardianName);
   const referralUrl = referralCode
-    ? `${typeof window !== "undefined" ? window.location.origin : ""}/anmalan?ref=${referralCode}`
+    ? `${typeof window !== "undefined" ? window.location.origin : ""}/elev?ref=${referralCode}`
     : null;
 
   const price = PRICE_TABLE[data.lessonLength]?.[data.frequency] ?? data.monthlyPrice;
