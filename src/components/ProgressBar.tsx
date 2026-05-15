@@ -13,7 +13,7 @@ export default function ProgressBar({
 
   return (
     <div
-      className="w-full h-1.5 bg-[#b8290e]"
+      className="w-full h-1.5 bg-gray-200"
       role="progressbar"
       aria-valuenow={currentStep + 1}
       aria-valuemin={1}
@@ -21,7 +21,7 @@ export default function ProgressBar({
       aria-label={`Steg ${currentStep + 1} av ${totalSteps}`}
     >
       <div
-        className="h-full bg-[#8a1f0a] rounded-r-full transition-all duration-500 ease-in-out"
+        className="h-full bg-[#da3111] rounded-r-full transition-all duration-500 ease-in-out"
         style={{ width: `${progress}%` }}
       />
     </div>
