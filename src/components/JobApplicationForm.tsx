@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef } from "react";
 import { JobFormData } from "@/lib/job-types";
+import { trackMetaLead } from "@/lib/tracking";
 import JobFormHeader from "./JobFormHeader";
 import ProgressBar from "./ProgressBar";
 import JobStepInstruments from "./JobStepInstruments";
@@ -75,6 +76,7 @@ export default function JobApplicationForm({ onComplete }: JobApplicationFormPro
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
+      trackMetaLead();
       onComplete(formData);
     } catch (err) {
       console.error("Submit error:", err);
