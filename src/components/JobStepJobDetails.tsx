@@ -72,7 +72,7 @@ export default function JobStepJobDetails({
           <span className="text-error">*</span>
         </label>
         <p className="text-xs text-text-secondary mb-2">
-          Skriv ett område och tryck Lägg till.
+          Skriv gärna flera områden, t.ex. där du bor, pluggar eller pendlar.
         </p>
         <div
           className="min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] bg-bg-white transition-colors cursor-text focus-within:ring-2 focus-within:ring-primary/40 focus-within:border-primary"
