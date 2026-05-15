@@ -61,7 +61,7 @@ export default function JobStepContact({
     isValidEmail(email);
 
   const inputClass =
-    "w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors placeholder:text-gray-400";
+    "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white focus:border-gray-400 transition-colors placeholder:text-gray-400";
   const labelClass = "block text-sm font-semibold text-text-primary mb-1";
 
   return (
@@ -199,7 +199,7 @@ export default function JobStepContact({
               id="howFound"
               value={howFound}
               onChange={(e) => onHowFoundChange(e.target.value)}
-              className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors appearance-none"
+              className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white focus:border-gray-400 transition-colors appearance-none"
               style={{ color: howFound === "" ? "#9ca3af" : "" }}
             >
               <option value="" disabled>
