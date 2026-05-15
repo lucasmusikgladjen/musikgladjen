@@ -8,6 +8,7 @@ import {
 } from "@/lib/types";
 import {
   pushEvent,
+  trackMetaLead,
   getUTMParams,
   getReferralCodeFromURL,
   getReferrer,
@@ -164,6 +165,7 @@ export default function RegistrationForm({
           form_name: "musikgladjen_signup",
           form_variant: "B",
         });
+        trackMetaLead();
         onComplete(formData, responseReferralCode);
       } else {
         // No webhook URL configured - still complete for dev
