@@ -164,6 +164,7 @@ export default function RegistrationForm({
           form_name: "musikgladjen_signup",
           form_variant: "B",
         });
+        // TODO: fire pixel event here once student signup campaign is configured
         onComplete(formData, responseReferralCode);
       } else {
         // No webhook URL configured - still complete for dev

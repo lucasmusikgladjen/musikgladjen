@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef } from "react";
 import { JobFormData } from "@/lib/job-types";
+import { trackMetaLead } from "@/lib/tracking";
 import JobFormHeader from "./JobFormHeader";
 import ProgressBar from "./ProgressBar";
 import JobStepInstruments from "./JobStepInstruments";
@@ -67,14 +68,25 @@ export default function JobApplicationForm({ onComplete }: JobApplicationFormPro
     setSubmitError(null);
 
     try {
+      const eventId = crypto.randomUUID();
+      const getCookie = (name: string) =>
+        document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"))?.[2];
+
       const res = await fetch("/api/jobb-ansokan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          eventId,
+          fbp: getCookie("_fbp"),
+          fbc: getCookie("_fbc"),
+          eventSourceUrl: window.location.href,
+        }),
       });
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
+      trackMetaLead(eventId);
       onComplete(formData);
     } catch (err) {
       console.error("Submit error:", err);

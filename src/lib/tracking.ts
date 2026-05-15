@@ -3,6 +3,7 @@ import { UTMParams } from "./types";
 declare global {
   interface Window {
     dataLayer: Record<string, unknown>[];
+    fbq: (...args: unknown[]) => void;
   }
 }
 
@@ -49,4 +50,10 @@ export function getReferrer(): string {
 export function getUserAgent(): string {
   if (typeof window === "undefined") return "";
   return navigator.userAgent || "";
+}
+
+export function trackMetaLead(eventId: string): void {
+  if (typeof window !== "undefined" && typeof window.fbq === "function") {
+    window.fbq("track", "Lead", {}, { eventID: eventId });
+  }
 }
