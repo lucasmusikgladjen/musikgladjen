@@ -15,7 +15,7 @@ export default function JobConfirmation({ data }: JobConfirmationProps) {
       <JobFormHeader />
 
       <div className="flex-1 flex items-center justify-center px-6 py-12">
-        <div className="w-full max-w-3xl flex flex-col md:flex-row items-center gap-10 md:gap-16">
+        <div className="w-full max-w-xl flex flex-col md:flex-row items-center gap-10 md:gap-12">
           <div className="flex-1 text-center md:text-left">
             <h1 className="text-2xl font-bold text-text-primary mb-2">
               Vad kul att du vill jobba hos oss!
@@ -34,7 +34,7 @@ export default function JobConfirmation({ data }: JobConfirmationProps) {
             </a>
           </div>
 
-          <div className="w-32 md:w-44 flex-shrink-0">
+          <div className="w-40 md:w-52 flex-shrink-0">
             <img
               src="/Musikglädjen 3.svg"
               alt=""
