@@ -2,16 +2,18 @@ export interface JobFormData {
   instruments: string[];
   instrumentOther: string;
   studentCount: string;
-  areas: string;
+  areas: string[];
   motivations: string[];
   musicExperience: string;
   childrenExperience: string;
   name: string;
   birthYear: string;
   address: string;
+  postnummer: string;
   city: string;
   phone: string;
   email: string;
+  howFound: string;
 }
 
 export const JOB_INSTRUMENTS = [
@@ -35,4 +37,13 @@ export const JOB_MOTIVATIONS = [
   "Ett meningsfullt arbete med barn",
   "Ett roligt jobb där du får jobba med musik",
   "Personlig utveckling inom musik och pedagogik",
+];
+
+export const JOB_HOW_FOUND = [
+  "Indeed",
+  "Facebook",
+  "Instagram",
+  "Google",
+  "Bekant",
+  "Annat",
 ];

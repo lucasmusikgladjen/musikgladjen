@@ -19,18 +19,24 @@ export async function POST(req: NextRequest) {
       : []),
   ].join(", ");
 
+  const areasStr = Array.isArray(data.areas)
+    ? data.areas.join(", ")
+    : data.areas;
+
   const fields: Record<string, unknown> = {
     Namn: data.name,
     Födelseår: data.birthYear,
     "E-post": data.email,
     Telefon: data.phone,
     Adress: data.address,
+    Postnummer: data.postnummer,
     Ort: data.city,
     Instrument: instrumentStr,
     "Antal elever": data.studentCount,
-    Undervisningsområden: data.areas,
+    Undervisningsområden: areasStr,
     Musikerfarenheter: data.musicExperience,
     "Erfarenheter med barn": data.childrenExperience,
+    "Hur hittade du oss?": data.howFound,
     Kommentar: JSON.stringify(
       { ...data, submittedAt: new Date().toISOString() },
       null,

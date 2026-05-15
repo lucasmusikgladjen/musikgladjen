@@ -57,7 +57,7 @@ export default function JobStepInstruments({
         Kryssa i alla instrument du kan spela, inte bara ditt huvudinstrument.
       </p>
 
-      <div className="flex flex-col gap-2">
+      <div className="grid grid-cols-2 gap-2">
         {JOB_INSTRUMENTS.map(({ name, badge }) => {
           const selected = value.includes(name);
           return (
@@ -65,20 +65,20 @@ export default function JobStepInstruments({
               key={name}
               type="button"
               onClick={() => toggle(name)}
-              className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-left transition-all duration-200 border-2 ${
+              className={`flex items-center gap-2.5 px-3 py-3 rounded-xl text-left transition-colors border ${
                 selected
-                  ? "bg-accent-soft border-primary text-primary ring-1 ring-primary"
-                  : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
+                  ? "border-gray-300 bg-gray-50"
+                  : "border-gray-200 bg-bg-white hover:border-gray-300 hover:bg-gray-50"
               }`}
             >
               <span
-                className={`w-5 h-5 rounded flex-shrink-0 border-2 flex items-center justify-center transition-all ${
-                  selected ? "bg-primary border-primary" : "border-gray-300"
+                className={`w-4 h-4 rounded flex-shrink-0 border-2 flex items-center justify-center transition-all ${
+                  selected ? "bg-primary border-primary" : "border-gray-400"
                 }`}
               >
                 {selected && (
                   <svg
-                    className="w-3 h-3 text-white"
+                    className="w-2.5 h-2.5 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -92,12 +92,12 @@ export default function JobStepInstruments({
                   </svg>
                 )}
               </span>
-              <span className="text-sm font-medium flex-1">{name}</span>
-              {badge && (
-                <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full whitespace-nowrap">
-                  {badge}
-                </span>
-              )}
+              <div className="flex flex-col min-w-0">
+                <span className="text-sm font-medium text-text-primary">{name}</span>
+                {badge && (
+                  <span className="text-xs text-orange-600 truncate">{badge}</span>
+                )}
+              </div>
             </button>
           );
         })}
@@ -117,7 +117,7 @@ export default function JobStepInstruments({
             value={otherValue}
             onChange={(e) => onOtherChange(e.target.value)}
             placeholder="T.ex. ukulele, cello..."
-            className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-base bg-bg-white"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors"
             maxLength={100}
           />
         </div>

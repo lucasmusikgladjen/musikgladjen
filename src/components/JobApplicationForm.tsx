@@ -26,16 +26,18 @@ export default function JobApplicationForm({ onComplete }: JobApplicationFormPro
     instruments: [],
     instrumentOther: "",
     studentCount: "",
-    areas: "",
+    areas: [],
     motivations: [],
     musicExperience: "",
     childrenExperience: "",
     name: "",
     birthYear: "",
     address: "",
+    postnummer: "",
     city: "",
     phone: "",
     email: "",
+    howFound: "",
   });
 
   const updateField = useCallback(
@@ -143,15 +145,19 @@ export default function JobApplicationForm({ onComplete }: JobApplicationFormPro
               name={formData.name}
               birthYear={formData.birthYear}
               address={formData.address}
+              postnummer={formData.postnummer}
               city={formData.city}
               phone={formData.phone}
               email={formData.email}
+              howFound={formData.howFound}
               onNameChange={(v) => updateField("name", v)}
               onBirthYearChange={(v) => updateField("birthYear", v)}
               onAddressChange={(v) => updateField("address", v)}
+              onPostnummerChange={(v) => updateField("postnummer", v)}
               onCityChange={(v) => updateField("city", v)}
               onPhoneChange={(v) => updateField("phone", v)}
               onEmailChange={(v) => updateField("email", v)}
+              onHowFoundChange={(v) => updateField("howFound", v)}
               onSubmit={handleSubmit}
               onBack={goBack}
               isSubmitting={isSubmitting}

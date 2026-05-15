@@ -1,14 +1,15 @@
 "use client";
 
+import { useState, KeyboardEvent } from "react";
 import StepWrapper from "./StepWrapper";
 import { JOB_STUDENT_COUNTS, JOB_MOTIVATIONS } from "@/lib/job-types";
 
 interface JobStepJobDetailsProps {
   studentCount: string;
-  areas: string;
+  areas: string[];
   motivations: string[];
   onStudentCountChange: (value: string) => void;
-  onAreasChange: (value: string) => void;
+  onAreasChange: (value: string[]) => void;
   onMotivationsChange: (value: string[]) => void;
   onNext: () => void;
   onBack: () => void;
@@ -24,6 +25,8 @@ export default function JobStepJobDetails({
   onNext,
   onBack,
 }: JobStepJobDetailsProps) {
+  const [areaInput, setAreaInput] = useState("");
+
   const toggleMotivation = (m: string) => {
     if (motivations.includes(m)) {
       onMotivationsChange(motivations.filter((v) => v !== m));
@@ -32,7 +35,36 @@ export default function JobStepJobDetails({
     }
   };
 
-  const canProceed = studentCount !== "" && areas.trim() !== "";
+  const addTag = (raw: string) => {
+    const tag = raw.trim().replace(/,+$/, "").trim();
+    if (tag && !areas.includes(tag)) {
+      onAreasChange([...areas, tag]);
+    }
+    setAreaInput("");
+  };
+
+  const handleAreaKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      addTag(areaInput);
+    } else if (e.key === "Backspace" && areaInput === "" && areas.length > 0) {
+      onAreasChange(areas.slice(0, -1));
+    }
+  };
+
+  const handleAreaChange = (v: string) => {
+    if (v.endsWith(",")) {
+      addTag(v);
+    } else {
+      setAreaInput(v);
+    }
+  };
+
+  const removeTag = (tag: string) => {
+    onAreasChange(areas.filter((a) => a !== tag));
+  };
+
+  const canProceed = studentCount !== "" && areas.length > 0;
 
   return (
     <StepWrapper
@@ -62,7 +94,7 @@ export default function JobStepJobDetails({
                 onClick={() => onStudentCountChange(value)}
                 className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-left transition-all duration-200 border-2 ${
                   selected
-                    ? "bg-accent-soft border-primary text-primary ring-1 ring-primary"
+                    ? "bg-accent-soft border-primary text-primary"
                     : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
                 }`}
               >
@@ -91,19 +123,40 @@ export default function JobStepJobDetails({
           <span className="text-error">*</span>
         </label>
         <p className="text-xs text-text-secondary mb-2">
-          Skriv vilka områden eller stadsdelar du kan ta elever i. Fundera
-          gärna på om du även kan ta elever längs vägen till eller från
-          plugget.
+          Skriv ett område och tryck Enter eller komma. Fundera gärna på om du
+          även kan ta elever längs vägen till eller från plugget.
         </p>
-        <input
-          id="areas"
-          type="text"
-          value={areas}
-          onChange={(e) => onAreasChange(e.target.value)}
-          placeholder="T.ex. Södermalm, Vasastan, längs T-bana grön linje..."
-          className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-base bg-bg-white"
-          maxLength={300}
-        />
+        <div
+          className="min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 bg-bg-white focus-within:border-gray-400 transition-colors cursor-text"
+          onClick={() => document.getElementById("areas")?.focus()}
+        >
+          {areas.map((tag) => (
+            <span
+              key={tag}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium"
+            >
+              {tag}
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); removeTag(tag); }}
+                className="text-primary/60 hover:text-primary leading-none"
+                aria-label={`Ta bort ${tag}`}
+              >
+                ×
+              </button>
+            </span>
+          ))}
+          <input
+            id="areas"
+            type="text"
+            value={areaInput}
+            onChange={(e) => handleAreaChange(e.target.value)}
+            onKeyDown={handleAreaKeyDown}
+            onBlur={() => { if (areaInput.trim()) addTag(areaInput); }}
+            placeholder={areas.length === 0 ? "T.ex. Södermalm, Vasastan..." : ""}
+            className="flex-1 min-w-[120px] outline-none text-sm bg-transparent text-text-primary placeholder:text-text-secondary"
+          />
+        </div>
       </div>
 
       <div>
@@ -120,7 +173,7 @@ export default function JobStepJobDetails({
                 onClick={() => toggleMotivation(m)}
                 className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-left transition-all duration-200 border-2 ${
                   selected
-                    ? "bg-accent-soft border-primary text-primary ring-1 ring-primary"
+                    ? "bg-accent-soft border-primary text-primary"
                     : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
                 }`}
               >
