@@ -42,7 +42,7 @@ export default function JobStepInstruments({
         Kryssa i alla du kan spela, inte bara ditt huvudinstrument.
       </p>
 
-      <div className="grid grid-cols-2 gap-2">
+      <div className="flex flex-col gap-2">
         {JOB_INSTRUMENTS.map(({ name, badge }) => {
           const selected = value.includes(name);
           return (
@@ -102,7 +102,7 @@ export default function JobStepInstruments({
             value={otherValue}
             onChange={(e) => onOtherChange(e.target.value)}
             placeholder="T.ex. ukulele, cello"
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-base bg-bg-white transition-colors placeholder:text-gray-400"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-base bg-bg-white transition-colors placeholder:text-gray-400 placeholder:text-sm"
             maxLength={100}
           />
         </div>

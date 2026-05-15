@@ -61,7 +61,7 @@ export default function JobStepContact({
     isValidEmail(email);
 
   const inputClass =
-    "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-base bg-bg-white transition-colors placeholder:text-gray-400";
+    "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-base bg-bg-white transition-colors placeholder:text-gray-400 placeholder:text-sm";
   const labelClass = "block text-sm font-semibold text-text-primary mb-1";
 
   return (
