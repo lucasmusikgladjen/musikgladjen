@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
           req.headers.get("x-real-ip") ??
           undefined;
 
-        await fetch(
+        const capiRes = await fetch(
           `https://graph.facebook.com/v21.0/${META_PIXEL_ID}/events?access_token=${accessToken}`,
           {
             method: "POST",
@@ -136,6 +136,10 @@ export async function POST(req: NextRequest) {
             }),
           }
         );
+        if (!capiRes.ok) {
+          const capiError = await capiRes.text();
+          console.error("Meta CAPI error:", capiRes.status, capiError);
+        }
       } catch (err) {
         console.error("Meta CAPI error:", err);
       }
