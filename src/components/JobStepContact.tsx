@@ -193,37 +193,22 @@ export default function JobStepContact({
         </div>
 
         <div>
-          <label className={labelClass}>
+          <label htmlFor="howFound" className={labelClass}>
             Hur hittade du Musikglädjen?
           </label>
-          <div className="grid grid-cols-2 gap-2 mt-1">
-            {JOB_HOW_FOUND.map((option) => {
-              const selected = howFound === option;
-              return (
-                <button
-                  key={option}
-                  type="button"
-                  onClick={() => onHowFoundChange(selected ? "" : option)}
-                  className={`flex items-center gap-2.5 px-3 py-3 rounded-xl text-left transition-colors border ${
-                    selected
-                      ? "border-gray-300 bg-gray-50"
-                      : "border-gray-200 bg-bg-white hover:border-gray-300 hover:bg-gray-50"
-                  }`}
-                >
-                  <span
-                    className={`w-4 h-4 rounded-full flex-shrink-0 border-2 flex items-center justify-center transition-all ${
-                      selected ? "border-primary" : "border-gray-400"
-                    }`}
-                  >
-                    {selected && (
-                      <span className="w-2 h-2 rounded-full bg-primary block" />
-                    )}
-                  </span>
-                  <span className="text-sm font-medium text-text-primary">{option}</span>
-                </button>
-              );
-            })}
-          </div>
+          <select
+            id="howFound"
+            value={howFound}
+            onChange={(e) => onHowFoundChange(e.target.value)}
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors appearance-none"
+          >
+            <option value="">Välj ett alternativ</option>
+            {JOB_HOW_FOUND.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
