@@ -80,7 +80,7 @@ export default function JobStepJobDetails({
                 key={value}
                 type="button"
                 onClick={() => onStudentCountChange(value)}
-                className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-left transition-all duration-200 border shadow-sm ${
+                className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-left transition-all duration-200 border ${
                   selected
                     ? "bg-accent-soft border-primary text-primary"
                     : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
@@ -111,7 +111,7 @@ export default function JobStepJobDetails({
           <span className="text-error">*</span>
         </label>
         <div
-          className="min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 shadow-sm bg-bg-white focus-within:border-gray-400 transition-colors cursor-text"
+          className="min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] bg-bg-white focus-within:border-gray-400 transition-colors cursor-text"
           onClick={() => document.getElementById("areas")?.focus()}
         >
           {areas.map((tag) => (

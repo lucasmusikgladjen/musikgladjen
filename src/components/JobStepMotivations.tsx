@@ -45,7 +45,7 @@ export default function JobStepMotivations({
               key={m}
               type="button"
               onClick={() => toggle(m)}
-              className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-left transition-all duration-200 border shadow-sm ${
+              className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-left transition-all duration-200 border ${
                 selected
                   ? "bg-accent-soft border-primary text-primary"
                   : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"

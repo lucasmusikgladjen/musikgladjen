@@ -51,7 +51,7 @@ export default function JobStepAboutYou({
           onChange={(e) => onMusicExperienceChange(e.target.value)}
           placeholder="T.ex. hur länge du spelat, vilka genrer du gillar, om du tagit lektioner eller är själv lärd..."
           rows={4}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-sm outline-none text-base bg-bg-white resize-none focus:border-gray-400 transition-colors placeholder:text-gray-400"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white resize-none focus:border-gray-400 transition-colors placeholder:text-gray-400"
           maxLength={2000}
         />
         <p className="text-xs text-text-secondary mt-1 text-right">
@@ -73,7 +73,7 @@ export default function JobStepAboutYou({
           onChange={(e) => onChildrenExperienceChange(e.target.value)}
           placeholder="T.ex. tränare, läxhjälp, syskon, barnvakt — berätta kort om dina erfarenheter..."
           rows={4}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-sm outline-none text-base bg-bg-white resize-none focus:border-gray-400 transition-colors placeholder:text-gray-400"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white resize-none focus:border-gray-400 transition-colors placeholder:text-gray-400"
           maxLength={2000}
         />
         <p className="text-xs text-text-secondary mt-1 text-right">
