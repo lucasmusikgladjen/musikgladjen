@@ -64,6 +64,47 @@ export default function JobStepJobDetails({
       <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">Om jobbet</h2>
 
       <div className="mb-8">
+        <label
+          htmlFor="areas"
+          className="block text-sm font-semibold text-text-primary mb-2"
+        >
+          I vilka områden kan du ta elever?{" "}
+          <span className="text-error">*</span>
+        </label>
+        <div
+          className="min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 bg-bg-white focus-within:border-gray-400 transition-colors cursor-text"
+          onClick={() => document.getElementById("areas")?.focus()}
+        >
+          {areas.map((tag) => (
+            <span
+              key={tag}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium"
+            >
+              {tag}
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); removeTag(tag); }}
+                className="text-primary/60 hover:text-primary leading-none"
+                aria-label={`Ta bort ${tag}`}
+              >
+                ×
+              </button>
+            </span>
+          ))}
+          <input
+            id="areas"
+            type="text"
+            value={areaInput}
+            onChange={(e) => handleAreaChange(e.target.value)}
+            onKeyDown={handleAreaKeyDown}
+            onBlur={() => { if (areaInput.trim()) addTag(areaInput); }}
+            placeholder={areas.length === 0 ? "T.ex. Södermalm, Vasastan..." : ""}
+            className="flex-1 min-w-[120px] outline-none text-sm bg-transparent text-text-primary placeholder:text-gray-400"
+          />
+        </div>
+      </div>
+
+      <div>
         <label className="block text-sm font-semibold text-text-primary mb-1">
           Hur många elever kan du tänka dig att ta?{" "}
           <span className="text-error">*</span>
@@ -99,47 +140,6 @@ export default function JobStepJobDetails({
               </button>
             );
           })}
-        </div>
-      </div>
-
-      <div>
-        <label
-          htmlFor="areas"
-          className="block text-sm font-semibold text-text-primary mb-2"
-        >
-          I vilka områden kan du ta elever?{" "}
-          <span className="text-error">*</span>
-        </label>
-        <div
-          className="min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] bg-bg-white focus-within:border-gray-400 transition-colors cursor-text"
-          onClick={() => document.getElementById("areas")?.focus()}
-        >
-          {areas.map((tag) => (
-            <span
-              key={tag}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium"
-            >
-              {tag}
-              <button
-                type="button"
-                onClick={(e) => { e.stopPropagation(); removeTag(tag); }}
-                className="text-primary/60 hover:text-primary leading-none"
-                aria-label={`Ta bort ${tag}`}
-              >
-                ×
-              </button>
-            </span>
-          ))}
-          <input
-            id="areas"
-            type="text"
-            value={areaInput}
-            onChange={(e) => handleAreaChange(e.target.value)}
-            onKeyDown={handleAreaKeyDown}
-            onBlur={() => { if (areaInput.trim()) addTag(areaInput); }}
-            placeholder={areas.length === 0 ? "T.ex. Södermalm, Vasastan..." : ""}
-            className="flex-1 min-w-[120px] outline-none text-sm bg-transparent text-text-primary placeholder:text-gray-400"
-          />
         </div>
       </div>
     </StepWrapper>

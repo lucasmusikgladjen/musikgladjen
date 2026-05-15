@@ -30,12 +30,9 @@ export default function JobStepAboutYou({
       ctaText="Nästa"
       ctaDisabled={!canProceed}
     >
-      <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">
+      <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">
         Mer om dig
       </h2>
-      <p className="text-sm text-text-secondary mb-6">
-        Det här hjälper oss förstå vem du är och matcha dig med rätt elever.
-      </p>
 
       <div className="mb-6">
         <label
@@ -49,9 +46,9 @@ export default function JobStepAboutYou({
           id="musicExp"
           value={musicExperience}
           onChange={(e) => onMusicExperienceChange(e.target.value)}
-          placeholder="T.ex. hur länge du spelat, vilka genrer du gillar, om du tagit lektioner eller är själv lärd..."
+          placeholder="T.ex. hur länge du spelat, vilka genrer du gillar och om du tagit lektioner eller är självlärd"
           rows={4}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white resize-none focus:border-gray-400 transition-colors placeholder:text-gray-400"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-base bg-bg-white resize-none focus:border-gray-400 transition-colors placeholder:text-gray-400"
           maxLength={2000}
         />
         <p className="text-xs text-text-secondary mt-1 text-right">
@@ -71,9 +68,9 @@ export default function JobStepAboutYou({
           id="childrenExp"
           value={childrenExperience}
           onChange={(e) => onChildrenExperienceChange(e.target.value)}
-          placeholder="T.ex. tränare, läxhjälp, syskon, barnvakt — berätta kort om dina erfarenheter..."
+          placeholder="T.ex. tränare, läxhjälp, syskon eller barnvakt"
           rows={4}
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white resize-none focus:border-gray-400 transition-colors placeholder:text-gray-400"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-base bg-bg-white resize-none focus:border-gray-400 transition-colors placeholder:text-gray-400"
           maxLength={2000}
         />
         <p className="text-xs text-text-secondary mt-1 text-right">

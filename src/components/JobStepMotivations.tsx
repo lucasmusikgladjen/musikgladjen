@@ -30,9 +30,12 @@ export default function JobStepMotivations({
       onNext={onNext}
       ctaText="Nästa"
     >
-      <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">
+      <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">
         Vad vill du få ut av jobbet?
       </h2>
+      <p className="text-sm text-text-secondary mb-6">
+        Du kan kryssa i flera alternativ.
+      </p>
 
       <div className="flex flex-col gap-2">
         {JOB_MOTIVATIONS.map((m) => {
