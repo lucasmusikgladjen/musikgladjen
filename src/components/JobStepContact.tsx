@@ -61,7 +61,7 @@ export default function JobStepContact({
     isValidEmail(email);
 
   const inputClass =
-    "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white transition-colors placeholder:text-gray-400";
+    "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-base bg-bg-white transition-colors placeholder:text-gray-400";
   const labelClass = "block text-sm font-semibold text-text-primary mb-1";
 
   return (
@@ -99,17 +99,18 @@ export default function JobStepContact({
           </label>
           <input
             id="birthYear"
-            type="number"
+            type="text"
+            inputMode="numeric"
+            pattern="\d*"
             value={birthYear}
             onChange={(e) => onBirthYearChange(e.target.value)}
             placeholder="2004"
             className={inputClass}
-            min={1960}
-            max={2012}
+            maxLength={4}
           />
         </div>
 
-        <div className="grid grid-cols-[3fr_1fr_2fr] gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-[3fr_1fr_2fr] gap-2">
           <div>
             <label htmlFor="address" className={labelClass}>
               Adress <span className="text-error">*</span>
@@ -198,7 +199,7 @@ export default function JobStepContact({
               id="howFound"
               value={howFound}
               onChange={(e) => onHowFoundChange(e.target.value)}
-              className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white transition-colors appearance-none"
+              className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-base bg-bg-white transition-colors appearance-none"
               style={{ color: howFound === "" ? "#9ca3af" : "" }}
             >
               <option value="" disabled>
