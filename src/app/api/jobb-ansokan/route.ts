@@ -75,6 +75,14 @@ export async function POST(req: NextRequest) {
   const accessToken = process.env.META_ACCESS_TOKEN;
   if (accessToken) {
     try {
+      const nameParts = (data.name ?? "").trim().split(/\s+/);
+      const firstName = nameParts[0] ?? "";
+      const lastName = nameParts.slice(1).join(" ");
+      const ip =
+        req.headers.get("x-forwarded-for")?.split(",")[0].trim() ??
+        req.headers.get("x-real-ip") ??
+        undefined;
+
       await fetch(
         `https://graph.facebook.com/v21.0/${META_PIXEL_ID}/events?access_token=${accessToken}`,
         {
@@ -86,9 +94,21 @@ export async function POST(req: NextRequest) {
               event_time: Math.floor(Date.now() / 1000),
               action_source: "website",
               event_id: data.eventId,
+              event_source_url: data.eventSourceUrl,
               user_data: {
                 em: data.email ? [sha256(data.email)] : undefined,
                 ph: data.phone ? [sha256(data.phone.replace(/\s+/g, ""))] : undefined,
+                fn: firstName ? [sha256(firstName)] : undefined,
+                ln: lastName ? [sha256(lastName)] : undefined,
+                zp: data.postnummer ? [sha256(data.postnummer.replace(/\s+/g, ""))] : undefined,
+                ct: data.city ? [sha256(data.city)] : undefined,
+                country: ["se"],
+                db: data.birthYear ? [sha256(data.birthYear + "0101")] : undefined,
+                external_id: data.email ? [sha256(data.email)] : undefined,
+                client_ip_address: ip,
+                client_user_agent: req.headers.get("user-agent") ?? undefined,
+                fbp: data.fbp,
+                fbc: data.fbc,
               },
             }],
           }),

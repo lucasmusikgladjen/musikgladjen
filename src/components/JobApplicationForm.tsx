@@ -69,11 +69,19 @@ export default function JobApplicationForm({ onComplete }: JobApplicationFormPro
 
     try {
       const eventId = crypto.randomUUID();
+      const getCookie = (name: string) =>
+        document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"))?.[2];
 
       const res = await fetch("/api/jobb-ansokan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, eventId }),
+        body: JSON.stringify({
+          ...formData,
+          eventId,
+          fbp: getCookie("_fbp"),
+          fbc: getCookie("_fbc"),
+          eventSourceUrl: window.location.href,
+        }),
       });
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
