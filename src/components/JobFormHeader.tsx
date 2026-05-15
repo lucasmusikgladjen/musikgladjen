@@ -3,17 +3,7 @@
 export default function JobFormHeader() {
   return (
     <div className="w-full">
-      <div className="relative overflow-hidden bg-gradient-to-r from-[#da3111] via-[#e8501a] to-[#da3111]">
-        <div
-          className="absolute inset-0 opacity-10 pointer-events-none select-none"
-          aria-hidden="true"
-        >
-          <span className="absolute text-4xl top-1 left-[8%] rotate-12">♪</span>
-          <span className="absolute text-3xl top-3 left-[25%] -rotate-6">♫</span>
-          <span className="absolute text-5xl -top-1 left-[48%] rotate-[20deg]">♩</span>
-          <span className="absolute text-3xl top-2 left-[68%] -rotate-12">♬</span>
-          <span className="absolute text-4xl top-0 left-[85%] rotate-6">♪</span>
-        </div>
+      <div className="relative bg-gradient-to-r from-[#da3111] via-[#e8501a] to-[#da3111]">
         <div className="relative py-5 px-4">
           <a
             href="https://musikgladjen.se/jobb"
