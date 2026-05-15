@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Anmälan — Musikglädjen",
   description:
     "Anmäl ditt barn till musiklektioner hemma hos er med Musikglädjen.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
