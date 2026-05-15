@@ -35,63 +35,64 @@ export default function JobStepInstruments({
       ctaDisabled={value.length === 0}
       showBack={false}
     >
-      <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-2">
-        Kom igång
-      </p>
-      <h2 className="text-2xl font-bold text-text-primary mb-1">Instrument</h2>
-      <p className="text-sm text-text-secondary mb-5">
-        Vilka instrument kan du undervisa i? Kryssa i alla du kan spela, inte
-        bara ditt huvudinstrument.
-      </p>
+      <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">Kom igång</h2>
 
-      <div className="grid grid-cols-2 gap-2">
-        {JOB_INSTRUMENTS.map(({ name, badge }) => {
-          const selected = value.includes(name);
-          return (
-            <button
-              key={name}
-              type="button"
-              onClick={() => toggle(name)}
-              className={`flex items-center gap-2.5 px-3 py-3.5 rounded-xl text-left transition-all duration-200 border-2 ${
-                selected
-                  ? "bg-accent-soft border-primary text-primary"
-                  : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
-              }`}
-            >
-              <span
-                className={`w-4 h-4 rounded flex-shrink-0 border-2 flex items-center justify-center transition-all ${
-                  selected ? "bg-primary border-primary" : "border-gray-300"
+      <div className="mb-6">
+        <label className="block text-sm font-semibold text-text-primary mb-1">
+          Välj dina instrument <span className="text-error">*</span>
+        </label>
+        <p className="text-xs text-text-secondary mb-3">
+          Kryssa i alla du kan spela, inte bara ditt huvudinstrument.
+        </p>
+        <div className="grid grid-cols-2 gap-2">
+          {JOB_INSTRUMENTS.map(({ name, badge }) => {
+            const selected = value.includes(name);
+            return (
+              <button
+                key={name}
+                type="button"
+                onClick={() => toggle(name)}
+                className={`flex items-center gap-2.5 px-3 py-3.5 rounded-xl text-left transition-all duration-200 border-2 ${
+                  selected
+                    ? "bg-accent-soft border-primary text-primary"
+                    : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
                 }`}
               >
-                {selected && (
-                  <svg
-                    className="w-2.5 h-2.5 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={3}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                )}
-              </span>
-              <span className="text-sm font-medium flex-1">{name}</span>
-              {badge && (
-                <span className="text-[10px] bg-orange-100 text-orange-700 px-2 py-1 rounded-full whitespace-nowrap flex-shrink-0 leading-tight font-medium">
-                  {badge}
+                <span
+                  className={`w-4 h-4 rounded flex-shrink-0 border-2 flex items-center justify-center transition-all ${
+                    selected ? "bg-primary border-primary" : "border-gray-300"
+                  }`}
+                >
+                  {selected && (
+                    <svg
+                      className="w-2.5 h-2.5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={3}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  )}
                 </span>
-              )}
-            </button>
-          );
-        })}
+                <span className="text-sm font-medium flex-1">{name}</span>
+                {badge && (
+                  <span className="text-[10px] bg-orange-100 text-orange-700 px-2 py-1 rounded-full whitespace-nowrap flex-shrink-0 leading-tight font-medium">
+                    {badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {showOtherField && (
-        <div className="mt-4">
+        <div>
           <label
             htmlFor="instrumentOther"
             className="block text-sm font-medium text-text-primary mb-1"

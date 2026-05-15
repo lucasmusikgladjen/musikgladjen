@@ -73,10 +73,9 @@ export default function JobStepContact({
       ctaLoading={isSubmitting}
       subtext="Vi kontaktar dig via telefon eller e-post inom kort."
     >
-      <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">
+      <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">
         Kontaktuppgifter
       </h2>
-      <p className="text-sm text-text-secondary mb-6">Sista steget!</p>
 
       <div className="flex flex-col gap-4">
         <div className="grid grid-cols-[2fr_1fr] gap-3">

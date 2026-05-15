@@ -23,9 +23,6 @@ export default function JobFormHeader() {
           </div>
         </div>
       </div>
-      <div className="bg-[#b8290e] text-white text-center py-2 px-4">
-        <p className="text-sm font-medium">Ansök som musiklärare — tar ca 5 minuter</p>
-      </div>
     </div>
   );
 }
