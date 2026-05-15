@@ -42,7 +42,7 @@ export default function JobStepInstruments({
         Kryssa i alla du kan spela, inte bara ditt huvudinstrument.
       </p>
 
-      <div className="flex flex-col gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         {JOB_INSTRUMENTS.map(({ name, badge }) => {
           const selected = value.includes(name);
           return (
