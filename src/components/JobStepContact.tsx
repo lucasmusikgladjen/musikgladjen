@@ -1,20 +1,25 @@
 "use client";
 
 import StepWrapper from "./StepWrapper";
+import { JOB_HOW_FOUND } from "@/lib/job-types";
 
 interface JobStepContactProps {
   name: string;
   birthYear: string;
   address: string;
+  postnummer: string;
   city: string;
   phone: string;
   email: string;
+  howFound: string;
   onNameChange: (v: string) => void;
   onBirthYearChange: (v: string) => void;
   onAddressChange: (v: string) => void;
+  onPostnummerChange: (v: string) => void;
   onCityChange: (v: string) => void;
   onPhoneChange: (v: string) => void;
   onEmailChange: (v: string) => void;
+  onHowFoundChange: (v: string) => void;
   onSubmit: () => void;
   onBack: () => void;
   isSubmitting: boolean;
@@ -25,15 +30,19 @@ export default function JobStepContact({
   name,
   birthYear,
   address,
+  postnummer,
   city,
   phone,
   email,
+  howFound,
   onNameChange,
   onBirthYearChange,
   onAddressChange,
+  onPostnummerChange,
   onCityChange,
   onPhoneChange,
   onEmailChange,
+  onHowFoundChange,
   onSubmit,
   onBack,
   isSubmitting,
@@ -52,7 +61,7 @@ export default function JobStepContact({
     isValidEmail(email);
 
   const inputClass =
-    "w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-base bg-bg-white";
+    "w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors";
   const labelClass = "block text-sm font-semibold text-text-primary mb-1";
 
   return (
@@ -118,20 +127,37 @@ export default function JobStepContact({
           />
         </div>
 
-        <div>
-          <label htmlFor="city" className={labelClass}>
-            Ort <span className="text-error">*</span>
-          </label>
-          <input
-            id="city"
-            type="text"
-            value={city}
-            onChange={(e) => onCityChange(e.target.value)}
-            placeholder="Stockholm"
-            className={inputClass}
-            autoComplete="address-level2"
-            maxLength={100}
-          />
+        <div className="grid grid-cols-[1fr_2fr] gap-3">
+          <div>
+            <label htmlFor="postnummer" className={labelClass}>
+              Postnummer <span className="text-error">*</span>
+            </label>
+            <input
+              id="postnummer"
+              type="text"
+              value={postnummer}
+              onChange={(e) => onPostnummerChange(e.target.value)}
+              placeholder="123 45"
+              className={inputClass}
+              autoComplete="postal-code"
+              maxLength={6}
+            />
+          </div>
+          <div>
+            <label htmlFor="city" className={labelClass}>
+              Ort <span className="text-error">*</span>
+            </label>
+            <input
+              id="city"
+              type="text"
+              value={city}
+              onChange={(e) => onCityChange(e.target.value)}
+              placeholder="Stockholm"
+              className={inputClass}
+              autoComplete="address-level2"
+              maxLength={100}
+            />
+          </div>
         </div>
 
         <div>
@@ -164,6 +190,40 @@ export default function JobStepContact({
             autoComplete="email"
             maxLength={200}
           />
+        </div>
+
+        <div>
+          <label className={labelClass}>
+            Hur hittade du Musikglädjen?
+          </label>
+          <div className="grid grid-cols-2 gap-2 mt-1">
+            {JOB_HOW_FOUND.map((option) => {
+              const selected = howFound === option;
+              return (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => onHowFoundChange(selected ? "" : option)}
+                  className={`flex items-center gap-2.5 px-3 py-3 rounded-xl text-left transition-colors border ${
+                    selected
+                      ? "border-gray-300 bg-gray-50"
+                      : "border-gray-200 bg-bg-white hover:border-gray-300 hover:bg-gray-50"
+                  }`}
+                >
+                  <span
+                    className={`w-4 h-4 rounded-full flex-shrink-0 border-2 flex items-center justify-center transition-all ${
+                      selected ? "border-primary" : "border-gray-400"
+                    }`}
+                  >
+                    {selected && (
+                      <span className="w-2 h-2 rounded-full bg-primary block" />
+                    )}
+                  </span>
+                  <span className="text-sm font-medium text-text-primary">{option}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
