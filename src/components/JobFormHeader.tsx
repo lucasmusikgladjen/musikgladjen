@@ -26,12 +26,9 @@ export default function JobFormHeader() {
             Jobb
           </a>
           <div className="text-center">
-            <div className="inline-flex items-center gap-2">
-              <span className="text-3xl drop-shadow-sm">🎵</span>
-              <span className="text-2xl font-bold text-white tracking-tight drop-shadow-sm">
-                Musikglädjen
-              </span>
-            </div>
+            <span className="text-2xl font-bold text-white tracking-tight drop-shadow-sm">
+              Musikglädjen
+            </span>
           </div>
         </div>
       </div>
