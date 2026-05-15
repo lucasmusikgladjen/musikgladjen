@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import StepWrapper from "./StepWrapper";
 import { JOB_HOW_FOUND } from "@/lib/job-types";
 
@@ -69,14 +70,29 @@ export default function JobStepContact({
 
   const phoneDigits = phone.replace(/\D/g, "");
 
-  const canSubmit =
-    name.trim().length >= 2 &&
-    isValidBirthYear(birthYear) &&
-    address.trim().length >= 2 &&
-    postnummer.length === 5 &&
-    city.trim().length >= 2 &&
-    phoneDigits.length >= 8 &&
-    isValidEmail(email);
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const touch = (field: string) => setTouched((t) => ({ ...t, [field]: true }));
+
+  const errors = {
+    name: name.trim().length < 2 ? "Ange för- och efternamn" : null,
+    birthYear: !isValidBirthYear(birthYear)
+      ? birthYear.length === 0
+        ? "Ange födelseår"
+        : `Ange ett giltigt födelseår (1960–${maxBirthYear})`
+      : null,
+    address: address.trim().length < 2 ? "Ange din adress" : null,
+    postnummer: postnummer.length !== 5 ? "Ange ett giltigt postnummer (5 siffror)" : null,
+    city: city.trim().length < 2 ? "Ange din ort" : null,
+    phone: phoneDigits.length < 8 ? "Ange ett giltigt telefonnummer" : null,
+    email: !isValidEmail(email) ? "Ange en giltig e-postadress" : null,
+  };
+
+  const canSubmit = Object.values(errors).every((e) => e === null);
+
+  const handleSubmit = () => {
+    setTouched({ name: true, birthYear: true, address: true, postnummer: true, city: true, phone: true, email: true });
+    if (canSubmit) onSubmit();
+  };
 
   const fieldBase =
     "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary bg-bg-white transition-colors";
@@ -84,12 +100,14 @@ export default function JobStepContact({
   const selectClass = `${fieldBase} text-sm pr-10 appearance-none`;
   const labelClass = "block text-sm font-semibold text-text-primary mb-1";
 
+  const errorClass = "mt-1 text-xs text-error";
+
   return (
     <StepWrapper
       onBack={onBack}
-      onNext={onSubmit}
+      onNext={handleSubmit}
       ctaText="Skicka ansökan"
-      ctaDisabled={!canSubmit}
+      ctaDisabled={false}
       ctaLoading={isSubmitting}
     >
       <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">
@@ -106,11 +124,13 @@ export default function JobStepContact({
             type="text"
             value={name}
             onChange={(e) => onNameChange(e.target.value)}
+            onBlur={() => touch("name")}
             placeholder="Anna Johansson"
             className={inputClass}
             autoComplete="name"
             maxLength={100}
           />
+          {touched.name && errors.name && <p className={errorClass}>{errors.name}</p>}
         </div>
 
         <div>
@@ -124,10 +144,12 @@ export default function JobStepContact({
             pattern="\d*"
             value={birthYear}
             onChange={(e) => onBirthYearChange(e.target.value.replace(/\D/g, "").slice(0, 4))}
+            onBlur={() => touch("birthYear")}
             placeholder="2004"
             className={inputClass}
             maxLength={4}
           />
+          {touched.birthYear && errors.birthYear && <p className={errorClass}>{errors.birthYear}</p>}
         </div>
 
         <div>
@@ -139,11 +161,13 @@ export default function JobStepContact({
             type="text"
             value={address}
             onChange={(e) => onAddressChange(e.target.value)}
+            onBlur={() => touch("address")}
             placeholder="Exempelgatan 12"
             className={inputClass}
             autoComplete="street-address"
             maxLength={200}
           />
+          {touched.address && errors.address && <p className={errorClass}>{errors.address}</p>}
         </div>
 
         <div className="grid grid-cols-[1fr_2fr] gap-2">
@@ -158,11 +182,13 @@ export default function JobStepContact({
               pattern="\d*"
               value={formatPostnummer(postnummer)}
               onChange={(e) => onPostnummerChange(e.target.value.replace(/\D/g, "").slice(0, 5))}
+              onBlur={() => touch("postnummer")}
               placeholder="123 45"
               className={inputClass}
               autoComplete="postal-code"
               maxLength={6}
             />
+            {touched.postnummer && errors.postnummer && <p className={errorClass}>{errors.postnummer}</p>}
           </div>
           <div>
             <label htmlFor="city" className={labelClass}>
@@ -173,11 +199,13 @@ export default function JobStepContact({
               type="text"
               value={city}
               onChange={(e) => onCityChange(e.target.value)}
+              onBlur={() => touch("city")}
               placeholder="Stockholm"
               className={inputClass}
               autoComplete="address-level2"
               maxLength={100}
             />
+            {touched.city && errors.city && <p className={errorClass}>{errors.city}</p>}
           </div>
         </div>
 
@@ -191,11 +219,13 @@ export default function JobStepContact({
             inputMode="numeric"
             value={phone}
             onChange={(e) => onPhoneChange(formatPhone(e.target.value))}
+            onBlur={() => touch("phone")}
             placeholder="070-123 45 67"
             className={inputClass}
             autoComplete="tel"
             maxLength={13}
           />
+          {touched.phone && errors.phone && <p className={errorClass}>{errors.phone}</p>}
         </div>
 
         <div>
@@ -207,11 +237,13 @@ export default function JobStepContact({
             type="email"
             value={email}
             onChange={(e) => onEmailChange(e.target.value)}
+            onBlur={() => touch("email")}
             placeholder="anna@example.com"
             className={inputClass}
             autoComplete="email"
             maxLength={200}
           />
+          {touched.email && errors.email && <p className={errorClass}>{errors.email}</p>}
         </div>
 
         <div>
