@@ -25,7 +25,7 @@ export default function JobConfirmation({ data }: JobConfirmationProps) {
             </p>
             <a
               href="https://www.musikgladjen.se/jobb"
-              className="inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-4 rounded-full hover:bg-primary/90 transition-colors text-base"
+              className="inline-flex items-center gap-2 bg-primary hover:bg-primary-hover text-white font-bold py-3 sm:py-4 px-6 rounded-xl text-sm sm:text-base transition-all duration-200 shadow-lg shadow-primary/20"
             >
               Till startsidan
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
