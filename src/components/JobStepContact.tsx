@@ -52,12 +52,29 @@ export default function JobStepContact({
   const isValidBirthYear = (y: string) =>
     /^\d{4}$/.test(y) && parseInt(y) >= 1960 && parseInt(y) <= 2012;
 
+  const formatPostnummer = (digits: string) => {
+    if (digits.length <= 3) return digits;
+    return `${digits.slice(0, 3)} ${digits.slice(3)}`;
+  };
+
+  const formatPhone = (input: string) => {
+    const d = input.replace(/\D/g, "").slice(0, 10);
+    let r = d.slice(0, 3);
+    if (d.length > 3) r += `-${d.slice(3, 6)}`;
+    if (d.length > 6) r += ` ${d.slice(6, 8)}`;
+    if (d.length > 8) r += ` ${d.slice(8, 10)}`;
+    return r;
+  };
+
+  const phoneDigits = phone.replace(/\D/g, "");
+
   const canSubmit =
     name.trim().length >= 2 &&
     isValidBirthYear(birthYear) &&
     address.trim().length >= 2 &&
+    postnummer.length === 5 &&
     city.trim().length >= 2 &&
-    phone.trim().length >= 6 &&
+    phoneDigits.length >= 8 &&
     isValidEmail(email);
 
   const fieldBase =
@@ -136,8 +153,10 @@ export default function JobStepContact({
             <input
               id="postnummer"
               type="text"
-              value={postnummer}
-              onChange={(e) => onPostnummerChange(e.target.value)}
+              inputMode="numeric"
+              pattern="\d*"
+              value={formatPostnummer(postnummer)}
+              onChange={(e) => onPostnummerChange(e.target.value.replace(/\D/g, "").slice(0, 5))}
               placeholder="123 45"
               className={inputClass}
               autoComplete="postal-code"
@@ -168,12 +187,13 @@ export default function JobStepContact({
           <input
             id="phone"
             type="tel"
+            inputMode="numeric"
             value={phone}
-            onChange={(e) => onPhoneChange(e.target.value)}
-            placeholder="070 123 45 67"
+            onChange={(e) => onPhoneChange(formatPhone(e.target.value))}
+            placeholder="070-123 45 67"
             className={inputClass}
             autoComplete="tel"
-            maxLength={20}
+            maxLength={13}
           />
         </div>
 
