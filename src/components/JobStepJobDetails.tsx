@@ -105,7 +105,7 @@ export default function JobStepJobDetails({
               placeholder={areas.length === 0 ? "T.ex. Södermalm..." : ""}
               className="flex-1 min-w-0 outline-none text-sm bg-transparent text-text-primary placeholder:text-gray-400 placeholder:text-sm"
             />
-            {areaInput.trim() && areas.length === 0 && (
+            {areaInput.trim() && (
               <button
                 type="button"
                 onClick={() => addTag(areaInput)}
