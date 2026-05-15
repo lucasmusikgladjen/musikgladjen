@@ -110,7 +110,7 @@ export default function JobStepJobDetails({
             <button
               type="button"
               onClick={() => addTag(areaInput)}
-              className="flex-shrink-0 px-3 rounded-xl bg-primary/10 text-primary text-sm font-semibold hover:bg-primary/20 transition-colors"
+              className="self-start flex-shrink-0 mt-1.5 px-2.5 py-1.5 rounded-lg bg-primary/10 text-primary text-xs font-semibold hover:bg-primary/20 transition-colors"
             >
               + Lägg till
             </button>
