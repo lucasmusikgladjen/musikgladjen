@@ -121,7 +121,7 @@ export default function JobStepJobDetails({
                 key={value}
                 type="button"
                 onClick={() => onStudentCountChange(value)}
-                className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-left transition-all duration-200 border ${
+                className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-left transition-all duration-200 border shadow-[0_1px_2px_rgba(0,0,0,0.04)] ${
                   selected
                     ? "bg-accent-soft border-primary text-primary"
                     : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
