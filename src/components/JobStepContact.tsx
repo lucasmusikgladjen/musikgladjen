@@ -78,37 +78,36 @@ export default function JobStepContact({
       </h2>
 
       <div className="flex flex-col gap-4">
-        <div className="grid grid-cols-[2fr_1fr] gap-3">
-          <div>
-            <label htmlFor="name" className={labelClass}>
-              För- och efternamn <span className="text-error">*</span>
-            </label>
-            <input
-              id="name"
-              type="text"
-              value={name}
-              onChange={(e) => onNameChange(e.target.value)}
-              placeholder="Anna Johansson"
-              className={inputClass}
-              autoComplete="name"
-              maxLength={100}
-            />
-          </div>
-          <div>
-            <label htmlFor="birthYear" className={labelClass}>
-              Födelseår <span className="text-error">*</span>
-            </label>
-            <input
-              id="birthYear"
-              type="number"
-              value={birthYear}
-              onChange={(e) => onBirthYearChange(e.target.value)}
-              placeholder="2004"
-              className={inputClass}
-              min={1960}
-              max={2012}
-            />
-          </div>
+        <div>
+          <label htmlFor="name" className={labelClass}>
+            För- och efternamn <span className="text-error">*</span>
+          </label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => onNameChange(e.target.value)}
+            placeholder="Anna Johansson"
+            className={inputClass}
+            autoComplete="name"
+            maxLength={100}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="birthYear" className={labelClass}>
+            Födelseår <span className="text-error">*</span>
+          </label>
+          <input
+            id="birthYear"
+            type="number"
+            value={birthYear}
+            onChange={(e) => onBirthYearChange(e.target.value)}
+            placeholder="2004"
+            className={inputClass}
+            min={1960}
+            max={2012}
+          />
         </div>
 
         <div>
