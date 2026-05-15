@@ -75,7 +75,7 @@ export default function JobStepJobDetails({
           Tryck Enter eller komma efter varje område.
         </p>
         <div
-          className="min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] bg-bg-white transition-colors cursor-text"
+          className="min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] bg-bg-white transition-colors cursor-text focus-within:ring-2 focus-within:ring-primary/40 focus-within:border-primary"
           onClick={() => document.getElementById("areas")?.focus()}
         >
           {areas.map((tag) => (
