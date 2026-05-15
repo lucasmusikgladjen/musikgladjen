@@ -35,6 +35,9 @@ export default function JobStepInstruments({
       ctaDisabled={value.length === 0}
       showBack={false}
     >
+      <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-2">
+        Kom igång
+      </p>
       <h2 className="text-2xl font-bold text-text-primary mb-1">Instrument</h2>
       <p className="text-sm text-text-secondary mb-5">
         Vilka instrument kan du undervisa i? Kryssa i alla du kan spela, inte
