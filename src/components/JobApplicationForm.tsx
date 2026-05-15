@@ -90,7 +90,7 @@ export default function JobApplicationForm({ onComplete }: JobApplicationFormPro
       <JobFormHeader />
       <ProgressBar currentStep={step} totalSteps={TOTAL_STEPS} />
 
-      <div className="w-full max-w-[680px] mx-auto flex-1 flex flex-col">
+      <div className="w-full max-w-[560px] mx-auto flex-1 flex flex-col">
         <div
           aria-hidden="true"
           style={{ position: "absolute", left: "-9999px", top: "-9999px" }}
