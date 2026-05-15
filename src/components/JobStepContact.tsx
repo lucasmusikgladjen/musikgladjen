@@ -109,26 +109,25 @@ export default function JobStepContact({
           />
         </div>
 
-        <div>
-          <label htmlFor="address" className={labelClass}>
-            Adress <span className="text-error">*</span>
-          </label>
-          <input
-            id="address"
-            type="text"
-            value={address}
-            onChange={(e) => onAddressChange(e.target.value)}
-            placeholder="Exempelgatan 12"
-            className={inputClass}
-            autoComplete="street-address"
-            maxLength={200}
-          />
-        </div>
-
-        <div className="grid grid-cols-[1fr_2fr] gap-3">
+        <div className="grid grid-cols-[3fr_1fr_2fr] gap-2">
+          <div>
+            <label htmlFor="address" className={labelClass}>
+              Adress <span className="text-error">*</span>
+            </label>
+            <input
+              id="address"
+              type="text"
+              value={address}
+              onChange={(e) => onAddressChange(e.target.value)}
+              placeholder="Exempelgatan 12"
+              className={inputClass}
+              autoComplete="street-address"
+              maxLength={200}
+            />
+          </div>
           <div>
             <label htmlFor="postnummer" className={labelClass}>
-              Postnummer <span className="text-error">*</span>
+              Postnr <span className="text-error">*</span>
             </label>
             <input
               id="postnummer"

@@ -68,7 +68,7 @@ export default function JobStepAboutYou({
           id="childrenExp"
           value={childrenExperience}
           onChange={(e) => onChildrenExperienceChange(e.target.value)}
-          placeholder="Jag har varit tränare för juniorer i två år, hjälpt mina syskon med läxor sedan barnsben och sommarsjobbat som barnvakt..."
+          placeholder="T.ex. tränare för juniorer, läxhjälp, barnpassning — gärna i vilka sammanhang och hur länge"
           rows={4}
           className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white resize-none transition-colors placeholder:text-gray-400"
           maxLength={2000}
