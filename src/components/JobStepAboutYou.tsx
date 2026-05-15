@@ -31,7 +31,7 @@ export default function JobStepAboutYou({
       ctaDisabled={!canProceed}
     >
       <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">
-        Mer om dig
+        Om dig
       </h2>
 
       <div className="mb-6">

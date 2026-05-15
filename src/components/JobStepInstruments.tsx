@@ -35,7 +35,7 @@ export default function JobStepInstruments({
       ctaDisabled={value.length === 0}
       showBack={false}
     >
-      <h2 className="text-2xl font-bold text-text-primary mb-1">
+      <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">
         Välj instrument
       </h2>
       <p className="text-sm text-text-secondary mb-5">

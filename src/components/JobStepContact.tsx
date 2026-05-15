@@ -72,7 +72,7 @@ export default function JobStepContact({
       ctaDisabled={!canSubmit}
       ctaLoading={isSubmitting}
     >
-      <h2 className="text-2xl font-bold text-text-primary mb-6">
+      <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">
         Kontaktuppgifter
       </h2>
 
