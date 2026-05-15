@@ -105,7 +105,7 @@ export default function JobStepContact({
             inputMode="numeric"
             pattern="\d*"
             value={birthYear}
-            onChange={(e) => onBirthYearChange(e.target.value)}
+            onChange={(e) => onBirthYearChange(e.target.value.replace(/\D/g, "").slice(0, 4))}
             placeholder="2004"
             className={inputClass}
             maxLength={4}
