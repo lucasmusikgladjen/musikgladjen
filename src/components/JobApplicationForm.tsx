@@ -5,11 +5,12 @@ import { JobFormData } from "@/lib/job-types";
 import JobFormHeader from "./JobFormHeader";
 import ProgressBar from "./ProgressBar";
 import JobStepInstruments from "./JobStepInstruments";
+import JobStepMotivations from "./JobStepMotivations";
 import JobStepJobDetails from "./JobStepJobDetails";
 import JobStepAboutYou from "./JobStepAboutYou";
 import JobStepContact from "./JobStepContact";
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 5;
 
 interface JobApplicationFormProps {
   onComplete: (data: JobFormData) => void;
@@ -116,18 +117,24 @@ export default function JobApplicationForm({ onComplete }: JobApplicationFormPro
             />
           )}
           {step === 1 && (
-            <JobStepJobDetails
-              studentCount={formData.studentCount}
-              areas={formData.areas}
+            <JobStepMotivations
               motivations={formData.motivations}
-              onStudentCountChange={(v) => updateField("studentCount", v)}
-              onAreasChange={(v) => updateField("areas", v)}
               onMotivationsChange={(v) => updateField("motivations", v)}
               onNext={goNext}
               onBack={goBack}
             />
           )}
           {step === 2 && (
+            <JobStepJobDetails
+              studentCount={formData.studentCount}
+              areas={formData.areas}
+              onStudentCountChange={(v) => updateField("studentCount", v)}
+              onAreasChange={(v) => updateField("areas", v)}
+              onNext={goNext}
+              onBack={goBack}
+            />
+          )}
+          {step === 3 && (
             <JobStepAboutYou
               musicExperience={formData.musicExperience}
               childrenExperience={formData.childrenExperience}
@@ -139,7 +146,7 @@ export default function JobApplicationForm({ onComplete }: JobApplicationFormPro
               onBack={goBack}
             />
           )}
-          {step === 3 && (
+          {step === 4 && (
             <JobStepContact
               name={formData.name}
               birthYear={formData.birthYear}

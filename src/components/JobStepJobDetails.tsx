@@ -2,15 +2,13 @@
 
 import { useState, KeyboardEvent } from "react";
 import StepWrapper from "./StepWrapper";
-import { JOB_STUDENT_COUNTS, JOB_MOTIVATIONS } from "@/lib/job-types";
+import { JOB_STUDENT_COUNTS } from "@/lib/job-types";
 
 interface JobStepJobDetailsProps {
   studentCount: string;
   areas: string[];
-  motivations: string[];
   onStudentCountChange: (value: string) => void;
   onAreasChange: (value: string[]) => void;
-  onMotivationsChange: (value: string[]) => void;
   onNext: () => void;
   onBack: () => void;
 }
@@ -18,22 +16,12 @@ interface JobStepJobDetailsProps {
 export default function JobStepJobDetails({
   studentCount,
   areas,
-  motivations,
   onStudentCountChange,
   onAreasChange,
-  onMotivationsChange,
   onNext,
   onBack,
 }: JobStepJobDetailsProps) {
   const [areaInput, setAreaInput] = useState("");
-
-  const toggleMotivation = (m: string) => {
-    if (motivations.includes(m)) {
-      onMotivationsChange(motivations.filter((v) => v !== m));
-    } else {
-      onMotivationsChange([...motivations, m]);
-    }
-  };
 
   const addTag = (raw: string) => {
     const tag = raw.trim().replace(/,+$/, "").trim();
@@ -114,7 +102,7 @@ export default function JobStepJobDetails({
         </div>
       </div>
 
-      <div className="mb-8">
+      <div>
         <label
           htmlFor="areas"
           className="block text-sm font-semibold text-text-primary mb-2"
@@ -150,54 +138,8 @@ export default function JobStepJobDetails({
             onKeyDown={handleAreaKeyDown}
             onBlur={() => { if (areaInput.trim()) addTag(areaInput); }}
             placeholder={areas.length === 0 ? "T.ex. Södermalm, Vasastan..." : ""}
-            className="flex-1 min-w-[120px] outline-none text-sm bg-transparent text-text-primary placeholder:text-text-secondary"
+            className="flex-1 min-w-[120px] outline-none text-sm bg-transparent text-text-primary placeholder:text-gray-400"
           />
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-semibold text-text-primary mb-3">
-          Vad vill du få ut av det här jobbet?
-        </label>
-        <div className="flex flex-col gap-2">
-          {JOB_MOTIVATIONS.map((m) => {
-            const selected = motivations.includes(m);
-            return (
-              <button
-                key={m}
-                type="button"
-                onClick={() => toggleMotivation(m)}
-                className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-left transition-all duration-200 border-2 ${
-                  selected
-                    ? "bg-accent-soft border-primary text-primary"
-                    : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
-                }`}
-              >
-                <span
-                  className={`w-5 h-5 rounded flex-shrink-0 border-2 flex items-center justify-center transition-all ${
-                    selected ? "bg-primary border-primary" : "border-gray-300"
-                  }`}
-                >
-                  {selected && (
-                    <svg
-                      className="w-3 h-3 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={3}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  )}
-                </span>
-                <span className="text-sm font-medium">{m}</span>
-              </button>
-            );
-          })}
         </div>
       </div>
     </StepWrapper>
