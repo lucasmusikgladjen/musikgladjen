@@ -159,37 +159,36 @@ export default function JobStepContact({
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label htmlFor="phone" className={labelClass}>
-              Telefonnummer <span className="text-error">*</span>
-            </label>
-            <input
-              id="phone"
-              type="tel"
-              value={phone}
-              onChange={(e) => onPhoneChange(e.target.value)}
-              placeholder="070 123 45 67"
-              className={inputClass}
-              autoComplete="tel"
-              maxLength={20}
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className={labelClass}>
-              E-post <span className="text-error">*</span>
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => onEmailChange(e.target.value)}
-              placeholder="anna@example.com"
-              className={inputClass}
-              autoComplete="email"
-              maxLength={200}
-            />
-          </div>
+        <div>
+          <label htmlFor="phone" className={labelClass}>
+            Telefonnummer <span className="text-error">*</span>
+          </label>
+          <input
+            id="phone"
+            type="tel"
+            value={phone}
+            onChange={(e) => onPhoneChange(e.target.value)}
+            placeholder="070 123 45 67"
+            className={inputClass}
+            autoComplete="tel"
+            maxLength={20}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="email" className={labelClass}>
+            E-post <span className="text-error">*</span>
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => onEmailChange(e.target.value)}
+            placeholder="anna@example.com"
+            className={inputClass}
+            autoComplete="email"
+            maxLength={200}
+          />
         </div>
 
         <div>
