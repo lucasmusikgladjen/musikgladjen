@@ -102,6 +102,9 @@ export default function JobStepJobDetails({
             className="flex-1 min-w-[120px] outline-none text-sm bg-transparent text-text-primary placeholder:text-gray-400"
           />
         </div>
+        <p className="text-xs text-text-secondary mt-1.5">
+          Tryck Enter eller komma efter varje område.
+        </p>
       </div>
 
       <div>
