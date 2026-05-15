@@ -1,6 +1,7 @@
 "use client";
 
 import { JobFormData } from "@/lib/job-types";
+import JobFormHeader from "./JobFormHeader";
 
 interface JobConfirmationProps {
   data: JobFormData;
@@ -10,81 +11,37 @@ export default function JobConfirmation({ data }: JobConfirmationProps) {
   const firstName = data.name.split(" ")[0];
 
   return (
-    <div className="w-full min-h-screen flex flex-col">
-      <div className="relative overflow-hidden bg-gradient-to-r from-[#da3111] via-[#e8501a] to-[#da3111]">
-        <div
-          className="absolute inset-0 opacity-10 pointer-events-none select-none"
-          aria-hidden="true"
-        >
-          <span className="absolute text-4xl top-1 left-[8%] rotate-12">♪</span>
-          <span className="absolute text-3xl top-3 left-[25%] -rotate-6">♫</span>
-          <span className="absolute text-5xl -top-1 left-[48%] rotate-[20deg]">♩</span>
-          <span className="absolute text-3xl top-2 left-[68%] -rotate-12">♬</span>
-          <span className="absolute text-4xl top-0 left-[85%] rotate-6">♪</span>
-        </div>
-        <div className="relative text-center py-5 px-4">
-          <div className="inline-flex items-center gap-2">
-            <span className="text-3xl drop-shadow-sm">🎵</span>
-            <span className="text-2xl font-bold text-white tracking-tight drop-shadow-sm">
-              Musikglädjen
-            </span>
-          </div>
-        </div>
-      </div>
+    <div className="w-full min-h-screen flex flex-col bg-[#f5f4f0]">
+      <JobFormHeader />
 
-      <div className="flex-1 flex flex-col items-center justify-center px-4 py-12">
-        <div className="w-full max-w-[480px] text-center">
-          <div className="text-6xl mb-4">🎉</div>
-          <h1 className="text-3xl font-bold text-text-primary mb-3">
-            Tack{firstName ? `, ${firstName}` : ""}!
-          </h1>
-          <p className="text-base text-text-secondary mb-8">
-            Din ansökan har skickats. Vi går igenom den och hör av oss via
-            telefon eller e-post inom kort.
-          </p>
-
-          <div className="bg-bg-white rounded-2xl border border-gray-100 shadow-sm p-6 text-left mb-8">
-            <h2 className="font-semibold text-text-primary mb-4">
-              Så går det till härnäst
-            </h2>
-            <div className="flex flex-col gap-4">
-              <div className="flex items-start gap-3">
-                <span className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
-                  1
-                </span>
-                <p className="text-sm text-text-secondary">
-                  Vi går igenom din ansökan och kollar om det finns elever som
-                  passar dina instrument och område.
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
-                  2
-                </span>
-                <p className="text-sm text-text-secondary">
-                  Om du går vidare hör vi av oss via telefon eller mejl för
-                  ett kort samtal.
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
-                  3
-                </span>
-                <p className="text-sm text-text-secondary">
-                  Svarstid kan variera beroende på hur många som söker just
-                  nu. Vill du vara extra förberedd kan du beställa ditt
-                  belastningsregister från Polisen.
-                </p>
-              </div>
-            </div>
+      <div className="flex-1 flex items-center justify-center px-6 py-12">
+        <div className="w-full max-w-3xl flex flex-col md:flex-row items-center gap-10 md:gap-16">
+          <div className="flex-1 text-center md:text-left">
+            <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4 leading-tight">
+              Vad kul att du vill jobba hos oss!
+            </h1>
+            <p className="text-lg text-[#444] mb-8">
+              Vi ringer upp dig inom de närmaste dagarna.
+            </p>
+            <a
+              href="https://www.musikgladjen.se/jobb"
+              className="inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-4 rounded-full hover:bg-primary/90 transition-colors text-base"
+            >
+              Till startsidan
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
           </div>
 
-          <a
-            href="https://www.musikgladjen.se/jobb"
-            className="text-sm text-text-secondary hover:text-primary underline transition-colors"
-          >
-            Tillbaka till musikgladjen.se
-          </a>
+          <div className="w-56 md:w-72 flex-shrink-0">
+            <img
+              src="/Musikglädjen 3.svg"
+              alt=""
+              aria-hidden="true"
+              className="w-full h-auto"
+            />
+          </div>
         </div>
       </div>
     </div>
