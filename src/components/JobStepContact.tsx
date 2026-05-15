@@ -13,6 +13,7 @@ interface JobStepContactProps {
   phone: string;
   email: string;
   howFound: string;
+  howFoundLocked?: boolean;
   onNameChange: (v: string) => void;
   onBirthYearChange: (v: string) => void;
   onAddressChange: (v: string) => void;
@@ -36,6 +37,7 @@ export default function JobStepContact({
   phone,
   email,
   howFound,
+  howFoundLocked = false,
   onNameChange,
   onBirthYearChange,
   onAddressChange,
@@ -246,37 +248,39 @@ export default function JobStepContact({
           {touched.email && errors.email && <p className={errorClass}>{errors.email}</p>}
         </div>
 
-        <div>
-          <label htmlFor="howFound" className={labelClass}>
-            Hur hittade du Musikglädjen?
-          </label>
-          <div className="relative">
-            <select
-              id="howFound"
-              value={howFound}
-              onChange={(e) => onHowFoundChange(e.target.value)}
-              className={selectClass}
-              style={{ color: howFound === "" ? "#9ca3af" : "" }}
-            >
-              <option value="" disabled>
-                Välj ett alternativ
-              </option>
-              {JOB_HOW_FOUND.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+        {!howFoundLocked && (
+          <div>
+            <label htmlFor="howFound" className={labelClass}>
+              Hur hittade du Musikglädjen?
+            </label>
+            <div className="relative">
+              <select
+                id="howFound"
+                value={howFound}
+                onChange={(e) => onHowFoundChange(e.target.value)}
+                className={selectClass}
+                style={{ color: howFound === "" ? "#9ca3af" : "" }}
+              >
+                <option value="" disabled>
+                  Välj ett alternativ
                 </option>
-              ))}
-            </select>
-            <svg
-              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+                {JOB_HOW_FOUND.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              <svg
+                className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <div className="mt-6 flex items-start gap-2.5 p-3.5 bg-gray-50 rounded-xl border border-gray-100">
