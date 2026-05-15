@@ -33,7 +33,7 @@ export default function StepWrapper({
 
   return (
     <div ref={containerRef} className="flex flex-col flex-1 min-h-0">
-      <div className="flex-1 px-4 pb-32">{children}</div>
+      <div className="flex-1 px-4 pt-8 pb-32">{children}</div>
 
       {showCta && (
         <div className="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.06)] p-4 z-20">

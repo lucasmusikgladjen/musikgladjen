@@ -73,7 +73,7 @@ export default function JobStepContact({
       ctaLoading={isSubmitting}
       subtext="Vi kontaktar dig via telefon eller e-post inom kort."
     >
-      <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">
+      <h2 className="text-2xl font-bold text-text-primary mb-6">
         Kontaktuppgifter
       </h2>
 
@@ -197,23 +197,33 @@ export default function JobStepContact({
           <label htmlFor="howFound" className={labelClass}>
             Hur hittade du Musikglädjen?
           </label>
-          <select
-            id="howFound"
-            value={howFound}
-            onChange={(e) => onHowFoundChange(e.target.value)}
-            className={`w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors appearance-none ${
-              howFound === "" ? "text-gray-400" : "text-text-primary"
-            }`}
-          >
-            <option value="" disabled>
-              Välj ett alternativ
-            </option>
-            {JOB_HOW_FOUND.map((option) => (
-              <option key={option} value={option} className="text-text-primary">
-                {option}
+          <div className="relative">
+            <select
+              id="howFound"
+              value={howFound}
+              onChange={(e) => onHowFoundChange(e.target.value)}
+              className={`w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors appearance-none ${
+                howFound === "" ? "text-gray-400" : "text-text-primary"
+              }`}
+            >
+              <option value="" disabled>
+                Välj ett alternativ
               </option>
-            ))}
-          </select>
+              {JOB_HOW_FOUND.map((option) => (
+                <option key={option} value={option} className="text-text-primary">
+                  {option}
+                </option>
+              ))}
+            </select>
+            <svg
+              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
         </div>
       </div>
 
