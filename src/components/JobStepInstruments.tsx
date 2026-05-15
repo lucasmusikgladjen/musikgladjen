@@ -35,11 +35,10 @@ export default function JobStepInstruments({
       ctaDisabled={value.length === 0}
       showBack={false}
     >
-      <h2 className="text-2xl font-bold text-text-primary mb-1">
-        Vilka instrument kan du undervisa i?
-      </h2>
+      <h2 className="text-2xl font-bold text-text-primary mb-1">Instrument</h2>
       <p className="text-sm text-text-secondary mb-5">
-        Kryssa i alla instrument du kan spela, inte bara ditt huvudinstrument.
+        Vilka instrument kan du undervisa i? Kryssa i alla du kan spela, inte
+        bara ditt huvudinstrument.
       </p>
 
       <div className="grid grid-cols-2 gap-2">
