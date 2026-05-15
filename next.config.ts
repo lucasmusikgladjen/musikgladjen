@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         destination: "/jobb/ansok",
         permanent: false,
       },
+      {
+        source: "/anmalan",
+        destination: "/jobb/ansok",
+        permanent: false,
+      },
     ];
   },
 };
