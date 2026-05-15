@@ -74,27 +74,27 @@ export default function JobStepJobDetails({
         <p className="text-xs text-text-secondary mb-2">
           Skriv ett område och tryck Lägg till.
         </p>
-        <div className="flex gap-2">
-          <div
-            className="flex-1 min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] bg-bg-white transition-colors cursor-text focus-within:ring-2 focus-within:ring-primary/40 focus-within:border-primary"
-            onClick={() => document.getElementById("areas")?.focus()}
-          >
-            {areas.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium"
+        <div
+          className="min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] bg-bg-white transition-colors cursor-text focus-within:ring-2 focus-within:ring-primary/40 focus-within:border-primary"
+          onClick={() => document.getElementById("areas")?.focus()}
+        >
+          {areas.map((tag) => (
+            <span
+              key={tag}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium"
+            >
+              {tag}
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); removeTag(tag); }}
+                className="text-primary/60 hover:text-primary leading-none"
+                aria-label={`Ta bort ${tag}`}
               >
-                {tag}
-                <button
-                  type="button"
-                  onClick={(e) => { e.stopPropagation(); removeTag(tag); }}
-                  className="text-primary/60 hover:text-primary leading-none"
-                  aria-label={`Ta bort ${tag}`}
-                >
-                  ×
-                </button>
-              </span>
-            ))}
+                ×
+              </button>
+            </span>
+          ))}
+          <div className="flex items-center gap-1.5 flex-1 min-w-[80px]">
             <input
               id="areas"
               type="text"
@@ -103,18 +103,18 @@ export default function JobStepJobDetails({
               onKeyDown={handleAreaKeyDown}
               onBlur={() => { if (areaInput.trim()) addTag(areaInput); }}
               placeholder={areas.length === 0 ? "T.ex. Södermalm..." : ""}
-              className="flex-1 min-w-[80px] outline-none text-sm bg-transparent text-text-primary placeholder:text-gray-400 placeholder:text-sm"
+              className="flex-1 min-w-0 outline-none text-sm bg-transparent text-text-primary placeholder:text-gray-400 placeholder:text-sm"
             />
+            {areaInput.trim() && (
+              <button
+                type="button"
+                onClick={() => addTag(areaInput)}
+                className="flex-shrink-0 px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-semibold hover:bg-primary/20 transition-colors"
+              >
+                + Lägg till
+              </button>
+            )}
           </div>
-          {areaInput.trim() && (
-            <button
-              type="button"
-              onClick={() => addTag(areaInput)}
-              className="self-start flex-shrink-0 mt-1.5 px-2.5 py-1.5 rounded-lg bg-primary/10 text-primary text-xs font-semibold hover:bg-primary/20 transition-colors"
-            >
-              + Lägg till
-            </button>
-          )}
         </div>
       </div>
 
