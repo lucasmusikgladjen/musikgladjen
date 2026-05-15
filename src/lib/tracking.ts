@@ -52,8 +52,8 @@ export function getUserAgent(): string {
   return navigator.userAgent || "";
 }
 
-export function trackMetaLead(): void {
+export function trackMetaLead(eventId: string): void {
   if (typeof window !== "undefined" && typeof window.fbq === "function") {
-    window.fbq("track", "Lead");
+    window.fbq("track", "Lead", {}, { eventID: eventId });
   }
 }

@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createHash } from "crypto";
 
 const BASE_ID = "app1l4NwAMtwlTIUC";
 const TABLE_ID = "tblnJd5fEqh2qXC2R";
+const META_PIXEL_ID = "835715892143915";
+
+function sha256(value: string): string {
+  return createHash("sha256").update(value.trim().toLowerCase()).digest("hex");
+}
 
 export async function POST(req: NextRequest) {
   const data = await req.json();
@@ -64,6 +70,33 @@ export async function POST(req: NextRequest) {
     const error = await response.text();
     console.error("Airtable error:", error);
     return NextResponse.json({ success: false }, { status: 500 });
+  }
+
+  const accessToken = process.env.META_ACCESS_TOKEN;
+  if (accessToken) {
+    try {
+      await fetch(
+        `https://graph.facebook.com/v21.0/${META_PIXEL_ID}/events?access_token=${accessToken}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            data: [{
+              event_name: "Lead",
+              event_time: Math.floor(Date.now() / 1000),
+              action_source: "website",
+              event_id: data.eventId,
+              user_data: {
+                em: data.email ? [sha256(data.email)] : undefined,
+                ph: data.phone ? [sha256(data.phone.replace(/\s+/g, ""))] : undefined,
+              },
+            }],
+          }),
+        }
+      );
+    } catch (err) {
+      console.error("Meta CAPI error:", err);
+    }
   }
 
   return NextResponse.json({ success: true });

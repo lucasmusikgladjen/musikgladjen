@@ -68,15 +68,17 @@ export default function JobApplicationForm({ onComplete }: JobApplicationFormPro
     setSubmitError(null);
 
     try {
+      const eventId = crypto.randomUUID();
+
       const res = await fetch("/api/jobb-ansokan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, eventId }),
       });
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-      trackMetaLead();
+      trackMetaLead(eventId);
       onComplete(formData);
     } catch (err) {
       console.error("Submit error:", err);
