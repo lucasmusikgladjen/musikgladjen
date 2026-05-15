@@ -75,7 +75,7 @@ export default function JobStepJobDetails({
     >
       <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">Om jobbet</h2>
 
-      <div className="mb-6">
+      <div className="mb-8">
         <label className="block text-sm font-semibold text-text-primary mb-1">
           Hur många elever kan du tänka dig att ta?{" "}
           <span className="text-error">*</span>
@@ -114,18 +114,14 @@ export default function JobStepJobDetails({
         </div>
       </div>
 
-      <div className="mb-6">
+      <div className="mb-8">
         <label
           htmlFor="areas"
-          className="block text-sm font-semibold text-text-primary mb-1"
+          className="block text-sm font-semibold text-text-primary mb-2"
         >
           I vilka områden kan du ta elever?{" "}
           <span className="text-error">*</span>
         </label>
-        <p className="text-xs text-text-secondary mb-2">
-          Skriv ett område och tryck Enter eller komma. Fundera gärna på om du
-          även kan ta elever längs vägen till eller från plugget.
-        </p>
         <div
           className="min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 bg-bg-white focus-within:border-gray-400 transition-colors cursor-text"
           onClick={() => document.getElementById("areas")?.focus()}

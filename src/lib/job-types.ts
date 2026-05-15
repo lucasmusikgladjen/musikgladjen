@@ -17,13 +17,13 @@ export interface JobFormData {
 }
 
 export const JOB_INSTRUMENTS = [
-  { name: "Piano", badge: "🔥 mest populärt bland elever" },
+  { name: "Piano", badge: "🔥 mest populärt" },
   { name: "Gitarr", badge: null },
   { name: "Sång", badge: null },
   { name: "Fiol", badge: null },
   { name: "Trummor", badge: null },
   { name: "Bas", badge: null },
-  { name: "Annat", badge: "skriv i fritext" },
+  { name: "Annat", badge: null },
 ];
 
 export const JOB_STUDENT_COUNTS = [

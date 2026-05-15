@@ -35,21 +35,6 @@ export default function JobStepInstruments({
       ctaDisabled={value.length === 0}
       showBack={false}
     >
-      <div className="flex items-start gap-3 bg-bg-white rounded-xl p-4 mb-6 border border-gray-100 shadow-sm animate-fade-in-up">
-        <div className="w-12 h-12 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center text-xl">
-          🎸
-        </div>
-        <div>
-          <p className="text-sm font-semibold text-text-primary">
-            Kul att du vill jobba hos oss!
-          </p>
-          <p className="text-sm text-text-secondary mt-0.5">
-            Svara på några snabba frågor så hör vi av oss inom kort. Det tar
-            bara 5 minuter.
-          </p>
-        </div>
-      </div>
-
       <h2 className="text-2xl font-bold text-text-primary mb-1">
         Vilka instrument kan du undervisa i?
       </h2>
@@ -65,15 +50,15 @@ export default function JobStepInstruments({
               key={name}
               type="button"
               onClick={() => toggle(name)}
-              className={`flex items-center gap-2.5 px-3 py-3 rounded-xl text-left transition-colors border ${
+              className={`flex items-center gap-2.5 px-3 py-3.5 rounded-xl text-left transition-all duration-200 border-2 ${
                 selected
-                  ? "border-gray-300 bg-gray-50"
-                  : "border-gray-200 bg-bg-white hover:border-gray-300 hover:bg-gray-50"
+                  ? "bg-accent-soft border-primary text-primary"
+                  : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
               }`}
             >
               <span
                 className={`w-4 h-4 rounded flex-shrink-0 border-2 flex items-center justify-center transition-all ${
-                  selected ? "bg-primary border-primary" : "border-gray-400"
+                  selected ? "bg-primary border-primary" : "border-gray-300"
                 }`}
               >
                 {selected && (
@@ -92,19 +77,19 @@ export default function JobStepInstruments({
                   </svg>
                 )}
               </span>
-              <div className="flex flex-col min-w-0">
-                <span className="text-sm font-medium text-text-primary">{name}</span>
-                {badge && (
-                  <span className="text-xs text-orange-600 truncate">{badge}</span>
-                )}
-              </div>
+              <span className="text-sm font-medium flex-1">{name}</span>
+              {badge && (
+                <span className="text-[11px] bg-orange-100 text-orange-700 px-1.5 py-0.5 rounded-full whitespace-nowrap flex-shrink-0 leading-tight">
+                  {badge}
+                </span>
+              )}
             </button>
           );
         })}
       </div>
 
       {showOtherField && (
-        <div className="mt-4 animate-fade-in-up">
+        <div className="mt-4">
           <label
             htmlFor="instrumentOther"
             className="block text-sm font-medium text-text-primary mb-1"

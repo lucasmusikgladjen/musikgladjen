@@ -36,13 +36,14 @@ export default function StepWrapper({
       <div className="flex-1 px-4 pb-28 md:pb-8 md:px-0">{children}</div>
 
       {showCta && (
-        <div className="fixed bottom-0 left-0 right-0 md:static md:mt-4 bg-white border-t border-border md:border-0 shadow-[0_-2px_8px_rgba(0,0,0,0.08)] md:shadow-none p-4 z-20">
-          <div className="max-w-[560px] mx-auto flex items-center gap-4">
+        <div className="fixed bottom-0 left-0 right-0 md:static md:mt-4 bg-white border-t border-border shadow-[0_-2px_8px_rgba(0,0,0,0.08)] md:shadow-none p-4 z-20">
+          <div className="max-w-[560px] mx-auto flex items-center gap-3">
             {showBack && onBack && (
               <button
                 type="button"
                 onClick={onBack}
-                className="flex items-center justify-center w-12 h-12 rounded-xl border-2 border-gray-200 text-text-secondary hover:border-primary/40 hover:text-text-primary transition-colors flex-shrink-0"
+                className="flex items-center justify-center flex-shrink-0 rounded-xl border-2 border-gray-200 text-text-secondary hover:border-primary/40 hover:text-text-primary transition-colors"
+                style={{ width: 56, height: 56 }}
                 aria-label="Tillbaka"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

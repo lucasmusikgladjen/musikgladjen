@@ -51,7 +51,7 @@ export default function JobStepAboutYou({
           onChange={(e) => onMusicExperienceChange(e.target.value)}
           placeholder="T.ex. hur länge du spelat, vilka genrer du gillar, om du tagit lektioner eller är självlärd..."
           rows={4}
-          className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-base bg-bg-white resize-none"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-base bg-bg-white resize-none focus:border-gray-400 transition-colors"
           maxLength={2000}
         />
         <p className="text-xs text-text-secondary mt-1 text-right">
@@ -67,16 +67,13 @@ export default function JobStepAboutYou({
           Berätta om dina erfarenheter med barn{" "}
           <span className="text-error">*</span>
         </label>
-        <p className="text-xs text-text-secondary mb-2">
-          T.ex. tränare, läxhjälp, syskon, barnvakt etc.
-        </p>
         <textarea
           id="childrenExp"
           value={childrenExperience}
           onChange={(e) => onChildrenExperienceChange(e.target.value)}
-          placeholder="Berätta kort om dina erfarenheter av att jobba med eller vara runt barn..."
+          placeholder="T.ex. tränare, läxhjälp, syskon, barnvakt — berätta kort om dina erfarenheter..."
           rows={4}
-          className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-base bg-bg-white resize-none"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-base bg-bg-white resize-none focus:border-gray-400 transition-colors"
           maxLength={2000}
         />
         <p className="text-xs text-text-secondary mt-1 text-right">
