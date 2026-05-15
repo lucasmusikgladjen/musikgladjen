@@ -17,10 +17,10 @@ export default function JobConfirmation({ data }: JobConfirmationProps) {
       <div className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-3xl flex flex-col md:flex-row items-center gap-10 md:gap-16">
           <div className="flex-1 text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4 leading-tight">
+            <h1 className="text-2xl font-bold text-text-primary mb-2">
               Vad kul att du vill jobba hos oss!
             </h1>
-            <p className="text-lg text-[#444] mb-8">
+            <p className="text-sm text-text-secondary mb-8">
               Vi ringer upp dig inom de närmaste dagarna.
             </p>
             <a
