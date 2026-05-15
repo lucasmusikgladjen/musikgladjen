@@ -42,8 +42,7 @@ export default function StepWrapper({
               <button
                 type="button"
                 onClick={onBack}
-                className="flex items-center justify-center flex-shrink-0 rounded-xl border border-gray-200 text-text-secondary hover:border-primary/40 hover:text-text-primary transition-colors"
-                style={{ width: 56, height: 56 }}
+                className="flex items-center justify-center flex-shrink-0 rounded-xl border border-gray-200 text-text-secondary hover:border-primary/40 hover:text-text-primary transition-colors w-11 h-11 sm:w-14 sm:h-14"
                 aria-label="Tillbaka"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,7 +54,7 @@ export default function StepWrapper({
               type="button"
               onClick={onNext}
               disabled={ctaDisabled || ctaLoading}
-              className="flex-1 bg-primary hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl text-base transition-all duration-200 flex items-center justify-center gap-2 min-h-[56px] shadow-lg shadow-primary/20"
+              className="flex-1 bg-primary hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3 sm:py-4 px-6 rounded-xl text-sm sm:text-base transition-all duration-200 flex items-center justify-center gap-2 min-h-[44px] sm:min-h-[56px] shadow-lg shadow-primary/20"
             >
               {ctaLoading ? (
                 <svg
