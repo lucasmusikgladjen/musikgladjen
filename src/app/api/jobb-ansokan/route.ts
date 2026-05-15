@@ -74,6 +74,26 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false }, { status: 500 });
     }
 
+    const airtableRecord = await response.json();
+    const recordId: string = airtableRecord.id;
+
+    const geocodeToken = process.env.GEOCODE_API_TOKEN;
+    if (geocodeToken && recordId) {
+      const address = `${toStartCase(data.address.trim())}, ${data.postnummer.trim()} ${toStartCase(data.city.trim())}`;
+      fetch("https://geocode-126597579756.europe-west1.run.app", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${geocodeToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          table: "Jobbansökningar",
+          record_id: recordId,
+          address,
+        }),
+      }).catch((err) => console.error("Geocoding error:", err));
+    }
+
     const accessToken = process.env.META_ACCESS_TOKEN;
     if (accessToken) {
       try {
