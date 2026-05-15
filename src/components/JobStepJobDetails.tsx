@@ -66,11 +66,14 @@ export default function JobStepJobDetails({
       <div className="mb-8">
         <label
           htmlFor="areas"
-          className="block text-sm font-semibold text-text-primary mb-2"
+          className="block text-sm font-semibold text-text-primary mb-1"
         >
           I vilka områden kan du ta elever?{" "}
           <span className="text-error">*</span>
         </label>
+        <p className="text-xs text-text-secondary mb-2">
+          Tryck Enter eller komma efter varje område.
+        </p>
         <div
           className="min-h-[48px] flex flex-wrap gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] bg-bg-white transition-colors cursor-text"
           onClick={() => document.getElementById("areas")?.focus()}
@@ -102,9 +105,6 @@ export default function JobStepJobDetails({
             className="flex-1 min-w-[120px] outline-none text-sm bg-transparent text-text-primary placeholder:text-gray-400"
           />
         </div>
-        <p className="text-xs text-text-secondary mt-1.5">
-          Tryck Enter eller komma efter varje område.
-        </p>
       </div>
 
       <div>
