@@ -102,7 +102,7 @@ export default function JobStepJobDetails({
             onKeyDown={handleAreaKeyDown}
             onBlur={() => { if (areaInput.trim()) addTag(areaInput); }}
             placeholder={areas.length === 0 ? "T.ex. Södermalm, Vasastan..." : ""}
-            className="flex-1 min-w-[120px] outline-none text-sm bg-transparent text-text-primary placeholder:text-gray-400"
+            className="flex-1 min-w-[120px] outline-none text-sm bg-transparent text-text-primary placeholder:text-gray-400 placeholder:text-sm"
           />
         </div>
       </div>

@@ -60,8 +60,10 @@ export default function JobStepContact({
     phone.trim().length >= 6 &&
     isValidEmail(email);
 
-  const inputClass =
-    "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-base bg-bg-white transition-colors placeholder:text-gray-400 placeholder:text-sm";
+  const fieldBase =
+    "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary bg-bg-white transition-colors";
+  const inputClass = `${fieldBase} text-base placeholder:text-gray-400 placeholder:text-sm`;
+  const selectClass = `${fieldBase} text-sm pr-10 appearance-none`;
   const labelClass = "block text-sm font-semibold text-text-primary mb-1";
 
   return (
@@ -199,7 +201,7 @@ export default function JobStepContact({
               id="howFound"
               value={howFound}
               onChange={(e) => onHowFoundChange(e.target.value)}
-              className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-base bg-bg-white transition-colors appearance-none"
+              className={selectClass}
               style={{ color: howFound === "" ? "#9ca3af" : "" }}
             >
               <option value="" disabled>
