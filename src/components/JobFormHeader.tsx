@@ -3,13 +3,16 @@
 export default function JobFormHeader() {
   return (
     <div className="w-full bg-gradient-to-r from-[#da3111] via-[#e8501a] to-[#da3111]">
-      <div className="relative text-center py-5 px-4">
-        <span className="text-2xl font-bold text-white tracking-tight">
-          Musikglädjen
-        </span>
+      <div className="relative flex items-center justify-center py-4 px-4">
+        <img
+          src="/musikgladjen-logotyp.svg"
+          alt="Musikglädjen"
+          className="h-8 w-auto"
+          style={{ filter: "brightness(0) invert(1)" }}
+        />
         <a
           href="https://musikgladjen.se/jobb"
-          className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors"
+          className="absolute right-4 text-white/70 hover:text-white transition-colors"
           aria-label="Stäng ansökan"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
