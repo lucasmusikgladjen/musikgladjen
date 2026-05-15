@@ -34,7 +34,7 @@ export default function JobConfirmation({ data }: JobConfirmationProps) {
             </a>
           </div>
 
-          <div className="w-56 md:w-72 flex-shrink-0">
+          <div className="w-32 md:w-44 flex-shrink-0">
             <img
               src="/Musikglädjen 3.svg"
               alt=""
