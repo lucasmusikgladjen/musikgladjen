@@ -53,7 +53,6 @@ export async function POST(req: NextRequest) {
         antalElever: data.studentCount,
         vadVillDuHaUtAvJobbet: Array.isArray(data.motivations) ? data.motivations : [],
         hurHittadeJobbet: data.howFound,
-        submittedAt: new Date().toISOString(),
       }),
     };
 
