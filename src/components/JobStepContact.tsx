@@ -61,7 +61,7 @@ export default function JobStepContact({
     isValidEmail(email);
 
   const inputClass =
-    "w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors placeholder:text-gray-400";
+    "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-sm outline-none text-base bg-bg-white focus:border-gray-400 transition-colors placeholder:text-gray-400";
   const labelClass = "block text-sm font-semibold text-text-primary mb-1";
 
   return (
@@ -71,7 +71,6 @@ export default function JobStepContact({
       ctaText="Skicka ansökan"
       ctaDisabled={!canSubmit}
       ctaLoading={isSubmitting}
-      subtext="Vi kontaktar dig via telefon eller e-post inom kort."
     >
       <h2 className="text-2xl font-bold text-text-primary mb-6">
         Kontaktuppgifter
@@ -200,7 +199,7 @@ export default function JobStepContact({
               id="howFound"
               value={howFound}
               onChange={(e) => onHowFoundChange(e.target.value)}
-              className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors appearance-none"
+              className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 shadow-sm outline-none text-base bg-bg-white focus:border-gray-400 transition-colors appearance-none"
               style={{ color: howFound === "" ? "#9ca3af" : "" }}
             >
               <option value="" disabled>
@@ -222,6 +221,34 @@ export default function JobStepContact({
             </svg>
           </div>
         </div>
+      </div>
+
+      <div className="mt-6 flex items-start gap-2.5 p-3.5 bg-gray-50 rounded-xl border border-gray-100">
+        <svg
+          className="w-4 h-4 text-text-secondary flex-shrink-0 mt-0.5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+          />
+        </svg>
+        <p className="text-xs text-text-secondary leading-relaxed">
+          Vi behandlar dina uppgifter säkert och i enlighet med vår{" "}
+          <a
+            href="https://www.musikgladjen.se/integritetspolicy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-text-primary transition-colors"
+          >
+            integritetspolicy
+          </a>
+          .
+        </p>
       </div>
 
       {submitError && (

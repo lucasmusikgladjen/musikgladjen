@@ -50,7 +50,7 @@ export default function JobStepInstruments({
               key={name}
               type="button"
               onClick={() => toggle(name)}
-              className={`flex items-center gap-2.5 px-3 py-3.5 rounded-xl text-left transition-all duration-200 border-2 ${
+              className={`flex items-center gap-2.5 px-3 py-3.5 rounded-xl text-left transition-all duration-200 border shadow-sm ${
                 selected
                   ? "bg-accent-soft border-primary text-primary"
                   : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
@@ -102,7 +102,7 @@ export default function JobStepInstruments({
             value={otherValue}
             onChange={(e) => onOtherChange(e.target.value)}
             placeholder="T.ex. ukulele, cello..."
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-sm outline-none text-base bg-bg-white focus:border-gray-400 transition-colors placeholder:text-gray-400"
             maxLength={100}
           />
         </div>

@@ -42,7 +42,7 @@ export default function StepWrapper({
               <button
                 type="button"
                 onClick={onBack}
-                className="flex items-center justify-center flex-shrink-0 rounded-xl border-2 border-gray-200 text-text-secondary hover:border-primary/40 hover:text-text-primary transition-colors"
+                className="flex items-center justify-center flex-shrink-0 rounded-xl border border-gray-200 shadow-sm text-text-secondary hover:border-primary/40 hover:text-text-primary transition-colors"
                 style={{ width: 56, height: 56 }}
                 aria-label="Tillbaka"
               >
