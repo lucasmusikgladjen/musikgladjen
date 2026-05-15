@@ -5,7 +5,7 @@ import { FormData } from "@/lib/types";
 import RegistrationForm from "@/components/RegistrationForm";
 import ConfirmationPage from "@/components/ConfirmationPage";
 
-export default function AnmalanPage() {
+export default function ElevPage() {
   const [completed, setCompleted] = useState(false);
   const [submittedData, setSubmittedData] = useState<FormData | null>(null);
   const [referralCode, setReferralCode] = useState<string | null>(null);
@@ -14,12 +14,10 @@ export default function AnmalanPage() {
     setSubmittedData(data);
     setReferralCode(refCode);
     setCompleted(true);
-    // Prevent back navigation to form
     window.history.pushState(null, "", window.location.href);
     window.addEventListener("popstate", () => {
       window.history.pushState(null, "", window.location.href);
     });
-    // Scroll to top
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

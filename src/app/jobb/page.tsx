@@ -5,7 +5,7 @@ import { JobFormData } from "@/lib/job-types";
 import JobApplicationForm from "@/components/JobApplicationForm";
 import JobConfirmation from "@/components/JobConfirmation";
 
-export default function JobbAnsokPage() {
+export default function JobbPage() {
   const [completed, setCompleted] = useState(false);
   const [submittedData, setSubmittedData] = useState<JobFormData | null>(null);
 
