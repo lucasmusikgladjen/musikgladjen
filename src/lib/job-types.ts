@@ -17,7 +17,7 @@ export interface JobFormData {
 }
 
 export const JOB_INSTRUMENTS = [
-  { name: "Piano", badge: "🔥 mest populärt" },
+  { name: "Piano", badge: "🔥 Mest populärt bland elever" },
   { name: "Gitarr", badge: null },
   { name: "Sång", badge: null },
   { name: "Fiol", badge: null },

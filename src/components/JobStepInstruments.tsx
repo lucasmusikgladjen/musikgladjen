@@ -79,7 +79,7 @@ export default function JobStepInstruments({
               </span>
               <span className="text-sm font-medium flex-1">{name}</span>
               {badge && (
-                <span className="text-[11px] bg-orange-100 text-orange-700 px-1.5 py-0.5 rounded-full whitespace-nowrap flex-shrink-0 leading-tight">
+                <span className="text-[10px] bg-orange-100 text-orange-700 px-2 py-1 rounded-full whitespace-nowrap flex-shrink-0 leading-tight font-medium">
                   {badge}
                 </span>
               )}

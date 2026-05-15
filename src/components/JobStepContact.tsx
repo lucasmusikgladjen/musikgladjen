@@ -79,36 +79,37 @@ export default function JobStepContact({
       <p className="text-sm text-text-secondary mb-6">Sista steget!</p>
 
       <div className="flex flex-col gap-4">
-        <div>
-          <label htmlFor="name" className={labelClass}>
-            För- och efternamn <span className="text-error">*</span>
-          </label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => onNameChange(e.target.value)}
-            placeholder="Anna Johansson"
-            className={inputClass}
-            autoComplete="name"
-            maxLength={100}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="birthYear" className={labelClass}>
-            Födelseår <span className="text-error">*</span>
-          </label>
-          <input
-            id="birthYear"
-            type="number"
-            value={birthYear}
-            onChange={(e) => onBirthYearChange(e.target.value)}
-            placeholder="2004"
-            className={inputClass}
-            min={1960}
-            max={2012}
-          />
+        <div className="grid grid-cols-[2fr_1fr] gap-3">
+          <div>
+            <label htmlFor="name" className={labelClass}>
+              För- och efternamn <span className="text-error">*</span>
+            </label>
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => onNameChange(e.target.value)}
+              placeholder="Anna Johansson"
+              className={inputClass}
+              autoComplete="name"
+              maxLength={100}
+            />
+          </div>
+          <div>
+            <label htmlFor="birthYear" className={labelClass}>
+              Födelseår <span className="text-error">*</span>
+            </label>
+            <input
+              id="birthYear"
+              type="number"
+              value={birthYear}
+              onChange={(e) => onBirthYearChange(e.target.value)}
+              placeholder="2004"
+              className={inputClass}
+              min={1960}
+              max={2012}
+            />
+          </div>
         </div>
 
         <div>
@@ -160,36 +161,37 @@ export default function JobStepContact({
           </div>
         </div>
 
-        <div>
-          <label htmlFor="phone" className={labelClass}>
-            Telefonnummer <span className="text-error">*</span>
-          </label>
-          <input
-            id="phone"
-            type="tel"
-            value={phone}
-            onChange={(e) => onPhoneChange(e.target.value)}
-            placeholder="070 123 45 67"
-            className={inputClass}
-            autoComplete="tel"
-            maxLength={20}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="email" className={labelClass}>
-            E-post <span className="text-error">*</span>
-          </label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => onEmailChange(e.target.value)}
-            placeholder="anna@example.com"
-            className={inputClass}
-            autoComplete="email"
-            maxLength={200}
-          />
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label htmlFor="phone" className={labelClass}>
+              Telefonnummer <span className="text-error">*</span>
+            </label>
+            <input
+              id="phone"
+              type="tel"
+              value={phone}
+              onChange={(e) => onPhoneChange(e.target.value)}
+              placeholder="070 123 45 67"
+              className={inputClass}
+              autoComplete="tel"
+              maxLength={20}
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className={labelClass}>
+              E-post <span className="text-error">*</span>
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => onEmailChange(e.target.value)}
+              placeholder="anna@example.com"
+              className={inputClass}
+              autoComplete="email"
+              maxLength={200}
+            />
+          </div>
         </div>
 
         <div>
@@ -200,11 +202,15 @@ export default function JobStepContact({
             id="howFound"
             value={howFound}
             onChange={(e) => onHowFoundChange(e.target.value)}
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors appearance-none"
+            className={`w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors appearance-none ${
+              howFound === "" ? "text-gray-400" : "text-text-primary"
+            }`}
           >
-            <option value="">Välj ett alternativ</option>
+            <option value="" disabled>
+              Välj ett alternativ
+            </option>
             {JOB_HOW_FOUND.map((option) => (
-              <option key={option} value={option}>
+              <option key={option} value={option} className="text-text-primary">
                 {option}
               </option>
             ))}
