@@ -200,15 +200,14 @@ export default function JobStepContact({
               id="howFound"
               value={howFound}
               onChange={(e) => onHowFoundChange(e.target.value)}
-              className={`w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors appearance-none ${
-                howFound === "" ? "text-gray-400" : "text-text-primary"
-              }`}
+              className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 outline-none text-base bg-bg-white focus:border-gray-400 transition-colors appearance-none"
+              style={{ color: howFound === "" ? "#666666" : "" }}
             >
               <option value="" disabled>
                 Välj ett alternativ
               </option>
               {JOB_HOW_FOUND.map((option) => (
-                <option key={option} value={option} className="text-text-primary">
+                <option key={option} value={option}>
                   {option}
                 </option>
               ))}
