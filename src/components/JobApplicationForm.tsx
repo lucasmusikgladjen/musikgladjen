@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
-import { JobFormData } from "@/lib/job-types";
+import { useSearchParams } from "next/navigation";
+import { JobFormData, JOB_HOW_FOUND } from "@/lib/job-types";
 import { trackMetaLead } from "@/lib/tracking";
 import JobFormHeader from "./JobFormHeader";
 import ProgressBar from "./ProgressBar";
@@ -18,6 +19,12 @@ interface JobApplicationFormProps {
 }
 
 export default function JobApplicationForm({ onComplete }: JobApplicationFormProps) {
+  const searchParams = useSearchParams();
+  const fromParam = searchParams.get("from") ?? "";
+  const lockedSource = JOB_HOW_FOUND.find(
+    (s) => s.toLowerCase() === fromParam.toLowerCase()
+  ) ?? "";
+
   const [step, setStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -39,7 +46,7 @@ export default function JobApplicationForm({ onComplete }: JobApplicationFormPro
     city: "",
     phone: "",
     email: "",
-    howFound: "",
+    howFound: lockedSource,
   });
 
   const updateField = useCallback(
@@ -168,6 +175,7 @@ export default function JobApplicationForm({ onComplete }: JobApplicationFormPro
               phone={formData.phone}
               email={formData.email}
               howFound={formData.howFound}
+              howFoundLocked={!!lockedSource}
               onNameChange={(v) => updateField("name", v)}
               onBirthYearChange={(v) => updateField("birthYear", v)}
               onAddressChange={(v) => updateField("address", v)}
