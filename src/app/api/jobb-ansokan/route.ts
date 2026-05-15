@@ -36,23 +36,24 @@ export async function POST(req: NextRequest) {
     const fields: Record<string, unknown> = {
       Namn: toStartCase(data.name.trim()),
       Födelseår: data.birthYear,
-      "E-post": data.email.trim().toLowerCase(),
-      Telefon: data.phone.trim(),
-      Adress: toStartCase(data.address.trim()),
-      Postnummer: data.postnummer.trim(),
-      Ort: toStartCase(data.city.trim()),
       Instrument: instrumentStr,
-      "Antal elever": data.studentCount,
-      Undervisningsområden: areasStr,
-      Musikerfarenheter: data.musicExperience.trim(),
-      "Erfarenheter med barn": data.childrenExperience.trim(),
-      "Hur hittade du oss?": data.howFound,
-      "Vad vill du ha ut av jobbet?": Array.isArray(data.motivations) ? data.motivations : [],
-      Kommentar: JSON.stringify(
-        { ...data, submittedAt: new Date().toISOString() },
-        null,
-        2
-      ),
+      Kontaktuppgifter: JSON.stringify({
+        email: data.email.trim().toLowerCase(),
+        telefon: data.phone.trim(),
+        adress: toStartCase(data.address.trim()),
+        postnummer: data.postnummer.trim(),
+        ort: toStartCase(data.city.trim()),
+      }),
+      Erfarenheter: JSON.stringify({
+        musikerfarenheter: data.musicExperience.trim(),
+        erfarenheterMedBarn: data.childrenExperience.trim(),
+      }),
+      Övrigt: JSON.stringify({
+        undervisningsomraden: areasStr,
+        antalElever: data.studentCount,
+        vadVillDuHaUtAvJobbet: Array.isArray(data.motivations) ? data.motivations : [],
+        hurHittadeJobbet: data.howFound,
+      }),
     };
 
     const response = await fetch(
