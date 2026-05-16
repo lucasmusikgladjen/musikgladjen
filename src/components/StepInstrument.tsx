@@ -44,7 +44,7 @@ export default function StepInstrument({
         Om de kan tänka sig spela flera så markera det. Ju fler instrument ni markerar desto snabbare kan vi hitta en lärare.
       </p>
 
-      <div className="grid grid-cols-2 gap-2.5 md:grid-cols-3">
+      <div className="grid grid-cols-2 gap-2.5">
         {INSTRUMENTS.map(({ name, emoji }) => {
           const selected = value.includes(name);
           return (
