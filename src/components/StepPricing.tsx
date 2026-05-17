@@ -24,14 +24,10 @@ function formatPrice(price: number): string {
 
 function getLessonLabel(length: string): string {
   switch (length) {
-    case "45-60":
-      return "45–60 min";
-    case "90":
-      return "90 min";
-    case "120":
-      return "120 min";
-    default:
-      return length;
+    case "45-60": return "45–60 min";
+    case "90": return "90 min";
+    case "120": return "120 min";
+    default: return length;
   }
 }
 
@@ -39,31 +35,7 @@ function getFrequencyLabel(freq: string): string {
   return freq === "weekly" ? "Varje vecka" : "Varannan vecka";
 }
 
-function PillButton({
-  selected,
-  onClick,
-  children,
-  className = "",
-}: {
-  selected: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`relative py-3 px-4 rounded-full text-sm font-semibold transition-all duration-200 min-h-[44px] ${
-        selected
-          ? "bg-gradient-to-b from-[#e8501a] to-[#da3111] text-white shadow-md shadow-primary/25"
-          : "bg-bg-white text-text-primary border border-gray-200 hover:border-primary/30 hover:shadow-sm"
-      } ${className}`}
-    >
-      {children}
-    </button>
-  );
-}
+const sectionLabel = "text-sm font-semibold text-text-primary mb-2.5";
 
 export default function StepPricing({
   frequency,
@@ -101,83 +73,96 @@ export default function StepPricing({
         Välj ert upplägg
       </h2>
 
-      {/* Frequency */}
+      {/* Hur ofta — wide display + Välj dropdown */}
       <div className="mb-5">
-        <p className="text-sm font-semibold text-text-primary mb-2.5">Hur ofta?</p>
-        <div className="flex gap-2">
-          <PillButton
-            selected={frequency === "weekly"}
-            onClick={() => onFrequencyChange("weekly")}
-            className="flex-1"
-          >
-            Varje vecka
-          </PillButton>
-          <PillButton
-            selected={frequency === "biweekly"}
-            onClick={() => onFrequencyChange("biweekly")}
-            className="flex-1"
-          >
-            Varannan vecka
-          </PillButton>
-        </div>
-      </div>
-
-      {/* Lesson length */}
-      <div className="mb-5">
-        <p className="text-sm font-semibold text-text-primary mb-2.5">Hur långa lektioner?</p>
-        <div className="flex gap-2">
-          {(["45-60", "90", "120"] as const).map((v) => (
-            <PillButton
-              key={v}
-              selected={lessonLength === v}
-              onClick={() => onLessonLengthChange(v)}
-              className="flex-1"
+        <p className={sectionLabel}>Hur ofta?</p>
+        <div className="flex gap-2 items-center">
+          <div className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-b from-[#e8501a] to-[#da3111] text-white text-center text-sm font-semibold shadow-md shadow-primary/20">
+            {getFrequencyLabel(frequency)}
+          </div>
+          <div className="relative flex-shrink-0">
+            <button
+              type="button"
+              className="flex items-center gap-1.5 py-3 px-4 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] text-sm font-medium text-text-primary bg-bg-white"
             >
-              {getLessonLabel(v)}
-            </PillButton>
-          ))}
+              Välj
+              <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <select
+              value={frequency}
+              onChange={(e) => onFrequencyChange(e.target.value as "weekly" | "biweekly")}
+              className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+            >
+              <option value="weekly">Varje vecka</option>
+              <option value="biweekly">Varannan vecka</option>
+            </select>
+          </div>
         </div>
       </div>
 
-      {/* Start preference */}
-      <div className="mb-6">
-        <p className="text-sm font-semibold text-text-primary mb-2.5">När vill ni börja?</p>
+      {/* Hur långa lektioner — pill toggles */}
+      <div className="mb-5">
+        <p className={sectionLabel}>Hur långa lektioner?</p>
         <div className="flex gap-2">
-          {(["asap", "within_month", "next_term"] as const).map((v) => {
-            const labels: Record<string, string> = {
-              asap: "Direkt",
-              within_month: "Inom en månad",
-              next_term: "Nästa termin",
-            };
+          {(["45-60", "90", "120"] as const).map((v) => {
+            const selected = lessonLength === v;
             return (
-              <PillButton
+              <button
                 key={v}
-                selected={startPreference === v}
-                onClick={() => onStartPreferenceChange(v)}
-                className="flex-1"
+                type="button"
+                onClick={() => onLessonLengthChange(v)}
+                className={`flex-1 py-3 px-2 rounded-full text-sm font-semibold transition-all duration-200 min-h-[44px] ${
+                  selected
+                    ? "bg-gradient-to-b from-[#e8501a] to-[#da3111] text-white shadow-md shadow-primary/25"
+                    : "bg-bg-white text-text-primary border border-gray-200 hover:border-primary/30"
+                }`}
               >
-                {labels[v]}
-              </PillButton>
+                {getLessonLabel(v)}
+              </button>
             );
           })}
+        </div>
+      </div>
+
+      {/* När vill ni börja — dropdown */}
+      <div className="mb-6">
+        <p className={sectionLabel}>När vill ni börja?</p>
+        <div className="relative">
+          <select
+            value={startPreference}
+            onChange={(e) => onStartPreferenceChange(e.target.value as "asap" | "within_month" | "next_term")}
+            className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white text-text-primary focus:border-primary transition-colors appearance-none"
+          >
+            <option value="asap">Så snart som möjligt</option>
+            <option value="within_month">Inom en månad</option>
+            <option value="next_term">Nästa termin</option>
+          </select>
+          <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
       </div>
 
       {/* Price display */}
       <div className="bg-gradient-to-br from-white to-[#fef8f6] rounded-2xl p-6 text-center mb-5 border border-primary/15 shadow-sm">
         <p className="text-xs text-text-secondary mb-1 uppercase tracking-wide">Ert månadspris</p>
-        <p className="text-4xl font-extrabold text-text-primary price-transition">
+        <p className="text-4xl font-extrabold text-text-primary">
           {formatPrice(price)} <span className="text-lg font-semibold text-text-secondary">kr/mån</span>
         </p>
         <p className="text-sm text-text-secondary mt-2">
           {getLessonLabel(lessonLength)} · {getFrequencyLabel(frequency)}
         </p>
-        <p className="text-xs text-success font-semibold mt-1">
-          ✓ Ingen bindningstid
+        <p className="flex items-center justify-center gap-1 text-xs text-success font-semibold mt-1.5">
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+          </svg>
+          Ingen bindningstid
         </p>
       </div>
 
-      {/* Expectations / objection handling */}
+      {/* Expectations */}
       <div className="mb-4">
         <p className="text-sm font-semibold text-text-primary mb-2">
           Vad hoppas ni få ut av undervisningen?
