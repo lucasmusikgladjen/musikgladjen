@@ -40,18 +40,16 @@ export default function ElevNonStepInstrument({
       ctaText="Nästa"
       ctaDisabled={false}
     >
-      <div className="flex items-start gap-3 mb-6 pb-6 border-b border-gray-100">
-        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-          <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+      <div className="mb-6 pb-6 border-b border-gray-100">
+        <p className="flex items-center gap-1.5 text-sm font-semibold text-text-primary mb-0.5">
+          <svg className="w-4 h-4 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
           </svg>
-        </div>
-        <div>
-          <p className="text-sm font-semibold text-text-primary">En personlig lärare till ert barn</p>
-          <p className="text-sm text-text-secondary mt-0.5">
-            Läraren anpassar varje lektion efter barnets nivå och intressen, oavsett om det är Minecraft-melodier eller Mozart.
-          </p>
-        </div>
+          En personlig lärare till ert barn
+        </p>
+        <p className="text-sm text-text-secondary pl-[22px]">
+          Läraren anpassar varje lektion efter barnets nivå och intressen, oavsett om det är Minecraft-melodier eller Mozart.
+        </p>
       </div>
 
       <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">
