@@ -24,7 +24,7 @@ export default function ElevNonStepGrade({
           className="w-20 rounded-xl object-cover flex-shrink-0"
         />
         <div className="flex flex-col justify-center">
-          <p className="text-sm font-semibold text-text-secondary mb-0.5">Hej och välkommen!</p>
+          <p className="text-sm font-semibold text-gray-600 mb-0.5">Hej och välkommen!</p>
           <p className="text-sm text-text-secondary">
             Jag heter Loka och jobbar med att hitta rätt lärare till er. När du skickat in anmälan är det jag som hör av mig.
           </p>
