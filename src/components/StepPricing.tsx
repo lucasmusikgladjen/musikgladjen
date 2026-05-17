@@ -16,7 +16,6 @@ interface StepPricingProps {
   onBack: () => void;
   isSubmitting: boolean;
   submitError: string | null;
-  greenFrequencyPill?: boolean;
 }
 
 function formatPrice(price: number): string {
@@ -51,7 +50,6 @@ export default function StepPricing({
   onBack,
   isSubmitting,
   submitError,
-  greenFrequencyPill = false,
 }: StepPricingProps) {
   const price = PRICE_TABLE[lessonLength]?.[frequency] ?? 0;
 
@@ -78,13 +76,13 @@ export default function StepPricing({
         {/* Hur ofta */}
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur ofta?</p>
-          <div className={`relative flex items-center rounded-full border border-gray-200 ${greenFrequencyPill ? "overflow-hidden" : "p-1"}`}>
-            <div className={`flex-1 bg-[#8B1A00] text-white text-center text-sm font-semibold ${greenFrequencyPill ? "rounded-r-full self-stretch flex items-center justify-center py-2.5 px-5" : "rounded-full py-2.5 px-5"}`}>
+          <div className="relative flex items-center rounded-full border border-gray-200 p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+            <div className="flex-1 bg-[#8B1A00] text-white rounded-full py-2.5 px-5 text-center text-sm font-semibold">
               {getFrequencyLabel(frequency)}
             </div>
-            <button type="button" className={`flex-shrink-0 px-4 py-2 text-sm font-semibold text-[#8B1A00] flex items-center gap-1.5 ${greenFrequencyPill ? "bg-transparent" : "bg-white"}`}>
+            <button type="button" className="flex-shrink-0 px-4 py-2 bg-white text-sm font-semibold text-gray-500 flex items-center gap-1.5">
               Välj
-              <svg className="w-3 h-3 text-[#8B1A00]/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
@@ -102,7 +100,7 @@ export default function StepPricing({
         {/* Hur långa lektioner */}
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur långa lektioner?</p>
-          <div className="flex gap-1 rounded-full border border-gray-200 p-1">
+          <div className="flex gap-1 rounded-full border border-gray-200 p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
             {(["45-60", "90", "120"] as const).map((v) => {
               const selected = lessonLength === v;
               return (
