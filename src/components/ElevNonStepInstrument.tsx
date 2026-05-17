@@ -40,8 +40,8 @@ export default function ElevNonStepInstrument({
       ctaText="Nästa"
       ctaDisabled={false}
     >
-      <div className="mb-6 pb-6 border-b border-gray-100">
-        <p className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 mb-0.5">
+      <div className="mb-4 pb-4 border-b border-gray-100">
+        <p className="flex items-center gap-1.5 text-sm font-semibold text-text-secondary mb-0.5">
           <svg className="w-4 h-4 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
           </svg>
