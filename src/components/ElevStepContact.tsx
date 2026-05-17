@@ -97,12 +97,12 @@ export default function ElevStepContact({
   const errorClass = "mt-1 text-xs text-error";
 
   return (
-    <StepWrapper onBack={onBack} onNext={handleNext} ctaText="Se ert pris & upplägg" gaStep="contact">
+    <StepWrapper onBack={onBack} onNext={handleNext} ctaText="Se ert pris & upplägg" gaStep="steg-4">
       <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">
         Kontaktuppgifter
       </h2>
 
-      <div className="flex flex-col gap-4" data-ga-step="contact">
+      <div className="flex flex-col gap-4" data-ga-step="steg-4">
         <div>
           <label htmlFor="guardianName" className={labelClass}>
             Vårdnadshavares namn <span className="text-error">*</span>

@@ -39,7 +39,7 @@ export default function ElevStepInstrument({
       onNext={onNext}
       ctaText="Nästa"
       ctaDisabled={false}
-      gaStep="instrument"
+      gaStep="steg-2"
     >
       <div className="mb-4 pb-4 border-b border-gray-100">
         <p className="flex items-center gap-1.5 text-sm font-semibold text-text-secondary mb-0.5">

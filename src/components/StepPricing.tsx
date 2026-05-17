@@ -81,7 +81,7 @@ export default function StepPricing({
       onNext={onSubmit}
       ctaText="Skicka anmälan"
       ctaLoading={isSubmitting}
-      gaStep="pricing"
+      gaStep="steg-5"
     >
       {/* Calculator card */}
       <div className="rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-5">

@@ -38,7 +38,7 @@ export default function ElevStepChildren({
   const labelClass = "block text-sm font-semibold text-text-primary mb-1";
 
   return (
-    <StepWrapper onBack={onBack} onNext={onNext} ctaText="Gå vidare" ctaDisabled={!canProceed} gaStep="children">
+    <StepWrapper onBack={onBack} onNext={onNext} ctaText="Gå vidare" ctaDisabled={!canProceed} gaStep="steg-3">
       <div className="mb-4 pb-4 border-b border-gray-100">
         <p className="flex items-center gap-1.5 text-sm font-semibold text-text-secondary mb-0.5">
           <svg className="w-4 h-4 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
