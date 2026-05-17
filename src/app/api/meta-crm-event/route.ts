@@ -10,7 +10,7 @@ function sha256(value: string): string {
 }
 
 export async function POST(req: NextRequest) {
-  const secret = process.env.AIRTABLE_WEBHOOK_SECRET;
+  const secret = process.env.AIRTABLE_FACEBOOK_WEBHOOK_SECRET;
   if (secret) {
     const authHeader = req.headers.get("x-webhook-secret");
     if (authHeader !== secret) {
