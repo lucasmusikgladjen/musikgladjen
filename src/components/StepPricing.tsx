@@ -126,35 +126,6 @@ export default function StepPricing({
         </div>
       </div>
 
-      {/* När vill ni börja — split button */}
-      <div className="mb-6">
-        <p className={sectionLabel}>När vill ni börja?</p>
-        <div className="flex rounded-xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.04)] border border-gray-200">
-          <div className="flex-1 py-3 px-4 bg-bg-white text-text-primary text-sm font-semibold flex items-center">
-            {{ asap: "Så snart som möjligt", within_month: "Inom en månad", next_term: "Nästa termin" }[startPreference]}
-          </div>
-          <div className="relative flex-shrink-0 border-l border-gray-200">
-            <button
-              type="button"
-              className="h-full px-4 bg-bg-white text-text-primary text-sm font-medium flex items-center gap-1.5"
-            >
-              Välj
-              <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <select
-              value={startPreference}
-              onChange={(e) => onStartPreferenceChange(e.target.value as "asap" | "within_month" | "next_term")}
-              className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
-            >
-              <option value="asap">Så snart som möjligt</option>
-              <option value="within_month">Inom en månad</option>
-              <option value="next_term">Nästa termin</option>
-            </select>
-          </div>
-        </div>
-      </div>
 
       {/* Price display */}
       <div className="bg-gradient-to-br from-white to-[#fef8f6] rounded-2xl p-6 text-center mb-5 border border-primary/15 shadow-sm">
