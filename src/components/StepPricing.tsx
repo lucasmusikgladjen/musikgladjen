@@ -67,43 +67,42 @@ export default function StepPricing({
       onNext={onSubmit}
       ctaText="Skicka anmälan"
       ctaLoading={isSubmitting}
-      subtext="Anmälan är inte bindande. Vi hör av oss inom kort."
+      ctaLarge
     >
-      <h2 className="text-xl font-bold text-text-primary mb-5 mt-2">
-        Välj ert upplägg
-      </h2>
-
       {/* Calculator card */}
-      <div className="rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-5">
+      <div className="rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-5 mt-2">
+
+        {/* Card header */}
+        <div className="px-4 py-3.5 border-b border-gray-100">
+          <h2 className="text-xl font-bold text-text-primary">Välj ert upplägg</h2>
+        </div>
 
         {/* Hur ofta */}
-        <div className="p-4 border-b border-dashed border-gray-200">
+        <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur ofta?</p>
-          <div className="flex rounded-full border border-[#8B1A00] overflow-hidden h-12">
-            <div className="flex-1 bg-[#8B1A00] text-white flex items-center justify-center text-sm font-semibold px-5">
+          <div className="relative flex items-center rounded-full border border-gray-200 bg-gray-50 p-1">
+            <div className="flex-1 bg-[#8B1A00] text-white rounded-full py-2.5 px-5 text-center text-sm font-semibold">
               {getFrequencyLabel(frequency)}
             </div>
-            <div className="relative flex-shrink-0">
-              <button type="button" className="h-full px-5 bg-white text-text-primary text-sm font-semibold flex items-center gap-1.5 border-l border-[#8B1A00]/20">
-                Välj
-                <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <select
-                value={frequency}
-                onChange={(e) => onFrequencyChange(e.target.value as "weekly" | "biweekly")}
-                className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
-              >
-                <option value="weekly">Varje vecka</option>
-                <option value="biweekly">Varannan vecka</option>
-              </select>
-            </div>
+            <button type="button" className="flex-shrink-0 px-4 text-sm font-semibold text-gray-600 flex items-center gap-1.5">
+              Välj
+              <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <select
+              value={frequency}
+              onChange={(e) => onFrequencyChange(e.target.value as "weekly" | "biweekly")}
+              className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+            >
+              <option value="weekly">Varje vecka</option>
+              <option value="biweekly">Varannan vecka</option>
+            </select>
           </div>
         </div>
 
         {/* Hur långa lektioner */}
-        <div className="p-4 border-b border-dashed border-gray-200">
+        <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur långa lektioner?</p>
           <div className="flex gap-2">
             {(["45-60", "90", "120"] as const).map((v) => {
@@ -128,7 +127,6 @@ export default function StepPricing({
 
         {/* Price */}
         <div className="px-5 py-6 text-center bg-[#fdf7f5]">
-          <p className="text-xs text-text-secondary mb-1 uppercase tracking-widest font-medium">Ert månadspris</p>
           <p className="text-5xl font-extrabold text-text-primary tracking-tight">
             {formatPrice(price)} <span className="text-xl font-semibold text-text-secondary">kr/mån</span>
           </p>

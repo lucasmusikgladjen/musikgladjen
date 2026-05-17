@@ -9,6 +9,7 @@ interface StepWrapperProps {
   ctaText: string;
   ctaDisabled?: boolean;
   ctaLoading?: boolean;
+  ctaLarge?: boolean;
   showBack?: boolean;
   showCta?: boolean;
   subtext?: string;
@@ -21,6 +22,7 @@ export default function StepWrapper({
   ctaText,
   ctaDisabled = false,
   ctaLoading = false,
+  ctaLarge = false,
   showBack = true,
   showCta = true,
   subtext,
@@ -54,7 +56,7 @@ export default function StepWrapper({
               type="button"
               onClick={onNext}
               disabled={ctaDisabled || ctaLoading}
-              className="flex-1 bg-primary hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3 sm:py-4 px-6 rounded-xl text-sm sm:text-base transition-all duration-200 flex items-center justify-center gap-2 min-h-[44px] sm:min-h-[56px] shadow-lg shadow-primary/20"
+              className={`flex-1 bg-primary hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-6 rounded-xl text-sm sm:text-base transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-primary/20 ${ctaLarge ? "py-4 sm:py-5 min-h-[52px] sm:min-h-[64px] text-base sm:text-lg" : "py-3 sm:py-4 min-h-[44px] sm:min-h-[56px]"}`}
             >
               {ctaLoading ? (
                 <svg
