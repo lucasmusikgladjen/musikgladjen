@@ -13,6 +13,7 @@ interface StepWrapperProps {
   showBack?: boolean;
   showCta?: boolean;
   subtext?: string;
+  gaStep?: string;
 }
 
 export default function StepWrapper({
@@ -26,6 +27,7 @@ export default function StepWrapper({
   showBack = true,
   showCta = true,
   subtext,
+  gaStep,
 }: StepWrapperProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +36,7 @@ export default function StepWrapper({
   }, []);
 
   return (
-    <div ref={containerRef} className="flex flex-col flex-1 min-h-0">
+    <div ref={containerRef} className="flex flex-col flex-1 min-h-0" data-ga-step={gaStep}>
       <div className="flex-1 px-4 pt-8 pb-32">{children}</div>
 
       {showCta && (
@@ -44,6 +46,8 @@ export default function StepWrapper({
               <button
                 type="button"
                 onClick={onBack}
+                data-ga-action="back"
+                data-ga-step={gaStep}
                 className="flex items-center justify-center flex-shrink-0 rounded-xl border border-gray-200 text-text-secondary hover:border-primary/40 hover:text-text-primary transition-colors w-[52px] h-[52px] sm:w-[60px] sm:h-[60px]"
                 aria-label="Tillbaka"
               >
@@ -56,6 +60,8 @@ export default function StepWrapper({
               type="button"
               onClick={onNext}
               disabled={ctaDisabled || ctaLoading}
+              data-ga-action="next"
+              data-ga-step={gaStep}
               className={`flex-1 bg-primary hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-6 rounded-xl text-sm sm:text-base transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-primary/20 ${ctaLarge ? "py-4 sm:py-5 min-h-[52px] sm:min-h-[64px] text-base sm:text-lg" : "min-h-[52px] sm:min-h-[60px]"}`}
             >
               {ctaLoading ? (

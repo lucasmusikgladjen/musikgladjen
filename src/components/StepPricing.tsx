@@ -81,6 +81,7 @@ export default function StepPricing({
       onNext={onSubmit}
       ctaText="Skicka anmälan"
       ctaLoading={isSubmitting}
+      gaStep="pricing"
     >
       {/* Calculator card */}
       <div className="rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-5">
@@ -118,6 +119,8 @@ export default function StepPricing({
                     key={v}
                     type="button"
                     onClick={() => { onFrequencyChange(v); setFreqOpen(false); }}
+                    data-ga-item-type="frequency"
+                    data-ga-item-value={v}
                     className={`w-full px-5 py-3.5 text-left text-sm flex items-center justify-between transition-colors ${
                       frequency === v ? "text-[#8B1A00]" : "text-text-primary hover:bg-gray-50"
                     } ${i > 0 ? "border-t border-gray-100" : ""}`}
@@ -145,6 +148,8 @@ export default function StepPricing({
                   key={v}
                   type="button"
                   onClick={() => onLessonLengthChange(v)}
+                  data-ga-item-type="lesson_length"
+                  data-ga-item-value={v}
                   className={`flex-1 py-2.5 rounded-full text-sm font-semibold min-h-[44px] transition-colors duration-150 ${
                     selected
                       ? "bg-[#8B1A00] text-white"

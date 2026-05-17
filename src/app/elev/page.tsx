@@ -1,18 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { FormData } from "@/lib/types";
-import RegistrationForm from "@/components/RegistrationForm";
-import ConfirmationPage from "@/components/ConfirmationPage";
+import { ElevFormData } from "@/lib/elev-types";
+import ElevRegistrationForm from "@/components/ElevRegistrationForm";
+import ElevConfirmation from "@/components/ElevConfirmation";
 
 export default function ElevPage() {
   const [completed, setCompleted] = useState(false);
-  const [submittedData, setSubmittedData] = useState<FormData | null>(null);
-  const [referralCode, setReferralCode] = useState<string | null>(null);
+  const [submittedData, setSubmittedData] = useState<ElevFormData | null>(null);
 
-  const handleComplete = (data: FormData, refCode: string | null) => {
+  const handleComplete = (data: ElevFormData) => {
     setSubmittedData(data);
-    setReferralCode(refCode);
     setCompleted(true);
     window.history.pushState(null, "", window.location.href);
     window.addEventListener("popstate", () => {
@@ -22,10 +20,8 @@ export default function ElevPage() {
   };
 
   if (completed && submittedData) {
-    return (
-      <ConfirmationPage data={submittedData} referralCode={referralCode} />
-    );
+    return <ElevConfirmation data={submittedData} />;
   }
 
-  return <RegistrationForm onComplete={handleComplete} />;
+  return <ElevRegistrationForm onComplete={handleComplete} />;
 }

@@ -1,10 +1,10 @@
 "use client";
 
-import { ElevNonFormData } from "@/lib/elev-non-types";
+import { ElevFormData } from "@/lib/elev-types";
 import { INSTRUMENTS } from "@/lib/types";
 
-interface ElevNonConfirmationProps {
-  data: ElevNonFormData;
+interface ElevConfirmationProps {
+  data: ElevFormData;
 }
 
 function getInstrumentEmoji(name: string): string {
@@ -19,7 +19,7 @@ const GRADE_EMOJIS: Record<string, string> = {
   Äldre: "🎓",
 };
 
-export default function ElevNonConfirmation({ data }: ElevNonConfirmationProps) {
+export default function ElevConfirmation({ data }: ElevConfirmationProps) {
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-start px-4 py-12">
       <div className="w-full max-w-[480px]">
