@@ -162,32 +162,12 @@ export default function StepPricing({
         </p>
       </div>
 
-      {/* Expectations */}
-      <div className="mb-4">
-        <p className="text-sm font-semibold text-text-primary mb-2">
-          Vad hoppas ni få ut av undervisningen?
-          <span className="text-text-secondary font-normal text-xs ml-1">(frivilligt)</span>
+      {/* Next steps */}
+      <div className="mb-4 pt-2">
+        <p className="text-sm font-semibold text-text-primary mb-1">Vad händer när du skickat?</p>
+        <p className="text-sm text-text-secondary leading-relaxed">
+          Vi hör av oss så snart vi gått igenom er anmälan och börjar leta efter en passande lärare. Ni bokar tillsammans in en första lektion och fortsätter bara om det känns rätt!
         </p>
-        <div className="space-y-2">
-          {EXPECTATIONS.map((exp) => (
-            <label
-              key={exp}
-              className={`flex items-center gap-3 py-2.5 px-3 rounded-lg cursor-pointer transition-all duration-150 border ${
-                expectations.includes(exp)
-                  ? "bg-accent-soft border-primary/20"
-                  : "bg-transparent border-transparent hover:bg-accent-soft/50"
-              }`}
-            >
-              <input
-                type="checkbox"
-                checked={expectations.includes(exp)}
-                onChange={() => toggleExpectation(exp)}
-                className="h-4 w-4 rounded border-gray-300 text-primary accent-primary flex-shrink-0"
-              />
-              <span className="text-sm text-text-primary">{exp}</span>
-            </label>
-          ))}
-        </div>
       </div>
 
       {submitError && (
