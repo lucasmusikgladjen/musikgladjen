@@ -33,6 +33,7 @@ export default function ElevNonRegistrationForm({ onComplete }: ElevNonRegistrat
     guardianName: "",
     address: "",
     postalCode: "",
+    city: "",
     phone: "",
     email: "",
     comment: "",
@@ -199,6 +200,7 @@ export default function ElevNonRegistrationForm({ onComplete }: ElevNonRegistrat
                 guardianName: formData.guardianName,
                 address: formData.address,
                 postalCode: formData.postalCode,
+                city: formData.city,
                 phone: formData.phone,
                 email: formData.email,
               }}

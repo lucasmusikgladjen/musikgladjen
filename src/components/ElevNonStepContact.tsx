@@ -102,13 +102,19 @@ export default function ElevNonStepContact({
             {errors.postalCode && <p className={errorClass}>{errors.postalCode.message}</p>}
           </div>
           <div>
-            <label className={labelClass}>Ort</label>
+            <label htmlFor="city" className={labelClass}>
+              Ort <span className="text-error">*</span>
+            </label>
             <input
+              id="city"
               type="text"
               placeholder="Stockholm"
-              disabled
-              className="w-full px-4 py-3 rounded-xl border border-gray-100 text-base bg-gray-50 text-gray-400 placeholder:text-gray-300 cursor-not-allowed"
+              autoComplete="address-level2"
+              maxLength={100}
+              {...register("city")}
+              className={inputClass(!!errors.city)}
             />
+            {errors.city && <p className={errorClass}>{errors.city.message}</p>}
           </div>
         </div>
 

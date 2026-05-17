@@ -59,7 +59,7 @@ export default function ElevNonStepChildren({
               </div>
             )}
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
               <div>
                 <label htmlFor={`name-${i}`} className={labelClass}>
                   Elevens namn <span className="text-error">*</span>

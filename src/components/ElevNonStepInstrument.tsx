@@ -72,7 +72,6 @@ export default function ElevNonStepInstrument({
                   </svg>
                 )}
               </span>
-              <span className="text-xl flex-shrink-0">{emoji}</span>
               <span className="text-sm font-medium">{name}</span>
             </button>
           );

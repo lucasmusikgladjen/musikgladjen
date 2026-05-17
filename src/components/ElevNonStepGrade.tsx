@@ -8,13 +8,7 @@ interface ElevNonStepGradeProps {
   onNext: () => void;
 }
 
-const GRADES_WITH_EMOJI = [
-  { grade: "Förskola", emoji: "🧸" },
-  { grade: "Lågstadiet", emoji: "🎒" },
-  { grade: "Mellanstadiet", emoji: "📚" },
-  { grade: "Högstadiet", emoji: "📐" },
-  { grade: "Äldre", emoji: "🎓" },
-];
+const GRADES = ["Förskola", "Lågstadiet", "Mellanstadiet", "Högstadiet", "Äldre"];
 
 export default function ElevNonStepGrade({
   grade,
@@ -41,7 +35,7 @@ export default function ElevNonStepGrade({
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-        {GRADES_WITH_EMOJI.map(({ grade: g, emoji }) => {
+        {GRADES.map((g) => {
           const selected = grade === g;
           return (
             <button
@@ -61,7 +55,6 @@ export default function ElevNonStepGrade({
               >
                 {selected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
               </span>
-              <span className="text-xl flex-shrink-0">{emoji}</span>
               <span className="text-sm font-medium">{g}</span>
             </button>
           );

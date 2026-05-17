@@ -31,6 +31,11 @@ export const elevNonContactSchema = z.object({
   postalCode: z
     .string()
     .regex(/^\d{5}$/, "Ange ett giltigt postnummer (5 siffror)"),
+  city: z
+    .string()
+    .min(1, "Ange ort")
+    .max(100)
+    .transform(sanitize),
   phone: z
     .string()
     .regex(/^(\+46|0)[1-9]\d{6,11}$/, "Ange ett giltigt telefonnummer"),
@@ -48,6 +53,7 @@ export type ElevNonFormData = {
   guardianName: string;
   address: string;
   postalCode: string;
+  city: string;
   phone: string;
   email: string;
   comment: string;
