@@ -77,14 +77,14 @@ export default function StepPricing({
       <div className="rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-5">
 
         {/* Hur ofta */}
-        <div className="p-4 border-b border-gray-100">
+        <div className="p-4 border-b border-dashed border-gray-200">
           <p className={sectionLabel}>Hur ofta?</p>
-          <div className="flex rounded-xl overflow-hidden border border-[#8B1A00] shadow-sm">
-            <div className="flex-1 py-3 px-4 bg-[#8B1A00] text-white text-center text-sm font-semibold flex items-center justify-center">
+          <div className="flex rounded-full border border-[#8B1A00] overflow-hidden h-12">
+            <div className="flex-1 bg-[#8B1A00] text-white flex items-center justify-center text-sm font-semibold px-5">
               {getFrequencyLabel(frequency)}
             </div>
-            <div className="relative flex-shrink-0 border-l border-[#8B1A00]/30">
-              <button type="button" className="h-full px-4 bg-bg-white text-text-primary text-sm font-medium flex items-center gap-1.5">
+            <div className="relative flex-shrink-0">
+              <button type="button" className="h-full px-5 bg-white text-text-primary text-sm font-semibold flex items-center gap-1.5 border-l border-[#8B1A00]/20">
                 Välj
                 <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
@@ -103,7 +103,7 @@ export default function StepPricing({
         </div>
 
         {/* Hur långa lektioner */}
-        <div className="p-4 border-b border-gray-100">
+        <div className="p-4 border-b border-dashed border-gray-200">
           <p className={sectionLabel}>Hur långa lektioner?</p>
           <div className="flex gap-2">
             {(["45-60", "90", "120"] as const).map((v) => {
@@ -113,10 +113,10 @@ export default function StepPricing({
                   key={v}
                   type="button"
                   onClick={() => onLessonLengthChange(v)}
-                  className={`flex-1 py-3 px-2 rounded-xl text-sm font-semibold transition-all duration-200 min-h-[44px] ${
+                  className={`flex-1 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 min-h-[44px] ${
                     selected
                       ? "bg-[#8B1A00] text-white shadow-sm"
-                      : "bg-white text-text-primary border border-gray-200 hover:border-primary/30"
+                      : "bg-white text-gray-500 border border-gray-200 hover:border-[#8B1A00]/30"
                   }`}
                 >
                   {getLessonLabel(v)}
@@ -127,15 +127,15 @@ export default function StepPricing({
         </div>
 
         {/* Price */}
-        <div className="p-5 text-center bg-gradient-to-br from-white to-[#fef8f6]">
-          <p className="text-xs text-text-secondary mb-1 uppercase tracking-wide">Ert månadspris</p>
-          <p className="text-4xl font-extrabold text-text-primary">
-            {formatPrice(price)} <span className="text-lg font-semibold text-text-secondary">kr/mån</span>
+        <div className="px-5 py-6 text-center bg-[#fdf7f5]">
+          <p className="text-xs text-text-secondary mb-1 uppercase tracking-widest font-medium">Ert månadspris</p>
+          <p className="text-5xl font-extrabold text-text-primary tracking-tight">
+            {formatPrice(price)} <span className="text-xl font-semibold text-text-secondary">kr/mån</span>
           </p>
           <p className="text-sm text-text-secondary mt-2">
             {getLessonLabel(lessonLength)} · {getFrequencyLabel(frequency)}
           </p>
-          <p className="flex items-center justify-center gap-1 text-xs text-success font-semibold mt-1.5">
+          <p className="flex items-center justify-center gap-1 text-xs text-success font-semibold mt-2">
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
             </svg>
