@@ -21,7 +21,7 @@ export default function ElevNonStepGrade({
         <img
           src="/loka.jpeg"
           alt="Loka"
-          className="w-16 rounded-xl object-cover flex-shrink-0"
+          className="aspect-square rounded-xl object-cover flex-shrink-0"
         />
         <div className="flex flex-col justify-center">
           <p className="text-sm font-semibold text-text-secondary mb-0.5">Hej och välkommen!</p>
