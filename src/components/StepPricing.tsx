@@ -76,11 +76,11 @@ export default function StepPricing({
         {/* Hur ofta */}
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur ofta?</p>
-          <div className="relative flex rounded-full border border-gray-200 overflow-hidden">
-            <div className="flex-1 bg-[#8B1A00] text-white flex items-center justify-center py-3 px-5 text-sm font-semibold">
+          <div className="relative flex items-center rounded-full border border-gray-200 p-1">
+            <div className="flex-1 bg-[#8B1A00] text-white rounded-full py-2.5 px-5 text-center text-sm font-semibold">
               {getFrequencyLabel(frequency)}
             </div>
-            <button type="button" className="flex-shrink-0 px-5 py-3 bg-white text-sm font-semibold text-[#8B1A00] flex items-center gap-1.5">
+            <button type="button" className="flex-shrink-0 px-4 py-2 bg-white text-sm font-semibold text-[#8B1A00] flex items-center gap-1.5">
               Välj
               <svg className="w-3 h-3 text-[#8B1A00]/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
@@ -130,7 +130,7 @@ export default function StepPricing({
             {getLessonLabel(lessonLength)} · {getFrequencyLabel(frequency)}
           </p>
           <p className="flex items-center justify-center gap-1 text-sm text-text-secondary mt-0.5">
-            <svg className="w-3.5 h-3.5 text-success flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-3.5 h-3.5 text-text-secondary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
             </svg>
             Ingen bindningstid
