@@ -102,7 +102,7 @@ export default function StepPricing({
         {/* Hur långa lektioner */}
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur långa lektioner?</p>
-          <div className="flex rounded-full border border-gray-200 overflow-hidden">
+          <div className="flex rounded-full border border-gray-200">
             {(["45-60", "90", "120"] as const).map((v, i) => {
               const selected = lessonLength === v;
               return (
@@ -111,6 +111,8 @@ export default function StepPricing({
                   type="button"
                   onClick={() => onLessonLengthChange(v)}
                   className={`flex-1 py-2.5 text-sm font-semibold min-h-[44px] transition-colors duration-150 ${
+                    i === 0 ? "rounded-l-full" : i === 2 ? "rounded-r-full" : ""
+                  } ${
                     i < 2 ? "border-r border-gray-200" : ""
                   } ${
                     selected
