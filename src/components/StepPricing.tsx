@@ -76,7 +76,7 @@ export default function StepPricing({
         {/* Hur ofta */}
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur ofta?</p>
-          <div className="relative flex items-center rounded-full border border-[#8B1A00] p-1">
+          <div className="relative flex items-center rounded-full border border-gray-200 p-1">
             <div className="flex-1 bg-[#8B1A00] text-white rounded-full py-2.5 px-5 text-center text-sm font-semibold">
               {getFrequencyLabel(frequency)}
             </div>
@@ -129,7 +129,12 @@ export default function StepPricing({
           <p className="text-sm text-text-secondary mt-2">
             {getLessonLabel(lessonLength)} · {getFrequencyLabel(frequency)}
           </p>
-          <p className="text-sm text-text-secondary mt-0.5">Ingen bindningstid</p>
+          <p className="flex items-center justify-center gap-1 text-sm text-text-secondary mt-0.5">
+            <svg className="w-3.5 h-3.5 text-success flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+            </svg>
+            Ingen bindningstid
+          </p>
         </div>
 
       </div>
