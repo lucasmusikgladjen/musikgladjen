@@ -145,11 +145,29 @@ export default function StepPricing({
       </div>
 
       {/* Next steps */}
-      <div className="mt-2 pt-4 border-t border-gray-100 mb-4">
-        <p className="text-sm font-semibold text-text-secondary mb-1">Vad händer när du skickat in?</p>
-        <p className="text-sm text-text-secondary leading-relaxed">
-          Vi hör av oss så snart vi gått igenom er anmälan och börjar leta efter en passande lärare. Ni bokar tillsammans in en första lektion och fortsätter bara om det känns rätt.
-        </p>
+      <div className="mt-2 pt-4 border-t border-gray-100 mb-4 flex flex-col gap-4">
+        <div>
+          <p className="text-sm font-semibold text-text-secondary mb-0.5">Vad händer när du skickat in?</p>
+          <p className="text-sm text-text-secondary leading-relaxed">
+            Vi hör av oss så snart vi gått igenom er anmälan och börjar leta efter en passande lärare.
+          </p>
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-text-secondary mb-0.5">Första lektionen</p>
+          <p className="text-sm text-text-secondary leading-relaxed">
+            Ni bokar tillsammans in en första lektion och fortsätter bara om det känns rätt.
+          </p>
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-text-secondary mb-0.5">Frågor?</p>
+          <p className="text-sm text-text-secondary leading-relaxed">
+            Hör gärna av dig till mig på{" "}
+            <a href="mailto:hej@musikgladjen.se" className="text-primary underline-offset-2 hover:underline">
+              hej@musikgladjen.se
+            </a>
+            {" "}så hjälper vi dig.
+          </p>
+        </div>
       </div>
 
       {submitError && (
