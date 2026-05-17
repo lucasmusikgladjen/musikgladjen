@@ -76,26 +76,24 @@ export default function StepPricing({
         {/* Hur ofta */}
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur ofta?</p>
-          <div className="flex rounded-full overflow-hidden border border-[#8B1A00]">
-            <div className="flex-1 bg-[#8B1A00] text-white flex items-center justify-center py-3 text-sm font-semibold">
+          <div className="relative flex items-center rounded-full border border-[#8B1A00] p-1">
+            <div className="flex-1 bg-[#8B1A00] text-white rounded-full py-2.5 px-5 text-center text-sm font-semibold">
               {getFrequencyLabel(frequency)}
             </div>
-            <div className="relative flex-shrink-0">
-              <button type="button" className="h-full px-5 bg-white flex items-center gap-1.5 text-sm font-semibold text-text-primary">
-                Välj
-                <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <select
-                value={frequency}
-                onChange={(e) => onFrequencyChange(e.target.value as "weekly" | "biweekly")}
-                className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
-              >
-                <option value="weekly">Varje vecka</option>
-                <option value="biweekly">Varannan vecka</option>
-              </select>
-            </div>
+            <button type="button" className="flex-shrink-0 px-4 py-2 text-sm font-semibold text-[#8B1A00] flex items-center gap-1.5">
+              Välj
+              <svg className="w-3 h-3 text-[#8B1A00]/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <select
+              value={frequency}
+              onChange={(e) => onFrequencyChange(e.target.value as "weekly" | "biweekly")}
+              className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+            >
+              <option value="weekly">Varje vecka</option>
+              <option value="biweekly">Varannan vecka</option>
+            </select>
           </div>
         </div>
 
@@ -128,18 +126,10 @@ export default function StepPricing({
           <p className="text-5xl font-extrabold text-text-primary tracking-tight">
             {formatPrice(price)} <span className="text-xl font-semibold text-text-secondary">kr/mån</span>
           </p>
-          <p className="flex items-center justify-center gap-1.5 text-sm text-text-secondary mt-2 flex-wrap">
-            <span>{getLessonLabel(lessonLength)}</span>
-            <span>·</span>
-            <span>{getFrequencyLabel(frequency)}</span>
-            <span>·</span>
-            <span className="text-success font-semibold flex items-center gap-0.5">
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-              </svg>
-              Ingen bindningstid
-            </span>
+          <p className="text-sm text-text-secondary mt-2">
+            {getLessonLabel(lessonLength)} · {getFrequencyLabel(frequency)}
           </p>
+          <p className="text-sm text-text-secondary mt-0.5">Ingen bindningstid</p>
         </div>
 
       </div>
