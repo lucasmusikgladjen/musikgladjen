@@ -52,13 +52,24 @@ export default function StepInstrument({
               key={name}
               type="button"
               onClick={() => toggle(name)}
-              className={`flex items-center gap-3 px-4 py-4 rounded-xl text-left transition-all duration-200 min-h-[56px] border-2 ${
+              className={`flex items-center gap-2.5 px-3 py-3.5 rounded-xl text-left transition-all duration-200 border shadow-[0_1px_2px_rgba(0,0,0,0.04)] ${
                 selected
-                  ? "bg-accent-soft border-primary text-primary ring-1 ring-primary"
+                  ? "bg-accent-soft border-primary text-primary"
                   : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
               }`}
             >
-              <span className="text-2xl flex-shrink-0">{emoji}</span>
+              <span
+                className={`w-4 h-4 rounded flex-shrink-0 border-2 flex items-center justify-center transition-all ${
+                  selected ? "bg-primary border-primary" : "border-gray-300"
+                }`}
+              >
+                {selected && (
+                  <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+              </span>
+              <span className="text-xl flex-shrink-0">{emoji}</span>
               <span className="text-sm font-medium">{name}</span>
             </button>
           );
