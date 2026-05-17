@@ -80,7 +80,7 @@ export default function StepPricing({
             <div className="flex-1 bg-[#8B1A00] text-white rounded-full py-2.5 px-5 text-center text-sm font-semibold">
               {getFrequencyLabel(frequency)}
             </div>
-            <button type="button" className="flex-shrink-0 px-4 py-2 bg-white text-sm font-semibold text-gray-500 flex items-center gap-1.5">
+            <button type="button" className="flex-shrink-0 px-4 py-2 bg-white rounded-full text-sm font-semibold text-gray-500 flex items-center gap-1.5">
               Välj
               <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
@@ -111,7 +111,7 @@ export default function StepPricing({
                   className={`flex-1 py-2.5 rounded-full text-sm font-semibold min-h-[44px] transition-colors duration-150 ${
                     selected
                       ? "bg-[#8B1A00] text-white"
-                      : "text-gray-500"
+                      : "bg-white text-gray-500"
                   }`}
                 >
                   {getLessonLabel(v)}
@@ -122,7 +122,7 @@ export default function StepPricing({
         </div>
 
         {/* Price */}
-        <div className="px-5 py-6 text-center bg-[#fdf7f5]">
+        <div className="px-5 py-6 text-center">
           <p className="text-5xl font-extrabold text-text-primary tracking-tight">
             {formatPrice(price)} <span className="text-xl font-semibold text-text-secondary">kr/mån</span>
           </p>
