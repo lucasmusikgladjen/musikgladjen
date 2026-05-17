@@ -16,6 +16,7 @@ interface StepPricingProps {
   onBack: () => void;
   isSubmitting: boolean;
   submitError: string | null;
+  greenFrequencyPill?: boolean;
 }
 
 function formatPrice(price: number): string {
@@ -50,6 +51,7 @@ export default function StepPricing({
   onBack,
   isSubmitting,
   submitError,
+  greenFrequencyPill = false,
 }: StepPricingProps) {
   const price = PRICE_TABLE[lessonLength]?.[frequency] ?? 0;
 
@@ -77,12 +79,12 @@ export default function StepPricing({
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur ofta?</p>
           <div className="relative flex items-center rounded-full border border-gray-200 p-1">
-            <div className="flex-1 bg-[#8B1A00] text-white rounded-full py-2.5 px-5 text-center text-sm font-semibold">
+            <div className={`flex-1 rounded-full py-2.5 px-5 text-center text-sm text-white ${greenFrequencyPill ? "bg-gradient-to-r from-[#84C441] to-[#3BA850] font-bold" : "bg-[#8B1A00] font-semibold"}`}>
               {getFrequencyLabel(frequency)}
             </div>
-            <button type="button" className="flex-shrink-0 px-4 py-2 bg-white text-sm font-semibold text-[#8B1A00] flex items-center gap-1.5">
+            <button type="button" className={`flex-shrink-0 px-4 py-2 bg-white text-sm font-semibold flex items-center gap-1.5 ${greenFrequencyPill ? "text-gray-500" : "text-[#8B1A00]"}`}>
               Välj
-              <svg className="w-3 h-3 text-[#8B1A00]/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className={`w-3 h-3 ${greenFrequencyPill ? "text-gray-400" : "text-[#8B1A00]/60"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
