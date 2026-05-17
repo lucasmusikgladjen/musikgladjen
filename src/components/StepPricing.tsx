@@ -163,8 +163,13 @@ export default function StepPricing({
       </div>
 
       {/* Next steps */}
-      <div className="mb-4 pt-2">
-        <p className="text-sm font-semibold text-text-primary mb-1">Vad händer när du skickat?</p>
+      <div className="mt-2 pt-5 border-t border-gray-100 mb-4">
+        <p className="flex items-center gap-1.5 text-sm font-semibold text-text-secondary mb-0.5">
+          <svg className="w-4 h-4 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          Vad händer när du skickat?
+        </p>
         <p className="text-sm text-text-secondary leading-relaxed">
           Vi hör av oss så snart vi gått igenom er anmälan och börjar leta efter en passande lärare. Ni bokar tillsammans in en första lektion och fortsätter bara om det känns rätt!
         </p>
