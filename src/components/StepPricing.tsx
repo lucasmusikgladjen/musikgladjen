@@ -69,7 +69,7 @@ export default function StepPricing({
       ctaLoading={isSubmitting}
     >
       {/* Calculator card */}
-      <div className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden mb-5">
+      <div className="rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-5">
 
         <div className="px-4 pt-4 pb-2">
           <h2 className="text-xl font-bold text-text-primary">Välj ert upplägg</h2>
