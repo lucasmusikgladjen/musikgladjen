@@ -77,7 +77,7 @@ export default function StepPricing({
       <div className="mb-5">
         <p className={sectionLabel}>Hur ofta?</p>
         <div className="flex rounded-xl overflow-hidden shadow-md shadow-primary/20 border border-primary">
-          <div className="flex-1 py-3 px-4 bg-gradient-to-b from-[#e8501a] to-[#da3111] text-white text-center text-sm font-semibold flex items-center justify-center">
+          <div className="flex-1 py-3 px-4 bg-[#8B1A00] text-white text-center text-sm font-semibold flex items-center justify-center">
             {getFrequencyLabel(frequency)}
           </div>
           <div className="relative flex-shrink-0 border-l border-white/30">
@@ -115,7 +115,7 @@ export default function StepPricing({
                 onClick={() => onLessonLengthChange(v)}
                 className={`flex-1 py-3 px-2 rounded-xl text-sm font-semibold transition-all duration-200 min-h-[44px] ${
                   selected
-                    ? "bg-gradient-to-b from-[#e8501a] to-[#da3111] text-white shadow-md shadow-primary/25"
+                    ? "bg-[#8B1A00] text-white shadow-md shadow-black/20"
                     : "bg-bg-white text-text-primary border border-gray-200 hover:border-primary/30"
                 }`}
               >
