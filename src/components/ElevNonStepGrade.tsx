@@ -17,18 +17,18 @@ export default function ElevNonStepGrade({
 }: ElevNonStepGradeProps) {
   return (
     <StepWrapper onNext={onNext} ctaText="Nästa" showBack={false}>
-      <div className="mb-6 pb-6 border-b border-gray-100">
-        <div className="flex items-center gap-2 mb-0.5">
-          <img
-            src="/loka.jpeg"
-            alt="Loka"
-            className="w-9 h-9 rounded-full object-cover flex-shrink-0"
-          />
-          <p className="text-sm font-semibold text-text-primary">Hej och välkommen!</p>
+      <div className="flex items-stretch gap-4 mb-6 pb-6 border-b border-gray-100">
+        <img
+          src="/loka.jpeg"
+          alt="Loka"
+          className="w-20 rounded-xl object-cover flex-shrink-0"
+        />
+        <div className="flex flex-col justify-center">
+          <p className="text-sm font-semibold text-text-primary mb-0.5">Hej och välkommen!</p>
+          <p className="text-sm text-text-secondary">
+            Jag heter Loka och jobbar med att hitta rätt lärare till er. När du skickat in anmälan är det jag som hör av mig.
+          </p>
         </div>
-        <p className="text-sm text-text-secondary mt-0.5">
-          Jag heter Loka och jobbar med att hitta rätt lärare till er. När du skickat in anmälan är det jag som hör av mig.
-        </p>
       </div>
 
       <h2 className="text-2xl font-bold text-text-primary mb-5">
