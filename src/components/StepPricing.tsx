@@ -112,8 +112,7 @@ export default function StepPricing({
               </button>
             </div>
 
-            {freqOpen && (
-              <div className="absolute right-0 top-full mt-2 w-52 bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden z-10">
+            <div className={`absolute right-0 top-full mt-2 w-52 bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden z-10 transition-all duration-200 origin-top-right ${freqOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-1 pointer-events-none"}`}>{/* always rendered for CSS transition */}
                 {(["weekly", "biweekly"] as const).map((v, i) => (
                   <button
                     key={v}
@@ -132,7 +131,6 @@ export default function StepPricing({
                   </button>
                 ))}
               </div>
-            )}
           </div>
         </div>
 
