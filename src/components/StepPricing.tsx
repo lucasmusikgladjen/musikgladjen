@@ -176,6 +176,10 @@ export default function StepPricing({
             <p className="text-sm font-semibold text-text-secondary mb-0.5">Frågor?</p>
             <p className="text-sm text-text-secondary leading-relaxed">
               Hör gärna av dig till mig på{" "}
+              <a href="tel:+46760223451" className="text-primary underline-offset-2 hover:underline">
+                076-022 34 51
+              </a>
+              {" "}eller{" "}
               <a href="mailto:hej@musikgladjen.se" className="text-primary underline-offset-2 hover:underline">
                 hej@musikgladjen.se
               </a>
