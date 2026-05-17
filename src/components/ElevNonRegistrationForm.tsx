@@ -229,7 +229,6 @@ export default function ElevNonRegistrationForm({ onComplete }: ElevNonRegistrat
               onBack={() => setCurrentView("contact")}
               isSubmitting={isSubmitting}
               submitError={submitError}
-              greenFrequencyPill
             />
           )}
         </div>
