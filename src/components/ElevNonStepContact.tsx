@@ -7,6 +7,8 @@ import StepWrapper from "./StepWrapper";
 
 interface ElevNonStepContactProps {
   values: ElevNonContactFields;
+  comment: string;
+  onCommentChange: (v: string) => void;
   onChange: (data: ElevNonContactFields) => void;
   onNext: () => void;
   onBack: () => void;
@@ -14,6 +16,8 @@ interface ElevNonStepContactProps {
 
 export default function ElevNonStepContact({
   values,
+  comment,
+  onCommentChange,
   onChange,
   onNext,
   onBack,
@@ -140,6 +144,22 @@ export default function ElevNonStepContact({
             className={inputClass(!!errors.email)}
           />
           {errors.email && <p className={errorClass}>{errors.email.message}</p>}
+        </div>
+
+        <div>
+          <label htmlFor="comment" className={labelClass}>
+            Övriga kommentarer
+            <span className="text-text-secondary font-normal ml-1">(frivilligt)</span>
+          </label>
+          <textarea
+            id="comment"
+            value={comment}
+            onChange={(e) => onCommentChange(e.target.value)}
+            placeholder="T.ex. önskemål om lärare, tider eller annat vi bör veta"
+            rows={3}
+            maxLength={500}
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white placeholder:text-gray-400 placeholder:text-sm resize-none focus:border-primary transition-colors"
+          />
         </div>
 
         <div className="flex items-start gap-2.5 p-3.5 bg-gray-50 rounded-xl border border-gray-100">

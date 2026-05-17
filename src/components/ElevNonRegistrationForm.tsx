@@ -35,6 +35,7 @@ export default function ElevNonRegistrationForm({ onComplete }: ElevNonRegistrat
     postalCode: "",
     phone: "",
     email: "",
+    comment: "",
     expectations: [],
     frequency: "weekly",
     lessonLength: "45-60",
@@ -201,6 +202,8 @@ export default function ElevNonRegistrationForm({ onComplete }: ElevNonRegistrat
                 phone: formData.phone,
                 email: formData.email,
               }}
+              comment={formData.comment}
+              onCommentChange={(v) => setFormData((prev) => ({ ...prev, comment: v }))}
               onChange={handleContactChange}
               onNext={() => setCurrentView("pricing")}
               onBack={() => setCurrentView("children")}
