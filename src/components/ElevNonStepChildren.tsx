@@ -45,25 +45,23 @@ export default function ElevNonStepChildren({
 
       <div className="flex flex-col gap-6">
         {children.map((child, i) => (
-          <div key={i}>
-            {i > 0 && (
-              <div className="flex items-center gap-3 mb-6">
-                <div className="flex-1 h-px bg-gray-200" />
-                <button
-                  type="button"
-                  onClick={() => removeChild(i)}
-                  className="text-xs text-gray-400 hover:text-error transition-colors"
-                >
-                  ta bort
-                </button>
-              </div>
-            )}
-
+          <div key={i} className={i > 0 ? "pt-5 border-t border-gray-200" : ""}>
             <div className="grid grid-cols-[1fr_auto] gap-2">
               <div>
-                <label htmlFor={`name-${i}`} className={labelClass}>
-                  Elevens namn <span className="text-error">*</span>
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label htmlFor={`name-${i}`} className={labelClass}>
+                    Elevens namn <span className="text-error">*</span>
+                  </label>
+                  {i > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => removeChild(i)}
+                      className="text-xs text-gray-400 hover:text-error transition-colors"
+                    >
+                      ta bort
+                    </button>
+                  )}
+                </div>
                 <input
                   id={`name-${i}`}
                   type="text"
@@ -85,7 +83,7 @@ export default function ElevNonStepChildren({
                   inputMode="numeric"
                   value={child.birthYear}
                   onChange={(e) => updateChild(i, { birthYear: e.target.value.replace(/\D/g, "").slice(0, 4) })}
-                  placeholder="2016"
+                  placeholder="2018"
                   maxLength={4}
                   className={inputClass}
                 />

@@ -5,10 +5,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { elevNonContactSchema, ElevNonContactFields } from "@/lib/elev-non-types";
 import StepWrapper from "./StepWrapper";
 
+const INSTRUMENT_AT_HOME_OPTIONS = [
+  "Ja, vi har ett instrument",
+  "Nej, men planerar att köpa",
+  "Nej, behöver råd",
+];
+
 interface ElevNonStepContactProps {
   values: ElevNonContactFields;
   comment: string;
   onCommentChange: (v: string) => void;
+  instrumentAtHome: string;
+  onInstrumentAtHomeChange: (v: string) => void;
   onChange: (data: ElevNonContactFields) => void;
   onNext: () => void;
   onBack: () => void;
@@ -18,6 +26,8 @@ export default function ElevNonStepContact({
   values,
   comment,
   onCommentChange,
+  instrumentAtHome,
+  onInstrumentAtHomeChange,
   onChange,
   onNext,
   onBack,
@@ -153,15 +163,47 @@ export default function ElevNonStepContact({
         </div>
 
         <div>
+          <label className={labelClass}>
+            Har ni ett instrument hemma? <span className="text-error">*</span>
+          </label>
+          <div className="flex flex-col gap-2">
+            {INSTRUMENT_AT_HOME_OPTIONS.map((option) => {
+              const selected = instrumentAtHome === option;
+              return (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => onInstrumentAtHomeChange(option)}
+                  className={`flex items-center gap-3 px-4 py-4 rounded-xl text-left transition-all duration-200 border shadow-[0_1px_2px_rgba(0,0,0,0.04)] min-h-[56px] ${
+                    selected
+                      ? "bg-accent-soft border-primary text-primary"
+                      : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
+                  }`}
+                >
+                  <span
+                    className={`w-4 h-4 rounded-full flex-shrink-0 border-2 flex items-center justify-center transition-all ${
+                      selected ? "bg-primary border-primary" : "border-gray-300"
+                    }`}
+                  >
+                    {selected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                  </span>
+                  <span className="text-base font-medium">{option}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div>
           <label htmlFor="comment" className={labelClass}>
-            Övriga kommentarer
+            Något vi bör veta?
             <span className="text-text-secondary font-normal ml-1">(frivilligt)</span>
           </label>
           <textarea
             id="comment"
             value={comment}
             onChange={(e) => onCommentChange(e.target.value)}
-            placeholder="T.ex. önskemål om lärare, tider eller annat vi bör veta"
+            placeholder="Skriv gärna om det finns något vi bör känna till inför matchningen"
             rows={3}
             maxLength={500}
             className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white placeholder:text-gray-400 placeholder:text-sm resize-none focus:border-primary transition-colors"

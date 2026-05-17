@@ -42,7 +42,7 @@ export default function ElevNonStepGrade({
               key={g}
               type="button"
               onClick={() => onGradeChange(g)}
-              className={`flex items-center gap-2.5 px-3 py-3.5 rounded-xl text-left transition-all duration-200 border shadow-[0_1px_2px_rgba(0,0,0,0.04)] ${
+              className={`flex items-center gap-3 px-4 py-4 rounded-xl text-left transition-all duration-200 border shadow-[0_1px_2px_rgba(0,0,0,0.04)] min-h-[56px] ${
                 selected
                   ? "bg-accent-soft border-primary text-primary"
                   : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
@@ -55,7 +55,7 @@ export default function ElevNonStepGrade({
               >
                 {selected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
               </span>
-              <span className="text-sm font-medium">{g}</span>
+              <span className="text-base font-medium">{g}</span>
             </button>
           );
         })}

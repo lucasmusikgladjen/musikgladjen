@@ -37,6 +37,7 @@ export default function ElevNonRegistrationForm({ onComplete }: ElevNonRegistrat
     phone: "",
     email: "",
     comment: "",
+    instrumentAtHome: "",
     expectations: [],
     frequency: "weekly",
     lessonLength: "45-60",
@@ -206,6 +207,8 @@ export default function ElevNonRegistrationForm({ onComplete }: ElevNonRegistrat
               }}
               comment={formData.comment}
               onCommentChange={(v) => setFormData((prev) => ({ ...prev, comment: v }))}
+              instrumentAtHome={formData.instrumentAtHome}
+              onInstrumentAtHomeChange={(v) => setFormData((prev) => ({ ...prev, instrumentAtHome: v }))}
               onChange={handleContactChange}
               onNext={() => setCurrentView("pricing")}
               onBack={() => setCurrentView("children")}

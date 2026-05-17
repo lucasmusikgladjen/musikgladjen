@@ -57,6 +57,7 @@ export type ElevNonFormData = {
   phone: string;
   email: string;
   comment: string;
+  instrumentAtHome: string;
   expectations: string[];
   frequency: "weekly" | "biweekly";
   lessonLength: "45-60" | "90" | "120";

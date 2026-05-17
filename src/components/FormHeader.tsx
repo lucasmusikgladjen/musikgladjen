@@ -15,13 +15,12 @@ export default function FormHeader() {
         </div>
 
         <div className="relative text-center py-5 px-4">
-          {/* PLACEHOLDER LOGO: Musikglädjen logotyp i vitt */}
-          <div className="inline-flex items-center gap-2">
-            <span className="text-3xl drop-shadow-sm">🎵</span>
-            <span className="text-2xl font-bold text-white tracking-tight drop-shadow-sm">
-              Musikglädjen
-            </span>
-          </div>
+          <img
+            src="/musikgladjen-logotyp.svg"
+            alt="Musikglädjen"
+            className="h-8 w-auto mx-auto drop-shadow-sm"
+            style={{ filter: "brightness(0) invert(1)" }}
+          />
         </div>
       </div>
 

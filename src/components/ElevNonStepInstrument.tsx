@@ -47,7 +47,7 @@ export default function ElevNonStepInstrument({
         Markera gärna flera — ju fler desto snabbare hittar vi en lärare.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-2">
         {INSTRUMENTS.map(({ name, emoji }) => {
           const selected = value.includes(name);
           return (
@@ -55,7 +55,7 @@ export default function ElevNonStepInstrument({
               key={name}
               type="button"
               onClick={() => toggle(name)}
-              className={`flex items-center gap-2.5 px-3 py-3.5 rounded-xl text-left transition-all duration-200 border shadow-[0_1px_2px_rgba(0,0,0,0.04)] ${
+              className={`flex items-center gap-3 px-4 py-4 rounded-xl text-left transition-all duration-200 border shadow-[0_1px_2px_rgba(0,0,0,0.04)] min-h-[56px] ${
                 selected
                   ? "bg-accent-soft border-primary text-primary"
                   : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
@@ -72,7 +72,7 @@ export default function ElevNonStepInstrument({
                   </svg>
                 )}
               </span>
-              <span className="text-sm font-medium">{name}</span>
+              <span className="text-base font-medium">{name}</span>
             </button>
           );
         })}
