@@ -1,6 +1,3 @@
-import { z } from "zod";
-import { sanitize } from "./validation";
-
 export type Child = {
   name: string;
   birthYear: string;
@@ -17,19 +14,7 @@ export const emptyChild = (): Child => ({
   instrumentOther: "",
 });
 
-// TODO: restore validation before launch
-export const elevNonContactSchema = z.object({
-  guardianName: z.string(),
-  address: z.string(),
-  postalCode: z.string(),
-  city: z.string(),
-  phone: z.string(),
-  email: z.string(),
-});
-
-export type ElevNonContactFields = z.infer<typeof elevNonContactSchema>;
-
-export type ElevNonFormData = {
+export type ElevFormData = {
   children: Child[];
   guardianName: string;
   address: string;
@@ -46,4 +31,3 @@ export type ElevNonFormData = {
   formVariant: string;
 };
 
-export type ElevNonView = "grade" | "instrument" | "sibling" | "contact" | "pricing";

@@ -1,10 +1,10 @@
 "use client";
 
-import { Child } from "@/lib/elev-non-types";
+import { Child } from "@/lib/elev-types";
 import { INSTRUMENTS } from "@/lib/types";
 import StepWrapper from "./StepWrapper";
 
-interface ElevNonStepSiblingProps {
+interface ElevStepSiblingProps {
   children: Child[];
   onAddSibling: () => void;
   onContinue: () => void;
@@ -24,13 +24,13 @@ const GRADE_EMOJIS: Record<string, string> = {
   Äldre: "🎓",
 };
 
-export default function ElevNonStepSibling({
+export default function ElevStepSibling({
   children,
   onAddSibling,
   onContinue,
   onBack,
   maxChildren = 4,
-}: ElevNonStepSiblingProps) {
+}: ElevStepSiblingProps) {
   const canAddMore = children.length < maxChildren;
 
   return (

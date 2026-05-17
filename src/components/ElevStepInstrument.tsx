@@ -3,7 +3,7 @@
 import { INSTRUMENTS } from "@/lib/types";
 import StepWrapper from "./StepWrapper";
 
-interface ElevNonStepInstrumentProps {
+interface ElevStepInstrumentProps {
   childName: string;
   value: string[];
   otherValue: string;
@@ -13,7 +13,7 @@ interface ElevNonStepInstrumentProps {
   onBack: () => void;
 }
 
-export default function ElevNonStepInstrument({
+export default function ElevStepInstrument({
   childName,
   value,
   otherValue,
@@ -21,7 +21,7 @@ export default function ElevNonStepInstrument({
   onOtherChange,
   onNext,
   onBack,
-}: ElevNonStepInstrumentProps) {
+}: ElevStepInstrumentProps) {
   const toggle = (name: string) => {
     onChange([name]);
   };
@@ -35,6 +35,7 @@ export default function ElevNonStepInstrument({
       onNext={onNext}
       ctaText="Nästa"
       ctaDisabled={false}
+      gaStep="steg-2"
     >
       <div className="mb-4 pb-4 border-b border-gray-100">
         <p className="flex items-center gap-1.5 text-sm font-semibold text-text-secondary mb-0.5">
@@ -60,6 +61,8 @@ export default function ElevNonStepInstrument({
               key={name}
               type="button"
               onClick={() => toggle(name)}
+              data-ga-item-type="instrument"
+              data-ga-item-value={name}
               className={`flex items-center gap-3 px-4 py-4 rounded-xl text-left transition-all duration-200 border shadow-[0_1px_2px_rgba(0,0,0,0.04)] min-h-[56px] ${
                 selected
                   ? "bg-accent-soft border-primary text-primary"

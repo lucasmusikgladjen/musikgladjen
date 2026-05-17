@@ -2,7 +2,7 @@
 
 import StepWrapper from "./StepWrapper";
 
-interface ElevNonStepGradeProps {
+interface ElevStepGradeProps {
   grade: string;
   onGradeChange: (grade: string) => void;
   onNext: () => void;
@@ -10,13 +10,13 @@ interface ElevNonStepGradeProps {
 
 const GRADES = ["Förskola", "Lågstadiet", "Mellanstadiet", "Högstadiet", "Äldre"];
 
-export default function ElevNonStepGrade({
+export default function ElevStepGrade({
   grade,
   onGradeChange,
   onNext,
-}: ElevNonStepGradeProps) {
+}: ElevStepGradeProps) {
   return (
-    <StepWrapper onNext={onNext} ctaText="Nästa" showBack={false}>
+    <StepWrapper onNext={onNext} ctaText="Nästa" showBack={false} gaStep="steg-1">
       <div className="flex items-stretch gap-4 mb-4 pb-4 border-b border-gray-100">
         <img
           src="/loka.jpeg"
@@ -43,6 +43,8 @@ export default function ElevNonStepGrade({
               key={g}
               type="button"
               onClick={() => onGradeChange(g)}
+              data-ga-item-type="grade"
+              data-ga-item-value={g}
               className={`flex items-center gap-3 px-4 py-4 rounded-xl text-left transition-all duration-200 border shadow-[0_1px_2px_rgba(0,0,0,0.04)] min-h-[56px] ${
                 selected
                   ? "bg-accent-soft border-primary text-primary"
