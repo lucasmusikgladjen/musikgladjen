@@ -19,12 +19,12 @@ export const emptyChild = (): Child => ({
 
 // TODO: restore validation before launch
 export const elevNonContactSchema = z.object({
-  guardianName: z.string().default(""),
-  address: z.string().default(""),
-  postalCode: z.string().default(""),
-  city: z.string().default(""),
-  phone: z.string().default(""),
-  email: z.string().default(""),
+  guardianName: z.string(),
+  address: z.string(),
+  postalCode: z.string(),
+  city: z.string(),
+  phone: z.string(),
+  email: z.string(),
 });
 
 export type ElevNonContactFields = z.infer<typeof elevNonContactSchema>;
