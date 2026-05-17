@@ -17,11 +17,11 @@ export default function ElevNonStepGrade({
 }: ElevNonStepGradeProps) {
   return (
     <StepWrapper onNext={onNext} ctaText="Nästa" showBack={false}>
-      <div className="flex items-center gap-4 mb-4 pb-4 border-b border-gray-100">
+      <div className="flex items-stretch gap-4 mb-4 pb-4 border-b border-gray-100">
         <img
           src="/loka.jpeg"
           alt="Loka"
-          className="w-16 h-16 rounded-xl object-cover flex-shrink-0"
+          className="w-20 rounded-xl object-cover flex-shrink-0"
         />
         <div className="flex flex-col justify-center">
           <p className="text-sm font-semibold text-text-secondary mb-0.5">Hej och välkommen!</p>
