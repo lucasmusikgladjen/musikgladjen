@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { PRICE_TABLE, EXPECTATIONS } from "@/lib/types";
 import StepWrapper from "./StepWrapper";
 
@@ -52,6 +53,19 @@ export default function StepPricing({
   submitError,
 }: StepPricingProps) {
   const price = PRICE_TABLE[lessonLength]?.[frequency] ?? 0;
+  const [freqOpen, setFreqOpen] = useState(false);
+  const freqRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!freqOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (freqRef.current && !freqRef.current.contains(e.target as Node)) {
+        setFreqOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [freqOpen]);
 
   const toggleExpectation = (exp: string) => {
     if (expectations.includes(exp)) {
@@ -78,24 +92,47 @@ export default function StepPricing({
         {/* Hur ofta */}
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur ofta?</p>
-          <div className="relative flex items-center rounded-full border border-gray-200 bg-white p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-            <div className="flex-1 bg-[#8B1A00] text-white rounded-full py-2.5 px-5 text-center text-sm font-semibold">
-              {getFrequencyLabel(frequency)}
+          <div ref={freqRef} className="relative">
+            <div className="flex items-center rounded-full border border-gray-200 bg-white p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+              <div className="flex-1 bg-[#8B1A00] text-white rounded-full py-2.5 px-5 text-center text-sm font-semibold">
+                {getFrequencyLabel(frequency)}
+              </div>
+              <button
+                type="button"
+                onClick={() => setFreqOpen((o) => !o)}
+                className="flex-shrink-0 px-4 py-2 bg-white rounded-full text-sm font-semibold text-gray-500 flex items-center gap-1.5"
+              >
+                Välj
+                <svg
+                  className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${freqOpen ? "rotate-180" : ""}`}
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
             </div>
-            <button type="button" className="flex-shrink-0 px-4 py-2 bg-white rounded-full text-sm font-semibold text-gray-500 flex items-center gap-1.5">
-              Välj
-              <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <select
-              value={frequency}
-              onChange={(e) => onFrequencyChange(e.target.value as "weekly" | "biweekly")}
-              className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
-            >
-              <option value="weekly">Varje vecka</option>
-              <option value="biweekly">Varannan vecka</option>
-            </select>
+
+            {freqOpen && (
+              <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden z-10">
+                {(["weekly", "biweekly"] as const).map((v, i) => (
+                  <button
+                    key={v}
+                    type="button"
+                    onClick={() => { onFrequencyChange(v); setFreqOpen(false); }}
+                    className={`w-full px-5 py-4 text-left text-sm font-semibold flex items-center justify-between transition-colors ${
+                      frequency === v ? "text-[#8B1A00]" : "text-text-primary hover:bg-gray-50"
+                    } ${i > 0 ? "border-t border-gray-100" : ""}`}
+                  >
+                    {getFrequencyLabel(v)}
+                    {frequency === v && (
+                      <svg className="w-4 h-4 text-[#8B1A00]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
