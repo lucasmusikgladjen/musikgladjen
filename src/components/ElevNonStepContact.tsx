@@ -6,9 +6,10 @@ import { elevNonContactSchema, ElevNonContactFields } from "@/lib/elev-non-types
 import StepWrapper from "./StepWrapper";
 
 const INSTRUMENT_AT_HOME_OPTIONS = [
-  "Ja, vi har ett instrument",
-  "Nej, men planerar att köpa",
-  "Nej, behöver råd",
+  { value: "", label: "Välj alternativ…" },
+  { value: "Ja, vi har ett instrument", label: "Ja, vi har ett instrument" },
+  { value: "Nej, men planerar att köpa", label: "Nej, men planerar att köpa" },
+  { value: "Nej, behöver råd", label: "Nej, behöver råd" },
 ];
 
 interface ElevNonStepContactProps {
@@ -163,35 +164,23 @@ export default function ElevNonStepContact({
         </div>
 
         <div>
-          <label className={labelClass}>
+          <label htmlFor="instrumentAtHome" className={labelClass}>
             Har ni ett instrument hemma? <span className="text-error">*</span>
           </label>
-          <div className="flex flex-col gap-2">
-            {INSTRUMENT_AT_HOME_OPTIONS.map((option) => {
-              const selected = instrumentAtHome === option;
-              return (
-                <button
-                  key={option}
-                  type="button"
-                  onClick={() => onInstrumentAtHomeChange(option)}
-                  className={`flex items-center gap-3 px-4 py-4 rounded-xl text-left transition-all duration-200 border shadow-[0_1px_2px_rgba(0,0,0,0.04)] min-h-[56px] ${
-                    selected
-                      ? "bg-accent-soft border-primary text-primary"
-                      : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
-                  }`}
-                >
-                  <span
-                    className={`w-4 h-4 rounded-full flex-shrink-0 border-2 flex items-center justify-center transition-all ${
-                      selected ? "bg-primary border-primary" : "border-gray-300"
-                    }`}
-                  >
-                    {selected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                  </span>
-                  <span className="text-base font-medium">{option}</span>
-                </button>
-              );
-            })}
-          </div>
+          <select
+            id="instrumentAtHome"
+            value={instrumentAtHome}
+            onChange={(e) => onInstrumentAtHomeChange(e.target.value)}
+            className={`w-full px-4 py-3 rounded-xl border shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white transition-colors appearance-none ${
+              !instrumentAtHome ? "border-gray-200 text-gray-400" : "border-gray-200 text-text-primary focus:border-primary"
+            }`}
+          >
+            {INSTRUMENT_AT_HOME_OPTIONS.map(({ value, label }) => (
+              <option key={value} value={value} disabled={value === ""}>
+                {label}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div>

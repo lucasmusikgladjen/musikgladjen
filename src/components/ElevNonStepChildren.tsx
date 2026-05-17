@@ -46,22 +46,23 @@ export default function ElevNonStepChildren({
       <div className="flex flex-col gap-6">
         {children.map((child, i) => (
           <div key={i} className={i > 0 ? "pt-5 border-t border-gray-200" : ""}>
+            {i > 0 && (
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-sm font-semibold text-text-secondary">Barn {i + 1}</span>
+                <button
+                  type="button"
+                  onClick={() => removeChild(i)}
+                  className="text-xs text-gray-400 hover:text-error transition-colors"
+                >
+                  ta bort
+                </button>
+              </div>
+            )}
             <div className="grid grid-cols-[1fr_auto] gap-2">
               <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label htmlFor={`name-${i}`} className={labelClass}>
-                    Elevens namn <span className="text-error">*</span>
-                  </label>
-                  {i > 0 && (
-                    <button
-                      type="button"
-                      onClick={() => removeChild(i)}
-                      className="text-xs text-gray-400 hover:text-error transition-colors"
-                    >
-                      ta bort
-                    </button>
-                  )}
-                </div>
+                <label htmlFor={`name-${i}`} className={labelClass}>
+                  Elevens namn <span className="text-error">*</span>
+                </label>
                 <input
                   id={`name-${i}`}
                   type="text"
