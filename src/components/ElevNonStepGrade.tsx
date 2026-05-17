@@ -17,7 +17,7 @@ export default function ElevNonStepGrade({
 }: ElevNonStepGradeProps) {
   return (
     <StepWrapper onNext={onNext} ctaText="Nästa" showBack={false}>
-      <div className="flex items-start gap-3 bg-bg-white rounded-xl p-4 mb-6 border border-gray-100 shadow-sm animate-fade-in-up">
+      <div className="flex items-start gap-3 mb-6 pb-6 border-b border-gray-100">
         <img
           src="/loka.jpeg"
           alt="Loka"

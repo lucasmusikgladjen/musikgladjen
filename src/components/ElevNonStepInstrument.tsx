@@ -40,8 +40,13 @@ export default function ElevNonStepInstrument({
       ctaText="Nästa"
       ctaDisabled={false}
     >
-      <div className="flex items-start gap-3 bg-bg-white rounded-xl p-4 mb-6 border border-gray-100 shadow-sm">
-        <div className="flex-1">
+      <div className="flex items-start gap-3 mb-6 pb-6 border-b border-gray-100">
+        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+          <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+          </svg>
+        </div>
+        <div>
           <p className="text-sm font-semibold text-text-primary">En personlig lärare till ert barn</p>
           <p className="text-sm text-text-secondary mt-0.5">
             Läraren anpassar varje lektion efter barnets nivå och intressen, oavsett om det är Minecraft-melodier eller Mozart.

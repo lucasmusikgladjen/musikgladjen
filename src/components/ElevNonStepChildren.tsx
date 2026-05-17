@@ -39,8 +39,13 @@ export default function ElevNonStepChildren({
 
   return (
     <StepWrapper onBack={onBack} onNext={onNext} ctaText="Gå vidare" ctaDisabled={!canProceed}>
-      <div className="flex items-start gap-3 bg-bg-white rounded-xl p-4 mb-6 border border-gray-100 shadow-sm">
-        <div className="flex-1">
+      <div className="flex items-start gap-3 mb-6 pb-6 border-b border-gray-100">
+        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+          <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+        </div>
+        <div>
           <p className="text-sm font-semibold text-text-primary">Läraren kommer hem till er</p>
           <p className="text-sm text-text-secondary mt-0.5">
             Alla våra lärare är noggrant utvalda. På första lektionen lär ni känna varandra och sätter upp mål tillsammans.
