@@ -79,7 +79,7 @@ export default function StepPricing({
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur ofta?</p>
           <div className={`relative flex items-center rounded-full border border-gray-200 ${greenFrequencyPill ? "overflow-hidden" : "p-1"}`}>
-            <div className={`flex-1 text-center text-sm text-white ${greenFrequencyPill ? "bg-gradient-to-r from-[#84C441] to-[#3BA850] font-bold rounded-r-full self-stretch flex items-center justify-center py-2.5 px-5" : "bg-[#8B1A00] font-semibold rounded-full py-2.5 px-5"}`}>
+            <div className={`flex-1 bg-[#8B1A00] text-white text-center text-sm font-semibold ${greenFrequencyPill ? "rounded-r-full self-stretch flex items-center justify-center py-2.5 px-5" : "rounded-full py-2.5 px-5"}`}>
               {getFrequencyLabel(frequency)}
             </div>
             <button type="button" className={`flex-shrink-0 px-4 py-2 text-sm font-semibold text-[#8B1A00] flex items-center gap-1.5 ${greenFrequencyPill ? "bg-transparent" : "bg-white"}`}>
@@ -102,18 +102,20 @@ export default function StepPricing({
         {/* Hur långa lektioner */}
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur långa lektioner?</p>
-          <div className="flex gap-2">
-            {(["45-60", "90", "120"] as const).map((v) => {
+          <div className="flex rounded-full border border-gray-200 overflow-hidden">
+            {(["45-60", "90", "120"] as const).map((v, i) => {
               const selected = lessonLength === v;
               return (
                 <button
                   key={v}
                   type="button"
                   onClick={() => onLessonLengthChange(v)}
-                  className={`flex-1 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 min-h-[44px] ${
+                  className={`flex-1 py-2.5 text-sm font-semibold min-h-[44px] transition-colors duration-150 ${
+                    i < 2 ? "border-r border-gray-200" : ""
+                  } ${
                     selected
-                      ? "bg-[#8B1A00] text-white shadow-sm"
-                      : "bg-white text-gray-500 border border-gray-200 hover:border-[#8B1A00]/30"
+                      ? "bg-[#8B1A00] text-white"
+                      : "bg-white text-gray-500"
                   }`}
                 >
                   {getLessonLabel(v)}
