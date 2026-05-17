@@ -19,7 +19,7 @@ import ProgressBar from "./ProgressBar";
 import TrustBanner from "./TrustBanner";
 import ElevNonStepGrade from "./ElevNonStepGrade";
 import ElevNonStepInstrument from "./ElevNonStepInstrument";
-import StepContact from "./StepContact";
+import ElevNonStepContact from "./ElevNonStepContact";
 import StepPricing from "./StepPricing";
 
 const TOTAL_STEPS = 4;
@@ -224,7 +224,7 @@ export default function ElevNonRegistrationForm({
             />
           )}
           {step === 2 && (
-            <StepContact
+            <ElevNonStepContact
               values={{
                 studentName: formData.studentName,
                 guardianName: formData.guardianName,

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { GRADES } from "@/lib/types";
 import StepWrapper from "./StepWrapper";
 
 interface ElevNonStepGradeProps {
@@ -10,13 +9,13 @@ interface ElevNonStepGradeProps {
   onNext: () => void;
 }
 
-const GRADE_EMOJIS: Record<string, string> = {
-  Förskola: "🧸",
-  Lågstadiet: "🎒",
-  Mellanstadiet: "📚",
-  Högstadiet: "📐",
-  Äldre: "🎓",
-};
+const GRADES_WITH_EMOJI = [
+  { grade: "Förskola", emoji: "🧸" },
+  { grade: "Lågstadiet", emoji: "🎒" },
+  { grade: "Mellanstadiet", emoji: "📚" },
+  { grade: "Högstadiet", emoji: "📐" },
+  { grade: "Äldre", emoji: "🎓" },
+];
 
 export default function ElevNonStepGrade({ value, onChange, onNext }: ElevNonStepGradeProps) {
   const [otherText, setOtherText] = useState("");
@@ -50,8 +49,8 @@ export default function ElevNonStepGrade({ value, onChange, onNext }: ElevNonSte
         Vilken årskurs går eleven i?
       </h2>
 
-      <div className="grid grid-cols-2 gap-2">
-        {GRADES.map((grade) => {
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {GRADES_WITH_EMOJI.map(({ grade, emoji }) => {
           const selected = value === grade;
           return (
             <button
@@ -73,7 +72,7 @@ export default function ElevNonStepGrade({ value, onChange, onNext }: ElevNonSte
                   <span className="w-1.5 h-1.5 rounded-full bg-white" />
                 )}
               </span>
-              <span className="text-xl flex-shrink-0">{GRADE_EMOJIS[grade]}</span>
+              <span className="text-xl flex-shrink-0">{emoji}</span>
               <span className="text-sm font-medium">{grade}</span>
             </button>
           );
