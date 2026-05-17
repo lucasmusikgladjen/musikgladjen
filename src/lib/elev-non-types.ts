@@ -17,33 +17,14 @@ export const emptyChild = (): Child => ({
   instrumentOther: "",
 });
 
+// TODO: restore validation before launch
 export const elevNonContactSchema = z.object({
-  guardianName: z
-    .string()
-    .min(2, "Fyll i vårdnadshavares namn")
-    .max(80, "Max 80 tecken")
-    .transform(sanitize),
-  address: z
-    .string()
-    .min(3, "Fyll i gatuadress")
-    .max(200, "Max 200 tecken")
-    .transform(sanitize),
-  postalCode: z
-    .string()
-    .regex(/^\d{5}$/, "Ange ett giltigt postnummer (5 siffror)"),
-  city: z
-    .string()
-    .min(1, "Ange ort")
-    .max(100)
-    .transform(sanitize),
-  phone: z
-    .string()
-    .regex(/^(\+46|0)[1-9]\d{6,11}$/, "Ange ett giltigt telefonnummer"),
-  email: z
-    .string()
-    .email("Ange en giltig e-postadress")
-    .max(254)
-    .transform((v) => v.toLowerCase().trim()),
+  guardianName: z.string().optional().default(""),
+  address: z.string().optional().default(""),
+  postalCode: z.string().optional().default(""),
+  city: z.string().optional().default(""),
+  phone: z.string().optional().default(""),
+  email: z.string().optional().default(""),
 });
 
 export type ElevNonContactFields = z.infer<typeof elevNonContactSchema>;

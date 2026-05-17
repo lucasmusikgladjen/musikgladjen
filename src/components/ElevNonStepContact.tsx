@@ -167,11 +167,12 @@ export default function ElevNonStepContact({
           <label htmlFor="instrumentAtHome" className={labelClass}>
             Har ni ett instrument hemma? <span className="text-error">*</span>
           </label>
+          <div className="relative">
           <select
             id="instrumentAtHome"
             value={instrumentAtHome}
             onChange={(e) => onInstrumentAtHomeChange(e.target.value)}
-            className={`w-full px-4 py-3 rounded-xl border shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white transition-colors appearance-none ${
+            className={`w-full px-4 py-3 pr-10 rounded-xl border shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white transition-colors appearance-none ${
               !instrumentAtHome ? "border-gray-200 text-gray-400" : "border-gray-200 text-text-primary focus:border-primary"
             }`}
           >
@@ -181,6 +182,10 @@ export default function ElevNonStepContact({
               </option>
             ))}
           </select>
+          <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+          </div>
         </div>
 
         <div>
@@ -192,7 +197,7 @@ export default function ElevNonStepContact({
             id="comment"
             value={comment}
             onChange={(e) => onCommentChange(e.target.value)}
-            placeholder="Skriv gärna om det finns något vi bör känna till inför matchningen"
+            placeholder="T.ex. om barnet har särskilda behov eller annat vi bör ta hänsyn till"
             rows={3}
             maxLength={500}
             className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white placeholder:text-gray-400 placeholder:text-sm resize-none focus:border-primary transition-colors"

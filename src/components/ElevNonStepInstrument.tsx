@@ -38,7 +38,7 @@ export default function ElevNonStepInstrument({
       onBack={onBack}
       onNext={onNext}
       ctaText="Nästa"
-      ctaDisabled={value.length === 0}
+      ctaDisabled={false}
     >
       <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">
         Vilket instrument vill {displayName} spela?

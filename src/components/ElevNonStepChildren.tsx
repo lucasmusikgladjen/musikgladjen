@@ -32,7 +32,7 @@ export default function ElevNonStepChildren({
     onChange(children.filter((_, i) => i !== idx));
   };
 
-  const canProceed = children.every((c) => c.name.trim().length > 0);
+  const canProceed = true;
 
   const inputClass = "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white placeholder:text-gray-400 placeholder:text-sm focus:border-primary transition-colors";
   const labelClass = "block text-sm font-semibold text-text-primary mb-1";
