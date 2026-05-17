@@ -23,11 +23,7 @@ export default function ElevNonStepInstrument({
   onBack,
 }: ElevNonStepInstrumentProps) {
   const toggle = (name: string) => {
-    if (value.includes(name)) {
-      onChange(value.filter((v) => v !== name));
-    } else {
-      onChange([...value, name]);
-    }
+    onChange([name]);
   };
 
   const showOtherField = value.includes("Annat");
@@ -52,12 +48,9 @@ export default function ElevNonStepInstrument({
         </p>
       </div>
 
-      <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">
-        Vilket instrument vill {displayName} spela?
+      <h2 className="text-2xl font-bold text-text-primary mb-5 mt-2">
+        Välj instrument
       </h2>
-      <p className="text-sm text-text-secondary mb-5">
-        Markera gärna flera, ju fler desto snabbare hittar vi en lärare.
-      </p>
 
       <div className="grid grid-cols-2 gap-2">
         {INSTRUMENTS.map(({ name, emoji }) => {
@@ -74,15 +67,11 @@ export default function ElevNonStepInstrument({
               }`}
             >
               <span
-                className={`w-4 h-4 rounded flex-shrink-0 border-2 flex items-center justify-center transition-all ${
-                  selected ? "bg-primary border-primary" : "border-gray-300"
+                className={`w-4 h-4 rounded-full flex-shrink-0 border-2 flex items-center justify-center transition-all ${
+                  selected ? "border-primary" : "border-gray-300"
                 }`}
               >
-                {selected && (
-                  <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                  </svg>
-                )}
+                {selected && <span className="w-2 h-2 rounded-full bg-primary" />}
               </span>
               <span className="text-base font-medium">{name}</span>
             </button>
