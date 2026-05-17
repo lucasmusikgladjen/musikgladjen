@@ -73,75 +73,76 @@ export default function StepPricing({
         Välj ert upplägg
       </h2>
 
-      {/* Hur ofta — split button */}
-      <div className="mb-5">
-        <p className={sectionLabel}>Hur ofta?</p>
-        <div className="flex rounded-xl overflow-hidden shadow-md shadow-primary/20 border border-primary">
-          <div className="flex-1 py-3 px-4 bg-[#8B1A00] text-white text-center text-sm font-semibold flex items-center justify-center">
-            {getFrequencyLabel(frequency)}
-          </div>
-          <div className="relative flex-shrink-0 border-l border-white/30">
-            <button
-              type="button"
-              className="h-full px-4 bg-bg-white text-text-primary text-sm font-medium flex items-center gap-1.5"
-            >
-              Välj
-              <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <select
-              value={frequency}
-              onChange={(e) => onFrequencyChange(e.target.value as "weekly" | "biweekly")}
-              className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
-            >
-              <option value="weekly">Varje vecka</option>
-              <option value="biweekly">Varannan vecka</option>
-            </select>
-          </div>
-        </div>
-      </div>
+      {/* Calculator card */}
+      <div className="rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-5">
 
-      {/* Hur långa lektioner — pill toggles */}
-      <div className="mb-5">
-        <p className={sectionLabel}>Hur långa lektioner?</p>
-        <div className="flex gap-2">
-          {(["45-60", "90", "120"] as const).map((v) => {
-            const selected = lessonLength === v;
-            return (
-              <button
-                key={v}
-                type="button"
-                onClick={() => onLessonLengthChange(v)}
-                className={`flex-1 py-3 px-2 rounded-xl text-sm font-semibold transition-all duration-200 min-h-[44px] ${
-                  selected
-                    ? "bg-[#8B1A00] text-white shadow-md shadow-black/20"
-                    : "bg-bg-white text-text-primary border border-gray-200 hover:border-primary/30"
-                }`}
-              >
-                {getLessonLabel(v)}
+        {/* Hur ofta */}
+        <div className="p-4 border-b border-gray-100">
+          <p className={sectionLabel}>Hur ofta?</p>
+          <div className="flex rounded-xl overflow-hidden border border-[#8B1A00] shadow-sm">
+            <div className="flex-1 py-3 px-4 bg-[#8B1A00] text-white text-center text-sm font-semibold flex items-center justify-center">
+              {getFrequencyLabel(frequency)}
+            </div>
+            <div className="relative flex-shrink-0 border-l border-[#8B1A00]/30">
+              <button type="button" className="h-full px-4 bg-bg-white text-text-primary text-sm font-medium flex items-center gap-1.5">
+                Välj
+                <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                </svg>
               </button>
-            );
-          })}
+              <select
+                value={frequency}
+                onChange={(e) => onFrequencyChange(e.target.value as "weekly" | "biweekly")}
+                className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+              >
+                <option value="weekly">Varje vecka</option>
+                <option value="biweekly">Varannan vecka</option>
+              </select>
+            </div>
+          </div>
         </div>
-      </div>
 
+        {/* Hur långa lektioner */}
+        <div className="p-4 border-b border-gray-100">
+          <p className={sectionLabel}>Hur långa lektioner?</p>
+          <div className="flex gap-2">
+            {(["45-60", "90", "120"] as const).map((v) => {
+              const selected = lessonLength === v;
+              return (
+                <button
+                  key={v}
+                  type="button"
+                  onClick={() => onLessonLengthChange(v)}
+                  className={`flex-1 py-3 px-2 rounded-xl text-sm font-semibold transition-all duration-200 min-h-[44px] ${
+                    selected
+                      ? "bg-[#8B1A00] text-white shadow-sm"
+                      : "bg-white text-text-primary border border-gray-200 hover:border-primary/30"
+                  }`}
+                >
+                  {getLessonLabel(v)}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-      {/* Price display */}
-      <div className="bg-gradient-to-br from-white to-[#fef8f6] rounded-2xl p-6 text-center mb-5 border border-primary/15 shadow-sm">
-        <p className="text-xs text-text-secondary mb-1 uppercase tracking-wide">Ert månadspris</p>
-        <p className="text-4xl font-extrabold text-text-primary">
-          {formatPrice(price)} <span className="text-lg font-semibold text-text-secondary">kr/mån</span>
-        </p>
-        <p className="text-sm text-text-secondary mt-2">
-          {getLessonLabel(lessonLength)} · {getFrequencyLabel(frequency)}
-        </p>
-        <p className="flex items-center justify-center gap-1 text-xs text-success font-semibold mt-1.5">
-          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-          </svg>
-          Ingen bindningstid
-        </p>
+        {/* Price */}
+        <div className="p-5 text-center bg-gradient-to-br from-white to-[#fef8f6]">
+          <p className="text-xs text-text-secondary mb-1 uppercase tracking-wide">Ert månadspris</p>
+          <p className="text-4xl font-extrabold text-text-primary">
+            {formatPrice(price)} <span className="text-lg font-semibold text-text-secondary">kr/mån</span>
+          </p>
+          <p className="text-sm text-text-secondary mt-2">
+            {getLessonLabel(lessonLength)} · {getFrequencyLabel(frequency)}
+          </p>
+          <p className="flex items-center justify-center gap-1 text-xs text-success font-semibold mt-1.5">
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+            </svg>
+            Ingen bindningstid
+          </p>
+        </div>
+
       </div>
 
       {/* Next steps */}
