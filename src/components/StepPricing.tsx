@@ -68,10 +68,12 @@ export default function StepPricing({
       ctaText="Skicka anmälan"
       ctaLoading={isSubmitting}
     >
-      <h2 className="text-xl font-bold text-text-primary mb-4 mt-2">Välj ert upplägg</h2>
-
       {/* Calculator card */}
       <div className="rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-5">
+
+        <div className="px-4 pt-4 pb-2">
+          <h2 className="text-xl font-bold text-text-primary">Välj ert upplägg</h2>
+        </div>
 
         {/* Hur ofta */}
         <div className="p-4 border-b border-gray-100">
