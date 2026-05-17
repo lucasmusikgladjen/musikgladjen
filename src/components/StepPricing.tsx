@@ -113,13 +113,13 @@ export default function StepPricing({
             </div>
 
             {freqOpen && (
-              <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden z-10">
+              <div className="absolute right-0 top-full mt-2 w-52 bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden z-10">
                 {(["weekly", "biweekly"] as const).map((v, i) => (
                   <button
                     key={v}
                     type="button"
                     onClick={() => { onFrequencyChange(v); setFreqOpen(false); }}
-                    className={`w-full px-5 py-4 text-left text-sm font-semibold flex items-center justify-between transition-colors ${
+                    className={`w-full px-5 py-3.5 text-left text-sm flex items-center justify-between transition-colors ${
                       frequency === v ? "text-[#8B1A00]" : "text-text-primary hover:bg-gray-50"
                     } ${i > 0 ? "border-t border-gray-100" : ""}`}
                   >
