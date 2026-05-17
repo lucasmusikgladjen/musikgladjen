@@ -67,23 +67,23 @@ export default function StepPricing({
       onNext={onSubmit}
       ctaText="Skicka anmälan"
       ctaLoading={isSubmitting}
-      subtext="Anmälan är inte bindande. Vi hör av oss inom 24 timmar."
+      subtext="Anmälan är inte bindande. Vi hör av oss inom kort."
     >
       <h2 className="text-xl font-bold text-text-primary mb-5 mt-2">
         Välj ert upplägg
       </h2>
 
-      {/* Hur ofta — wide display + Välj dropdown */}
+      {/* Hur ofta — split button */}
       <div className="mb-5">
         <p className={sectionLabel}>Hur ofta?</p>
-        <div className="flex gap-2 items-center">
-          <div className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-b from-[#e8501a] to-[#da3111] text-white text-center text-sm font-semibold shadow-md shadow-primary/20">
+        <div className="flex rounded-xl overflow-hidden shadow-md shadow-primary/20 border border-primary">
+          <div className="flex-1 py-3 px-4 bg-gradient-to-b from-[#e8501a] to-[#da3111] text-white text-center text-sm font-semibold flex items-center justify-center">
             {getFrequencyLabel(frequency)}
           </div>
-          <div className="relative flex-shrink-0">
+          <div className="relative flex-shrink-0 border-l border-white/30">
             <button
               type="button"
-              className="flex items-center gap-1.5 py-3 px-4 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] text-sm font-medium text-text-primary bg-bg-white"
+              className="h-full px-4 bg-bg-white text-text-primary text-sm font-medium flex items-center gap-1.5"
             >
               Välj
               <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -113,7 +113,7 @@ export default function StepPricing({
                 key={v}
                 type="button"
                 onClick={() => onLessonLengthChange(v)}
-                className={`flex-1 py-3 px-2 rounded-full text-sm font-semibold transition-all duration-200 min-h-[44px] ${
+                className={`flex-1 py-3 px-2 rounded-xl text-sm font-semibold transition-all duration-200 min-h-[44px] ${
                   selected
                     ? "bg-gradient-to-b from-[#e8501a] to-[#da3111] text-white shadow-md shadow-primary/25"
                     : "bg-bg-white text-text-primary border border-gray-200 hover:border-primary/30"
@@ -126,22 +126,33 @@ export default function StepPricing({
         </div>
       </div>
 
-      {/* När vill ni börja — dropdown */}
+      {/* När vill ni börja — split button */}
       <div className="mb-6">
         <p className={sectionLabel}>När vill ni börja?</p>
-        <div className="relative">
-          <select
-            value={startPreference}
-            onChange={(e) => onStartPreferenceChange(e.target.value as "asap" | "within_month" | "next_term")}
-            className="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white text-text-primary focus:border-primary transition-colors appearance-none"
-          >
-            <option value="asap">Så snart som möjligt</option>
-            <option value="within_month">Inom en månad</option>
-            <option value="next_term">Nästa termin</option>
-          </select>
-          <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
+        <div className="flex rounded-xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.04)] border border-gray-200">
+          <div className="flex-1 py-3 px-4 bg-bg-white text-text-primary text-sm font-semibold flex items-center">
+            {{ asap: "Så snart som möjligt", within_month: "Inom en månad", next_term: "Nästa termin" }[startPreference]}
+          </div>
+          <div className="relative flex-shrink-0 border-l border-gray-200">
+            <button
+              type="button"
+              className="h-full px-4 bg-bg-white text-text-primary text-sm font-medium flex items-center gap-1.5"
+            >
+              Välj
+              <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <select
+              value={startPreference}
+              onChange={(e) => onStartPreferenceChange(e.target.value as "asap" | "within_month" | "next_term")}
+              className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+            >
+              <option value="asap">Så snart som möjligt</option>
+              <option value="within_month">Inom en månad</option>
+              <option value="next_term">Nästa termin</option>
+            </select>
+          </div>
         </div>
       </div>
 
