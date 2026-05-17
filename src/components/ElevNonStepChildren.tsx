@@ -81,7 +81,7 @@ function ChildCard({
       </div>
 
       {/* Grade + instrument summary */}
-      <div className="flex flex-wrap items-center gap-2 px-4 pb-3">
+      <div className="flex flex-wrap items-center gap-2 px-4 pb-4">
         <select
           value={child.grade}
           onChange={(e) => onChange({ grade: e.target.value })}
@@ -102,27 +102,18 @@ function ChildCard({
             {getInstrumentEmoji(instr)} {instr}
           </span>
         ))}
+
+        <button
+          type="button"
+          onClick={onToggleInstrumentEdit}
+          className="text-[11px] text-gray-400 hover:text-text-secondary transition-colors underline underline-offset-2 decoration-dotted ml-auto"
+        >
+          {instrumentEditOpen ? "dölj" : "ändra"}
+        </button>
       </div>
 
-      {/* Instrument toggle */}
-      <button
-        type="button"
-        onClick={onToggleInstrumentEdit}
-        className="w-full flex items-center justify-between px-4 py-2.5 border-t border-gray-100 text-xs text-text-secondary hover:text-primary hover:bg-gray-50 transition-colors"
-      >
-        <span>{instrumentEditOpen ? "Dölj instrument" : "Vill de spela ett annat instrument?"}</span>
-        <svg
-          className={`w-3.5 h-3.5 transition-transform ${instrumentEditOpen ? "rotate-180" : ""}`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-
       {instrumentEditOpen && (
-        <div className="px-4 pb-4 pt-2 border-t border-gray-100">
+        <div className="px-4 pb-4 pt-2 border-t border-gray-100 bg-gray-50/50">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
             {INSTRUMENTS.map(({ name, emoji }) => {
               const selected = child.instruments.includes(name);
