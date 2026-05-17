@@ -56,36 +56,48 @@ function ChildCard({
 
   return (
     <div className="rounded-xl border border-gray-200 bg-bg-white shadow-[0_1px_3px_rgba(0,0,0,0.06)] overflow-hidden">
-      {/* Name row */}
-      <div className="flex items-center gap-2 px-4 pt-4 pb-3">
+      {/* Primary fields */}
+      <div className="px-4 pt-4 pb-3 flex flex-col gap-3">
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            value={child.name}
+            onChange={(e) => onChange({ name: e.target.value })}
+            placeholder="Förnamn"
+            maxLength={50}
+            className="flex-1 text-base font-medium text-text-primary bg-transparent outline-none placeholder:text-gray-400"
+          />
+          {canRemove && (
+            <button
+              type="button"
+              onClick={onRemove}
+              className="w-6 h-6 flex items-center justify-center rounded-full text-gray-300 hover:text-error hover:bg-red-50 transition-colors flex-shrink-0"
+              aria-label="Ta bort"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+        </div>
+
         <input
           type="text"
-          value={child.name}
-          onChange={(e) => onChange({ name: e.target.value })}
-          placeholder={`Barn ${index + 1} — förnamn`}
-          maxLength={50}
-          className="flex-1 text-sm font-semibold text-text-primary bg-transparent outline-none placeholder:text-gray-400 placeholder:font-normal"
+          inputMode="numeric"
+          value={child.birthYear}
+          onChange={(e) => onChange({ birthYear: e.target.value.replace(/\D/g, "").slice(0, 4) })}
+          placeholder="Födelseår (t.ex. 2016)"
+          maxLength={4}
+          className="text-base text-text-primary bg-transparent outline-none placeholder:text-gray-400"
         />
-        {canRemove && (
-          <button
-            type="button"
-            onClick={onRemove}
-            className="w-6 h-6 flex items-center justify-center rounded-full text-gray-400 hover:text-error hover:bg-red-50 transition-colors flex-shrink-0"
-            aria-label="Ta bort"
-          >
-            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        )}
       </div>
 
-      {/* Grade + instrument summary */}
-      <div className="flex flex-wrap items-center gap-2 px-4 pb-4">
+      {/* Grade + instrument — subtle info row */}
+      <div className="flex flex-wrap items-center gap-1.5 px-4 py-2.5 border-t border-gray-100">
         <select
           value={child.grade}
           onChange={(e) => onChange({ grade: e.target.value })}
-          className="text-xs font-medium text-text-secondary bg-gray-100 border-0 rounded-full px-2.5 py-1 outline-none cursor-pointer hover:bg-gray-200 transition-colors appearance-none"
+          className="text-xs text-text-secondary bg-gray-100 border-0 rounded-full px-2.5 py-1 outline-none cursor-pointer hover:bg-gray-200 transition-colors appearance-none"
         >
           {GRADES_WITH_EMOJI.map(({ grade, emoji }) => (
             <option key={grade} value={grade}>
@@ -97,7 +109,7 @@ function ChildCard({
         {child.instruments.map((instr) => (
           <span
             key={instr}
-            className="inline-flex items-center gap-1 text-xs font-medium bg-accent-soft text-primary rounded-full px-2.5 py-1"
+            className="inline-flex items-center gap-1 text-xs text-primary bg-accent-soft rounded-full px-2.5 py-1"
           >
             {getInstrumentEmoji(instr)} {instr}
           </span>
@@ -169,6 +181,7 @@ export default function ElevNonStepChildren({
       ...children,
       {
         name: "",
+        birthYear: "",
         grade: last.grade,
         instruments: [...last.instruments],
         instrumentOther: "",
@@ -197,14 +210,14 @@ export default function ElevNonStepChildren({
 
   return (
     <StepWrapper onBack={onBack} onNext={onNext} ctaText="Gå vidare" ctaDisabled={!canProceed}>
-      <h2 className="text-2xl font-bold text-text-primary mb-2 mt-2">
-        {children.length === 1 ? "Vem ska ha lektioner?" : "Vilka ska ha lektioner?"}
+      <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">
+        Vem ska ha lektioner?
       </h2>
       <p className="text-sm text-text-secondary mb-5">
-        Ange förnamn för {children.length === 1 ? "eleven" : "varje barn"}.
+        Ange namn och födelseår för eleven.
       </p>
 
-      <div className="flex flex-col gap-3 mb-4">
+      <div className="flex flex-col gap-3 mb-5">
         {children.map((child, i) => (
           <ChildCard
             key={i}
@@ -223,12 +236,9 @@ export default function ElevNonStepChildren({
         <button
           type="button"
           onClick={addChild}
-          className="w-full flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl border border-dashed border-gray-300 text-sm font-semibold text-text-secondary hover:border-primary/50 hover:text-primary hover:bg-accent-soft/30 transition-all duration-200"
+          className="text-xs text-gray-400 hover:text-text-secondary transition-colors underline underline-offset-2 decoration-dotted"
         >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
-          Lägg till syskon
+          + Lägg till ett syskon
         </button>
       )}
     </StepWrapper>

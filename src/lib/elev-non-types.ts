@@ -3,6 +3,7 @@ import { sanitize } from "./validation";
 
 export type Child = {
   name: string;
+  birthYear: string;
   grade: string;
   instruments: string[];
   instrumentOther: string;
@@ -10,6 +11,7 @@ export type Child = {
 
 export const emptyChild = (): Child => ({
   name: "",
+  birthYear: "",
   grade: "",
   instruments: [],
   instrumentOther: "",
