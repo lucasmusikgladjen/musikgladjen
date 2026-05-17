@@ -136,7 +136,7 @@ export default function StepPricing({
 
         {/* Hur långa lektioner */}
         <div className="p-4 border-b border-gray-100">
-          <p className={sectionLabel}>Hur långa lektioner?</p>
+          <p className={sectionLabel}>Lektionslängd</p>
           <div className="flex gap-1 rounded-full border border-gray-200 bg-white p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
             {(["45-60", "90", "120"] as const).map((v) => {
               const selected = lessonLength === v;
