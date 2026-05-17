@@ -39,6 +39,15 @@ export default function ElevNonStepChildren({
 
   return (
     <StepWrapper onBack={onBack} onNext={onNext} ctaText="Gå vidare" ctaDisabled={!canProceed}>
+      <div className="flex items-start gap-3 bg-bg-white rounded-xl p-4 mb-6 border border-gray-100 shadow-sm">
+        <div className="flex-1">
+          <p className="text-sm font-semibold text-text-primary">Läraren kommer hem till er</p>
+          <p className="text-sm text-text-secondary mt-0.5">
+            Alla våra lärare är noggrant utvalda. På första lektionen lär ni känna varandra och sätter upp mål tillsammans.
+          </p>
+        </div>
+      </div>
+
       <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">
         Vem ska ha lektioner?
       </h2>

@@ -40,11 +40,20 @@ export default function ElevNonStepInstrument({
       ctaText="Nästa"
       ctaDisabled={false}
     >
+      <div className="flex items-start gap-3 bg-bg-white rounded-xl p-4 mb-6 border border-gray-100 shadow-sm">
+        <div className="flex-1">
+          <p className="text-sm font-semibold text-text-primary">En personlig lärare till ert barn</p>
+          <p className="text-sm text-text-secondary mt-0.5">
+            Läraren anpassar varje lektion efter barnets nivå och intressen, oavsett om det är Minecraft-melodier eller Mozart.
+          </p>
+        </div>
+      </div>
+
       <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">
         Vilket instrument vill {displayName} spela?
       </h2>
       <p className="text-sm text-text-secondary mb-5">
-        Markera gärna flera — ju fler desto snabbare hittar vi en lärare.
+        Markera gärna flera, ju fler desto snabbare hittar vi en lärare.
       </p>
 
       <div className="grid grid-cols-2 gap-2">

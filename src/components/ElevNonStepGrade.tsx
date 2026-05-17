@@ -18,14 +18,15 @@ export default function ElevNonStepGrade({
   return (
     <StepWrapper onNext={onNext} ctaText="Nästa" showBack={false}>
       <div className="flex items-start gap-3 bg-bg-white rounded-xl p-4 mb-6 border border-gray-100 shadow-sm animate-fade-in-up">
-        <div className="w-12 h-12 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center text-xl">
-          👋
-        </div>
+        <img
+          src="/loka.jpeg"
+          alt="Loka"
+          className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+        />
         <div>
           <p className="text-sm font-semibold text-text-primary">Hej och välkommen!</p>
           <p className="text-sm text-text-secondary mt-0.5">
-            Vi kopplar ihop ert barn med en personlig musiklärare som kommer hem till er.
-            Svara på några snabba frågor så hittar vi rätt matchning!
+            Jag heter Loka och jobbar med att hitta rätt lärare till er. När du skickat in anmälan är det jag som hör av mig.
           </p>
         </div>
       </div>

@@ -58,6 +58,15 @@ export default function ElevNonStepContact({
 
   return (
     <StepWrapper onBack={onBack} onNext={handleSubmit(onSubmit)} ctaText="Se ert pris & upplägg">
+      <div className="flex items-start gap-3 bg-bg-white rounded-xl p-4 mb-6 border border-gray-100 shadow-sm">
+        <div className="flex-1">
+          <p className="text-sm font-semibold text-text-primary">Ni hör av oss inom kort</p>
+          <p className="text-sm text-text-secondary mt-0.5">
+            Jag går igenom er anmälan och hör av mig för att hitta rätt upplägg till ert barn.
+          </p>
+        </div>
+      </div>
+
       <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">
         Kontaktuppgifter
       </h2>
