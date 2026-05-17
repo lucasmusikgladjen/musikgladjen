@@ -22,11 +22,11 @@ export default function ElevNonStepGrade({
           <img
             src="/loka.jpeg"
             alt="Loka"
-            className="w-6 h-6 rounded-full object-cover flex-shrink-0"
+            className="w-9 h-9 rounded-full object-cover flex-shrink-0"
           />
           <p className="text-sm font-semibold text-text-primary">Hej och välkommen!</p>
         </div>
-        <p className="text-sm text-text-secondary pl-8">
+        <p className="text-sm text-text-secondary mt-0.5">
           Jag heter Loka och jobbar med att hitta rätt lärare till er. När du skickat in anmälan är det jag som hör av mig.
         </p>
       </div>

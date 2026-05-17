@@ -61,11 +61,11 @@ export default function ElevNonStepContact({
       <div className="mb-6 pb-6 border-b border-gray-100">
         <p className="flex items-center gap-1.5 text-sm font-semibold text-text-primary mb-0.5">
           <svg className="w-4 h-4 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
           Ni hör av oss inom kort
         </p>
-        <p className="text-sm text-text-secondary pl-[22px]">
+        <p className="text-sm text-text-secondary">
           Jag går igenom er anmälan och hör av mig för att hitta rätt upplägg till ert barn.
         </p>
       </div>
