@@ -4,6 +4,7 @@ import { INSTRUMENTS } from "@/lib/types";
 import StepWrapper from "./StepWrapper";
 
 interface ElevNonStepInstrumentProps {
+  childName: string;
   value: string[];
   otherValue: string;
   onChange: (instruments: string[]) => void;
@@ -13,6 +14,7 @@ interface ElevNonStepInstrumentProps {
 }
 
 export default function ElevNonStepInstrument({
+  childName,
   value,
   otherValue,
   onChange,
@@ -29,6 +31,7 @@ export default function ElevNonStepInstrument({
   };
 
   const showOtherField = value.includes("Annat");
+  const displayName = childName.trim() || "eleven";
 
   return (
     <StepWrapper
@@ -38,10 +41,10 @@ export default function ElevNonStepInstrument({
       ctaDisabled={value.length === 0}
     >
       <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">
-        Vilket instrument vill eleven spela?
+        Vilket instrument vill {displayName} spela?
       </h2>
       <p className="text-sm text-text-secondary mb-5">
-        Om de kan tänka sig spela flera så markera det. Ju fler instrument ni markerar desto snabbare kan vi hitta en lärare.
+        Markera gärna flera — ju fler desto snabbare hittar vi en lärare.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -64,18 +67,8 @@ export default function ElevNonStepInstrument({
                 }`}
               >
                 {selected && (
-                  <svg
-                    className="w-2.5 h-2.5 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={3}
-                      d="M5 13l4 4L19 7"
-                    />
+                  <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
                 )}
               </span>
@@ -88,10 +81,7 @@ export default function ElevNonStepInstrument({
 
       {showOtherField && (
         <div className="mt-4 animate-fade-in-up">
-          <label
-            htmlFor="instrumentOther"
-            className="block text-sm font-medium text-text-primary mb-1"
-          >
+          <label htmlFor="instrumentOther" className="block text-sm font-medium text-text-primary mb-1">
             Vilket instrument?
           </label>
           <input
