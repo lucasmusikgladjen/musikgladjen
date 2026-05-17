@@ -102,22 +102,18 @@ export default function StepPricing({
         {/* Hur långa lektioner */}
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur långa lektioner?</p>
-          <div className="flex rounded-full border border-gray-200">
-            {(["45-60", "90", "120"] as const).map((v, i) => {
+          <div className="flex gap-1 rounded-full border border-gray-200 p-1">
+            {(["45-60", "90", "120"] as const).map((v) => {
               const selected = lessonLength === v;
               return (
                 <button
                   key={v}
                   type="button"
                   onClick={() => onLessonLengthChange(v)}
-                  className={`flex-1 py-2.5 text-sm font-semibold min-h-[44px] transition-colors duration-150 ${
-                    i === 0 ? "rounded-l-full" : i === 2 ? "rounded-r-full" : ""
-                  } ${
-                    i < 2 ? "border-r border-gray-200" : ""
-                  } ${
+                  className={`flex-1 py-2.5 rounded-full text-sm font-semibold min-h-[44px] transition-colors duration-150 ${
                     selected
                       ? "bg-[#8B1A00] text-white"
-                      : "bg-white text-gray-500"
+                      : "text-gray-500"
                   }`}
                 >
                   {getLessonLabel(v)}
