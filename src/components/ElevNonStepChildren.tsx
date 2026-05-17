@@ -59,7 +59,7 @@ export default function ElevNonStepChildren({
               </div>
             )}
 
-            <div className="flex flex-col gap-2">
+            <div className="grid grid-cols-[1fr_auto] gap-2">
               <div>
                 <label htmlFor={`name-${i}`} className={labelClass}>
                   Elevens namn <span className="text-error">*</span>
@@ -75,8 +75,7 @@ export default function ElevNonStepChildren({
                   className={inputClass}
                 />
               </div>
-
-              <div>
+              <div className="w-24">
                 <label htmlFor={`birthYear-${i}`} className={labelClass}>
                   Födelseår
                 </label>
@@ -86,7 +85,7 @@ export default function ElevNonStepChildren({
                   inputMode="numeric"
                   value={child.birthYear}
                   onChange={(e) => updateChild(i, { birthYear: e.target.value.replace(/\D/g, "").slice(0, 4) })}
-                  placeholder="T.ex. 2016"
+                  placeholder="2016"
                   maxLength={4}
                   className={inputClass}
                 />
