@@ -76,7 +76,7 @@ export default function StepPricing({
         {/* Hur ofta */}
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur ofta?</p>
-          <div className="relative flex items-center rounded-full border border-gray-200 p-1">
+          <div className="relative flex items-center rounded-full border border-gray-200 p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
             <div className="flex-1 bg-[#8B1A00] text-white rounded-full py-2.5 px-5 text-center text-sm font-semibold">
               {getFrequencyLabel(frequency)}
             </div>
@@ -100,7 +100,7 @@ export default function StepPricing({
         {/* Hur långa lektioner */}
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur långa lektioner?</p>
-          <div className="flex gap-1 rounded-full border border-gray-200 p-1">
+          <div className="flex gap-1 rounded-full border border-gray-200 p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
             {(["45-60", "90", "120"] as const).map((v) => {
               const selected = lessonLength === v;
               return (
