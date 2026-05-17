@@ -78,13 +78,13 @@ export default function StepPricing({
         {/* Hur ofta */}
         <div className="p-4 border-b border-gray-100">
           <p className={sectionLabel}>Hur ofta?</p>
-          <div className="relative flex items-center rounded-full border border-gray-200 p-1">
-            <div className={`flex-1 rounded-full py-2.5 px-5 text-center text-sm text-white ${greenFrequencyPill ? "bg-gradient-to-r from-[#84C441] to-[#3BA850] font-bold" : "bg-[#8B1A00] font-semibold"}`}>
+          <div className={`relative flex items-center rounded-full border border-gray-200 ${greenFrequencyPill ? "overflow-hidden" : "p-1"}`}>
+            <div className={`flex-1 text-center text-sm text-white ${greenFrequencyPill ? "bg-gradient-to-r from-[#84C441] to-[#3BA850] font-bold rounded-r-full self-stretch flex items-center justify-center py-2.5 px-5" : "bg-[#8B1A00] font-semibold rounded-full py-2.5 px-5"}`}>
               {getFrequencyLabel(frequency)}
             </div>
-            <button type="button" className={`flex-shrink-0 px-4 py-2 text-sm font-semibold flex items-center gap-1.5 ${greenFrequencyPill ? "bg-transparent text-gray-500" : "bg-white text-[#8B1A00]"}`}>
+            <button type="button" className={`flex-shrink-0 px-4 py-2 text-sm font-semibold text-[#8B1A00] flex items-center gap-1.5 ${greenFrequencyPill ? "bg-transparent" : "bg-white"}`}>
               Välj
-              <svg className={`w-3 h-3 ${greenFrequencyPill ? "text-gray-400" : "text-[#8B1A00]/60"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-3 h-3 text-[#8B1A00]/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
