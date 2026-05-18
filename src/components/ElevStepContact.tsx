@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import StepWrapper from "./StepWrapper";
 
 const INSTRUMENT_AT_HOME_OPTIONS = [
@@ -67,6 +68,19 @@ export default function ElevStepContact({
   onNext,
   onBack,
 }: ElevStepContactProps) {
+  const [instrumentOpen, setInstrumentOpen] = useState(false);
+  const instrumentRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!instrumentOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (instrumentRef.current && !instrumentRef.current.contains(e.target as Node)) {
+        setInstrumentOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [instrumentOpen]);
+
   return (
     <StepWrapper onBack={onBack} onNext={onNext} ctaText="Se ert pris & upplägg" gaStep="steg-4">
       <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">
@@ -185,25 +199,42 @@ export default function ElevStepContact({
           <label htmlFor="instrumentAtHome" className={labelClass}>
             Har ni ett instrument hemma?
           </label>
-          <div className="relative">
-            <select
-              id="instrumentAtHome"
-              value={instrumentAtHome}
-              onChange={(e) => onInstrumentAtHomeChange(e.target.value)}
-              data-ga-field="instrument_at_home"
-              className={`w-full px-4 py-3 pr-10 rounded-xl border shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white transition-colors appearance-none ${
-                !instrumentAtHome ? "border-gray-200 text-gray-400" : "border-gray-200 text-text-primary focus:border-primary"
-              }`}
-            >
-              {INSTRUMENT_AT_HOME_OPTIONS.map(({ value, label }) => (
-                <option key={value} value={value} disabled={value === ""}>
+          <div ref={instrumentRef} className="relative">
+            <div className="flex items-center rounded-full border border-gray-200 bg-white p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+              <div className={`flex-1 rounded-full py-2.5 px-5 text-center text-sm font-semibold transition-colors ${instrumentAtHome ? "bg-[#8B1A00] text-white" : "text-gray-400"}`}>
+                {instrumentAtHome || "Välj alternativ…"}
+              </div>
+              <button
+                type="button"
+                onClick={() => setInstrumentOpen((o) => !o)}
+                className="flex-shrink-0 px-4 py-2 bg-white rounded-full text-sm font-semibold text-gray-500 flex items-center gap-1.5"
+              >
+                Välj
+                <svg className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${instrumentOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+            <div className={`absolute right-0 top-full mt-2 w-full bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden z-10 transition-all duration-200 origin-top-right ${instrumentOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-1 pointer-events-none"}`}>
+              {INSTRUMENT_AT_HOME_OPTIONS.filter(({ value }) => value !== "").map(({ value, label }, i) => (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => { onInstrumentAtHomeChange(value); setInstrumentOpen(false); }}
+                  data-ga-field="instrument_at_home"
+                  className={`w-full px-5 py-3.5 text-left text-sm flex items-center justify-between transition-colors ${
+                    instrumentAtHome === value ? "text-[#8B1A00]" : "text-text-primary hover:bg-gray-50"
+                  } ${i > 0 ? "border-t border-gray-100" : ""}`}
+                >
                   {label}
-                </option>
+                  {instrumentAtHome === value && (
+                    <svg className="w-4 h-4 text-[#8B1A00]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </button>
               ))}
-            </select>
-            <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+            </div>
           </div>
         </div>
 
