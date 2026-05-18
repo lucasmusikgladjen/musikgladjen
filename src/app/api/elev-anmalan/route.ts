@@ -3,7 +3,7 @@ import { createHash } from "crypto";
 import { resolveInstruments } from "@/lib/instrument-utils";
 
 const BASE_ID = "app1l4NwAMtwlTIUC";
-const TABLE_ID = "tblnJd5fEqh2qXC2R";
+const TABLE_ID = process.env.AIRTABLE_ELEV_TABLE_ID ?? "";
 const META_PIXEL_ID = "835715892143915";
 
 function sha256(value: string): string {
@@ -23,32 +23,54 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Configuration error" }, { status: 500 });
     }
 
-    const instrumentArray = resolveInstruments(data.instruments, data.instrumentOther ?? "");
+    if (!TABLE_ID) {
+      console.error("AIRTABLE_ELEV_TABLE_ID not set");
+      return NextResponse.json({ success: false, error: "Configuration error" }, { status: 500 });
+    }
 
-    const areasStr = Array.isArray(data.areas)
-      ? data.areas.map((a: string) => toStartCase(a.trim())).join(", ")
-      : toStartCase(data.areas.trim());
+    // Resolve instruments per child and collect all unique instruments
+    const children = (data.children ?? []).map((child: {
+      name: string;
+      birthYear: string;
+      grade: string;
+      instruments: string[];
+      instrumentOther: string;
+    }) => ({
+      ...child,
+      instruments: resolveInstruments(child.instruments ?? [], child.instrumentOther ?? ""),
+    }));
+
+    const allInstruments = Array.from(
+      new Set(children.flatMap((c: { instruments: string[] }) => c.instruments))
+    );
 
     const fields: Record<string, unknown> = {
-      Namn: toStartCase(data.name.trim()),
-      Födelseår: data.birthYear,
-      Instrument: instrumentArray,
+      Namn: toStartCase((data.guardianName ?? "").trim()),
+      Instrument: allInstruments,
       Kontaktuppgifter: JSON.stringify({
-        email: data.email.trim().toLowerCase(),
-        telefon: data.phone.trim(),
-        adress: toStartCase(data.address.trim()),
-        postnummer: data.postnummer.trim(),
-        ort: toStartCase(data.city.trim()),
+        email: (data.email ?? "").trim().toLowerCase(),
+        telefon: (data.phone ?? "").trim(),
+        adress: toStartCase((data.address ?? "").trim()),
+        postnummer: (data.postalCode ?? "").trim(),
+        ort: toStartCase((data.city ?? "").trim()),
       }),
-      Erfarenheter: JSON.stringify({
-        musikerfarenheter: data.musicExperience.trim(),
-        erfarenheterMedBarn: data.childrenExperience.trim(),
-      }),
+      Barn: JSON.stringify(children),
       Övrigt: JSON.stringify({
-        undervisningsomraden: areasStr,
-        antalElever: data.studentCount,
-        vadVillDuHaUtAvJobbet: Array.isArray(data.motivations) ? data.motivations : [],
-        hurHittadeJobbet: data.howFound,
+        kommentar: (data.comment ?? "").trim(),
+        instrumentHemma: data.instrumentAtHome ?? "",
+        forväntningar: Array.isArray(data.expectations) ? data.expectations : [],
+        frekvens: data.frequency ?? "",
+        lektionslängd: data.lessonLength ?? "",
+        startpreferens: data.startPreference ?? "",
+      }),
+      UTM: JSON.stringify({
+        source: data.meta?.utmSource ?? null,
+        medium: data.meta?.utmMedium ?? null,
+        campaign: data.meta?.utmCampaign ?? null,
+        term: data.meta?.utmTerm ?? null,
+        content: data.meta?.utmContent ?? null,
+        referrer: data.meta?.referrer ?? "",
+        referralCode: data.meta?.referralCode ?? null,
       }),
     };
 
@@ -75,7 +97,7 @@ export async function POST(req: NextRequest) {
 
     const geocodeToken = process.env.GEOCODE_API_TOKEN;
     if (geocodeToken && recordId) {
-      const address = `${toStartCase(data.address.trim())}, ${data.postnummer.trim()} ${toStartCase(data.city.trim())}`;
+      const address = `${toStartCase((data.address ?? "").trim())}, ${(data.postalCode ?? "").trim()} ${toStartCase((data.city ?? "").trim())}`;
       fetch("https://geocode-126597579756.europe-west1.run.app", {
         method: "POST",
         headers: {
@@ -83,7 +105,7 @@ export async function POST(req: NextRequest) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          table: "Jobbansökningar",
+          table: "Elevanmälningar",
           record_id: recordId,
           address,
         }),
@@ -93,7 +115,7 @@ export async function POST(req: NextRequest) {
     const accessToken = process.env.META_ACCESS_TOKEN;
     if (accessToken) {
       try {
-        const nameParts = (data.name ?? "").trim().split(/\s+/);
+        const nameParts = (data.guardianName ?? "").trim().split(/\s+/);
         const firstName = nameParts[0] ?? "";
         const lastName = nameParts.slice(1).join(" ");
         const ip =
@@ -118,10 +140,9 @@ export async function POST(req: NextRequest) {
                   ph: data.phone ? [sha256(data.phone.replace(/\D/g, ""))] : undefined,
                   fn: firstName ? [sha256(firstName)] : undefined,
                   ln: lastName ? [sha256(lastName)] : undefined,
-                  zp: data.postnummer ? [sha256(data.postnummer)] : undefined,
+                  zp: data.postalCode ? [sha256(data.postalCode)] : undefined,
                   ct: data.city ? [sha256(data.city)] : undefined,
                   country: [sha256("se")],
-                  db: data.birthYear && String(data.birthYear).length === 4 ? [sha256(String(data.birthYear) + "0101")] : undefined,
                   external_id: data.email ? [sha256(data.email)] : undefined,
                   client_ip_address: ip,
                   client_user_agent: req.headers.get("user-agent") ?? undefined,

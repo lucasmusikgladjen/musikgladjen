@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { ElevFormData, emptyChild } from "@/lib/elev-types";
 import { PRICE_TABLE } from "@/lib/types";
-import { pushEvent, getUTMParams, getReferralCodeFromURL, getReferrer, getUserAgent } from "@/lib/tracking";
+import { pushEvent, getUTMParams, getReferralCodeFromURL, getReferrer, getUserAgent, trackMetaLead } from "@/lib/tracking";
 import FormHeader from "./FormHeader";
 import ProgressBar from "./ProgressBar";
 import ElevStepGrade from "./ElevStepGrade";
@@ -112,11 +112,19 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
     setIsSubmitting(true);
     setSubmitError(null);
 
+    const eventId = crypto.randomUUID();
+    const getCookie = (name: string) =>
+      document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"))?.[2];
+
     const utmParams = getUTMParams();
     const refCode = getReferralCodeFromURL();
 
     const payload = {
       ...formData,
+      eventId,
+      fbp: getCookie("_fbp"),
+      fbc: getCookie("_fbc"),
+      eventSourceUrl: window.location.href,
       meta: {
         submittedAt: new Date().toISOString(),
         ...utmParams,
@@ -126,19 +134,15 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
       },
     };
 
-    const webhookUrl = process.env.NEXT_PUBLIC_WEBHOOK_URL;
-
     try {
-      if (webhookUrl) {
-        const res = await fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      } else {
-        console.log("Webhook payload (no URL configured):", payload);
-      }
+      const res = await fetch("/api/elev-anmalan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      trackMetaLead(eventId);
       pushEvent("form_submit", { form_name: "musikgladjen_signup", form_variant: "elev" });
       onComplete(formData);
     } catch (error) {
