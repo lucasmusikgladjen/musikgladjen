@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import StepWrapper from "./StepWrapper";
 
 const INSTRUMENT_AT_HOME_OPTIONS = [
@@ -31,8 +30,6 @@ interface ElevStepContactProps {
   onBack: () => void;
 }
 
-const isValidEmail = (e: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
-
 const formatPostalCode = (digits: string) => {
   if (digits.length <= 3) return digits;
   return `${digits.slice(0, 3)} ${digits.slice(3)}`;
@@ -46,6 +43,9 @@ const formatPhone = (input: string) => {
   if (d.length > 8) r += ` ${d.slice(8, 10)}`;
   return r;
 };
+
+const inputClass = "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white placeholder:text-gray-400 placeholder:text-sm transition-colors focus:border-primary";
+const labelClass = "block text-sm font-semibold text-text-primary mb-1";
 
 export default function ElevStepContact({
   guardianName,
@@ -67,37 +67,8 @@ export default function ElevStepContact({
   onNext,
   onBack,
 }: ElevStepContactProps) {
-  const [touched, setTouched] = useState<Record<string, boolean>>({});
-  const touch = (field: string) => setTouched((t) => ({ ...t, [field]: true }));
-
-  const phoneDigits = phone.replace(/\D/g, "");
-
-  const errors = {
-    guardianName: guardianName.trim().length < 2 ? "Ange för- och efternamn" : null,
-    address: address.trim().length < 2 ? "Ange din adress" : null,
-    postalCode: postalCode.length !== 5 ? "Ange ett giltigt postnummer (5 siffror)" : null,
-    city: city.trim().length < 2 ? "Ange din ort" : null,
-    phone: phoneDigits.length < 8 ? "Ange ett giltigt telefonnummer" : null,
-    email: !isValidEmail(email) ? "Ange en giltig e-postadress" : null,
-  };
-
-  const canProceed = Object.values(errors).every((e) => e === null);
-
-  const handleNext = () => {
-    setTouched({ guardianName: true, address: true, postalCode: true, city: true, phone: true, email: true });
-    if (canProceed) onNext();
-  };
-
-  const inputClass = (hasError: boolean) =>
-    `w-full px-4 py-3 rounded-xl border shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white placeholder:text-gray-400 placeholder:text-sm transition-colors ${
-      hasError ? "border-error" : "border-gray-200 focus:border-primary"
-    }`;
-
-  const labelClass = "block text-sm font-semibold text-text-primary mb-1";
-  const errorClass = "mt-1 text-xs text-error";
-
   return (
-    <StepWrapper onBack={onBack} onNext={handleNext} ctaText="Se ert pris & upplägg" gaStep="steg-4">
+    <StepWrapper onBack={onBack} onNext={onNext} ctaText="Se ert pris & upplägg" gaStep="steg-4">
       <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">
         Kontaktuppgifter
       </h2>
@@ -105,50 +76,42 @@ export default function ElevStepContact({
       <div className="flex flex-col gap-4" data-ga-step="steg-4">
         <div>
           <label htmlFor="guardianName" className={labelClass}>
-            Vårdnadshavares namn <span className="text-error">*</span>
+            Vårdnadshavares namn
           </label>
           <input
             id="guardianName"
             type="text"
             value={guardianName}
             onChange={(e) => onGuardianNameChange(e.target.value)}
-            onBlur={() => touch("guardianName")}
             placeholder="Förnamn Efternamn"
             autoComplete="name"
             maxLength={80}
             data-ga-field="guardian_name"
-            className={inputClass(!!touched.guardianName && !!errors.guardianName)}
+            className={inputClass}
           />
-          {touched.guardianName && errors.guardianName && (
-            <p className={errorClass}>{errors.guardianName}</p>
-          )}
         </div>
 
         <div>
           <label htmlFor="address" className={labelClass}>
-            Gatuadress <span className="text-error">*</span>
+            Gatuadress
           </label>
           <input
             id="address"
             type="text"
             value={address}
             onChange={(e) => onAddressChange(e.target.value)}
-            onBlur={() => touch("address")}
             placeholder="T.ex. Storgatan 12"
             autoComplete="street-address"
             maxLength={200}
             data-ga-field="address"
-            className={inputClass(!!touched.address && !!errors.address)}
+            className={inputClass}
           />
-          {touched.address && errors.address && (
-            <p className={errorClass}>{errors.address}</p>
-          )}
         </div>
 
         <div className="grid grid-cols-[1fr_2fr] gap-2">
           <div>
             <label htmlFor="postalCode" className={labelClass}>
-              Postnr <span className="text-error">*</span>
+              Postnr
             </label>
             <input
               id="postalCode"
@@ -157,42 +120,34 @@ export default function ElevStepContact({
               pattern="\d*"
               value={formatPostalCode(postalCode)}
               onChange={(e) => onPostalCodeChange(e.target.value.replace(/\D/g, "").slice(0, 5))}
-              onBlur={() => touch("postalCode")}
               placeholder="123 45"
               autoComplete="postal-code"
               maxLength={6}
               data-ga-field="postal_code"
-              className={inputClass(!!touched.postalCode && !!errors.postalCode)}
+              className={inputClass}
             />
-            {touched.postalCode && errors.postalCode && (
-              <p className={errorClass}>{errors.postalCode}</p>
-            )}
           </div>
           <div>
             <label htmlFor="city" className={labelClass}>
-              Ort <span className="text-error">*</span>
+              Ort
             </label>
             <input
               id="city"
               type="text"
               value={city}
               onChange={(e) => onCityChange(e.target.value)}
-              onBlur={() => touch("city")}
               placeholder="Stockholm"
               autoComplete="address-level2"
               maxLength={100}
               data-ga-field="city"
-              className={inputClass(!!touched.city && !!errors.city)}
+              className={inputClass}
             />
-            {touched.city && errors.city && (
-              <p className={errorClass}>{errors.city}</p>
-            )}
           </div>
         </div>
 
         <div>
           <label htmlFor="phone" className={labelClass}>
-            Telefon <span className="text-error">*</span>
+            Telefon
           </label>
           <input
             id="phone"
@@ -200,21 +155,17 @@ export default function ElevStepContact({
             inputMode="numeric"
             value={phone}
             onChange={(e) => onPhoneChange(formatPhone(e.target.value))}
-            onBlur={() => touch("phone")}
             placeholder="070-123 45 67"
             autoComplete="tel"
             maxLength={13}
             data-ga-field="phone"
-            className={inputClass(!!touched.phone && !!errors.phone)}
+            className={inputClass}
           />
-          {touched.phone && errors.phone && (
-            <p className={errorClass}>{errors.phone}</p>
-          )}
         </div>
 
         <div>
           <label htmlFor="email" className={labelClass}>
-            E-post <span className="text-error">*</span>
+            E-post
           </label>
           <input
             id="email"
@@ -222,21 +173,17 @@ export default function ElevStepContact({
             inputMode="email"
             value={email}
             onChange={(e) => onEmailChange(e.target.value)}
-            onBlur={() => touch("email")}
             placeholder="namn@example.com"
             autoComplete="email"
             maxLength={254}
             data-ga-field="email"
-            className={inputClass(!!touched.email && !!errors.email)}
+            className={inputClass}
           />
-          {touched.email && errors.email && (
-            <p className={errorClass}>{errors.email}</p>
-          )}
         </div>
 
         <div>
           <label htmlFor="instrumentAtHome" className={labelClass}>
-            Har ni ett instrument hemma? <span className="text-error">*</span>
+            Har ni ett instrument hemma?
           </label>
           <div className="relative">
             <select
