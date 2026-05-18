@@ -153,23 +153,23 @@ export default function JobStepCalculator({ onNext, onBack }: JobStepCalculatorP
       <div className="mt-2 pt-4 border-t border-gray-100 mb-4 flex flex-col gap-4">
         <div className="flex gap-3">
           <svg className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <div>
-            <p className="text-sm font-semibold text-text-secondary mb-0.5">Din timlön</p>
-            <p className="text-sm text-text-secondary leading-relaxed">
-              Vi följer fasta löneklasser baserat på året du fyller år, inte din faktiska födelsedag.
-            </p>
-          </div>
-        </div>
-        <div className="flex gap-3">
-          <svg className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
             <p className="text-sm font-semibold text-text-secondary mb-0.5">Hur beräknas lönen?</p>
             <p className="text-sm text-text-secondary leading-relaxed">
               Lönen är baserat på 4 antal lektioner per elev och månad, och är alltså endast preliminär.
+            </p>
+          </div>
+        </div>
+        <div className="flex gap-3">
+          <svg className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div>
+            <p className="text-sm font-semibold text-text-secondary mb-0.5">Din timlön</p>
+            <p className="text-sm text-text-secondary leading-relaxed">
+              Vi följer fasta löneklasser baserat på året du fyller år, inte din faktiska födelsedag.
             </p>
           </div>
         </div>
