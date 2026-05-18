@@ -93,13 +93,6 @@ export async function POST(req: NextRequest) {
         tillgangInstrument: data.instrumentAtHome ?? "",
         annatViBorVeta: (data.comment ?? "").trim(),
         kommunikationspreferens: "",
-        utmSource: data.meta?.utmSource ?? null,
-        utmMedium: data.meta?.utmMedium ?? null,
-        utmCampaign: data.meta?.utmCampaign ?? null,
-        utmTerm: data.meta?.utmTerm ?? null,
-        utmContent: data.meta?.utmContent ?? null,
-        referrer: data.meta?.referrer ?? "",
-        referralCode: data.meta?.referralCode ?? null,
       }),
     };
 
