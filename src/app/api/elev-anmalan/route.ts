@@ -6,6 +6,7 @@ const BASE_ID = "app1l4NwAMtwlTIUC";
 const ELEV_TABLE_ID = "tblAj4VVugqhdPWnR";
 const VARDNADSHAVARE_TABLE_ID = "tblfYUEqhO9gtSQMh";
 const META_PIXEL_ID = "835715892143915";
+const EMAIL_WEBHOOK_URL = "https://hook.eu1.make.com/zis8yskrx6r5kejrp1abqhygt6eud54p";
 
 function sha256(value: string): string {
   return createHash("sha256").update(value.trim().toLowerCase()).digest("hex");
@@ -54,7 +55,7 @@ export async function POST(req: NextRequest) {
       const instruments = resolveInstruments(child.instruments ?? [], child.instrumentOther ?? "");
       const elevRecord = await airtablePost(apiKey, ELEV_TABLE_ID, {
         Förnamn: toStartCase((child.name ?? "").trim()),
-        Instrument: instruments.join(", "),
+        Instrument: instruments,
         Födelseår: (child.birthYear ?? "").trim(),
         "Kort om eleven (från anmälan)": child.grade ? `Årskurs: ${child.grade}` : "",
       });
@@ -108,7 +109,19 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 4. Geocoding (fire-and-forget)
+    // 4. Trigger email module
+    fetch(EMAIL_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        vardnadshavareId: vardnaRecord.id,
+        elevIds: elevRecordIds,
+        email: (data.email ?? "").trim().toLowerCase(),
+        name: toStartCase((data.guardianName ?? "").trim()),
+      }),
+    }).catch((err) => console.error("Email webhook error:", err));
+
+    // 5. Geocoding (fire-and-forget)
     const geocodeToken = process.env.GEOCODE_API_TOKEN;
     if (geocodeToken) {
       const fullAddress = `${gata}${gatunummer ? ` ${gatunummer}` : ""}, ${(data.postalCode ?? "").trim()} ${toStartCase((data.city ?? "").trim())}`;
@@ -123,7 +136,7 @@ export async function POST(req: NextRequest) {
       }).catch((err) => console.error("Geocoding error:", err));
     }
 
-    // 5. Meta CAPI Lead event
+    // 6. Meta CAPI Lead event
     const accessToken = process.env.META_ACCESS_TOKEN;
     if (accessToken) {
       try {
