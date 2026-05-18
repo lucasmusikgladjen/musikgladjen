@@ -12,6 +12,7 @@ interface JobStepJobDetailsProps {
   onNext: () => void;
   onBack: () => void;
   noValidation?: boolean;
+  enableAutocomplete?: boolean;
 }
 
 export default function JobStepJobDetails({
@@ -22,12 +23,13 @@ export default function JobStepJobDetails({
   onNext,
   onBack,
   noValidation = false,
+  enableAutocomplete = false,
 }: JobStepJobDetailsProps) {
   const [areaInput, setAreaInput] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const suggestions = areaInput.trim()
+  const suggestions = enableAutocomplete && areaInput.trim()
     ? AREA_SUGGESTIONS.filter(
         (s) =>
           s.toLowerCase().includes(areaInput.toLowerCase()) &&

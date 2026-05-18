@@ -154,6 +154,7 @@ export default function JobTestApplicationForm({ onComplete }: JobTestApplicatio
               onNext={goNext}
               onBack={goBack}
               noValidation
+              enableAutocomplete
             />
           )}
           {step === 3 && (
