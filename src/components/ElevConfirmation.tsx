@@ -1,24 +1,12 @@
 "use client";
 
 import { ElevFormData } from "@/lib/elev-types";
-import { INSTRUMENTS } from "@/lib/types";
 import FormHeader from "./FormHeader";
 
 interface ElevConfirmationProps {
   data: ElevFormData;
 }
 
-function getInstrumentEmoji(name: string): string {
-  return INSTRUMENTS.find((i) => i.name === name)?.emoji ?? "🎵";
-}
-
-const GRADE_EMOJIS: Record<string, string> = {
-  Förskola: "🧸",
-  Lågstadiet: "🎒",
-  Mellanstadiet: "📚",
-  Högstadiet: "📐",
-  Äldre: "🎓",
-};
 
 export default function ElevConfirmation({ data }: ElevConfirmationProps) {
   return (
@@ -47,34 +35,7 @@ export default function ElevConfirmation({ data }: ElevConfirmationProps) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 mb-4">
-            <p className="text-xs font-semibold text-text-secondary uppercase tracking-wide">
-              {data.children.length === 1 ? "Anmält barn" : "Anmälda barn"}
-            </p>
-            {data.children.map((child, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-3 px-4 py-3.5 rounded-xl border border-gray-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
-              >
-                <span className="text-xl flex-shrink-0">
-                  {GRADE_EMOJIS[child.grade] ?? "👤"}
-                </span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-text-primary">
-                    {child.name || `Barn ${i + 1}`}
-                  </p>
-                  <p className="text-xs text-text-secondary truncate">
-                    {child.grade} &middot;{" "}
-                    {child.instruments
-                      .map((instr) => `${getInstrumentEmoji(instr)} ${instr}`)
-                      .join(", ")}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {data.email && (
+{data.email && (
             <div className="p-4 rounded-xl bg-white border border-gray-200 text-sm text-text-secondary">
               <p>
                 <span className="font-semibold text-text-primary">Bekräftelse skickas till:</span>{" "}
