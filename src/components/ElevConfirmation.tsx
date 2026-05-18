@@ -31,7 +31,7 @@ export default function ElevConfirmation({ data }: ElevConfirmationProps) {
             Tack för er anmälan!
           </h1>
           <p className="text-sm text-text-secondary">
-            Vi hör av oss inom 24 timmar med förslag på lärare.
+            Vi hör av oss inom kort för att kunna hitta rätt lärare till er.
           </p>
         </div>
 
@@ -62,12 +62,14 @@ export default function ElevConfirmation({ data }: ElevConfirmationProps) {
           ))}
         </div>
 
-        <div className="p-4 rounded-xl bg-gray-50 border border-gray-100 text-sm text-text-secondary">
-          <p>
-            <span className="font-semibold text-text-primary">Bekräftelse skickas till:</span>{" "}
-            {data.email}
-          </p>
-        </div>
+        {data.email && (
+          <div className="p-4 rounded-xl bg-gray-50 border border-gray-100 text-sm text-text-secondary">
+            <p>
+              <span className="font-semibold text-text-primary">Bekräftelse skickas till:</span>{" "}
+              {data.email}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
