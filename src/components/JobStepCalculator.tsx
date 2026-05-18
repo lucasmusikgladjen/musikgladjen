@@ -158,7 +158,7 @@ export default function JobStepCalculator({ onNext, onBack }: JobStepCalculatorP
           <div>
             <p className="text-sm font-semibold text-text-secondary mb-0.5">Din timlön</p>
             <p className="text-sm text-text-secondary leading-relaxed">
-              Våra löneklasser baseras på året du når en ny åldersgrupp, och alltså inte födelsedag.
+              Vi följer fasta löneklasser baserat på året du fyller år, inte din faktiska födelsedag.
             </p>
           </div>
         </div>
@@ -169,7 +169,7 @@ export default function JobStepCalculator({ onNext, onBack }: JobStepCalculatorP
           <div>
             <p className="text-sm font-semibold text-text-secondary mb-0.5">Hur beräknas lönen?</p>
             <p className="text-sm text-text-secondary leading-relaxed">
-              Lönen räknas ut på antalet lektioner per elev och månad och är alltså endast preliminär.
+              Lönen är baserat på 4 antal lektioner per elev och månad, och är alltså endast preliminär.
             </p>
           </div>
         </div>
