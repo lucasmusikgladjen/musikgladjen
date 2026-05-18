@@ -278,7 +278,7 @@ export default function JobStepContact({
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              <div className={`absolute left-0 top-full mt-1 w-full bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden z-10 transition-all duration-200 origin-top ${howFoundOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-1 pointer-events-none"}`}>
+              <div className={`absolute left-0 bottom-full mb-1 w-full bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden z-10 transition-all duration-200 origin-bottom ${howFoundOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-1 pointer-events-none"}`}>
                 {JOB_HOW_FOUND.map((option, i) => (
                   <button
                     key={option}

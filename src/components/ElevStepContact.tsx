@@ -210,7 +210,7 @@ export default function ElevStepContact({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            <div className={`absolute left-0 top-full mt-1 w-full bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden z-10 transition-all duration-200 origin-top ${instrumentOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-1 pointer-events-none"}`}>
+            <div className={`absolute left-0 bottom-full mb-1 w-full bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden z-10 transition-all duration-200 origin-bottom ${instrumentOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-1 pointer-events-none"}`}>
               {INSTRUMENT_AT_HOME_OPTIONS.filter(({ value }) => value !== "").map(({ value, label }, i) => (
                 <button
                   key={value}
