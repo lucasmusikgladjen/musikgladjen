@@ -116,6 +116,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         scenario: "elev-anmalan",
         email: (data.email ?? "").trim().toLowerCase(),
+        name: toStartCase((data.guardianName ?? "").trim()),
       }),
     }).catch((err) => console.error("Email webhook error:", err));
 
