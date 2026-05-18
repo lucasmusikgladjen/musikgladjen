@@ -114,6 +114,7 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        scenario: "elev-anmalan",
         vardnadshavareId: vardnaRecord.id,
         elevIds: elevRecordIds,
         email: (data.email ?? "").trim().toLowerCase(),
