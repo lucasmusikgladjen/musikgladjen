@@ -82,11 +82,6 @@ export async function POST(req: NextRequest) {
       "Vad hoppas ni fått ut av undervisning": Array.isArray(data.expectations) && data.expectations.length > 0
         ? data.expectations
         : undefined,
-      "Anteckning": JSON.stringify({
-        VårdnadshavareAnteckning: (data.comment ?? "").trim(),
-        OnboardingAnteckning: "",
-        FörstaLektionAnteckning: "",
-      }),
       "Anmälningsinfo": JSON.stringify({
         hurSnart: data.startPreference ? mapStartPreference(data.startPreference) : "",
         vadHoppas: Array.isArray(data.expectations) ? data.expectations.join(", ") : "",
