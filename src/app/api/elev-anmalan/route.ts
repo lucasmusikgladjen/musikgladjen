@@ -3,7 +3,8 @@ import { createHash } from "crypto";
 import { resolveInstruments } from "@/lib/instrument-utils";
 
 const BASE_ID = "app1l4NwAMtwlTIUC";
-const TABLE_ID = process.env.AIRTABLE_ELEV_TABLE_ID ?? "";
+const ELEV_TABLE_ID = "tblAj4VVugqhdPWnR";
+const VARDNADSHAVARE_TABLE_ID = "tblfYUEqhO9gtSQMh";
 const META_PIXEL_ID = "835715892143915";
 
 function sha256(value: string): string {
@@ -12,6 +13,35 @@ function sha256(value: string): string {
 
 const toStartCase = (s: string) =>
   s.replace(/\S+/g, (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+
+function splitAddress(address: string): { gata: string; gatunummer: string } {
+  const match = address.trim().match(/^(.+?)\s+(\d+\S*)$/);
+  if (match) return { gata: toStartCase(match[1].trim()), gatunummer: match[2].trim() };
+  return { gata: toStartCase(address.trim()), gatunummer: "" };
+}
+
+function mapStartPreference(v: string): string {
+  if (v === "next_term") return "Nästa termin";
+  return "Så snart som möjligt";
+}
+
+function mapInstrumentAtHome(v: string): string {
+  if (v === "Nej, men planerar att köpa") return "Vi planerar att skaffa inom kort";
+  return v; // "Ja, vi har ett instrument" and "Nej, behöver råd" map to Airtable values directly (close enough)
+}
+
+async function airtablePost(apiKey: string, tableId: string, fields: Record<string, unknown>) {
+  const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${tableId}`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ fields }),
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Airtable error (${tableId}): ${err}`);
+  }
+  return res.json() as Promise<{ id: string }>;
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -23,95 +53,84 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Configuration error" }, { status: 500 });
     }
 
-    if (!TABLE_ID) {
-      console.error("AIRTABLE_ELEV_TABLE_ID not set");
-      return NextResponse.json({ success: false, error: "Configuration error" }, { status: 500 });
+    // 1. Create one Elev record per child
+    const elevRecordIds: string[] = [];
+    for (const child of data.children ?? []) {
+      const instruments = resolveInstruments(child.instruments ?? [], child.instrumentOther ?? "");
+      const elevRecord = await airtablePost(apiKey, ELEV_TABLE_ID, {
+        Förnamn: toStartCase((child.name ?? "").trim()),
+        Instrument: instruments.join(", "),
+        Födelseår: (child.birthYear ?? "").trim(),
+        "Kort om eleven (från anmälan)": child.grade ? `Årskurs: ${child.grade}` : "",
+      });
+      elevRecordIds.push(elevRecord.id);
     }
 
-    // Resolve instruments per child and collect all unique instruments
-    const children = (data.children ?? []).map((child: {
-      name: string;
-      birthYear: string;
-      grade: string;
-      instruments: string[];
-      instrumentOther: string;
-    }) => ({
-      ...child,
-      instruments: resolveInstruments(child.instruments ?? [], child.instrumentOther ?? ""),
-    }));
+    // 2. Create Vårdnadshavare record linked to all Elev records
+    const { gata, gatunummer } = splitAddress(data.address ?? "");
+    const firstChildName = toStartCase(((data.children?.[0]?.name) ?? "").trim().split(" ")[0]);
 
-    const allInstruments = Array.from(
-      new Set(children.flatMap((c: { instruments: string[] }) => c.instruments))
-    );
-
-    const fields: Record<string, unknown> = {
+    const vardnaFields: Record<string, unknown> = {
       Namn: toStartCase((data.guardianName ?? "").trim()),
-      Instrument: allInstruments,
-      Kontaktuppgifter: JSON.stringify({
-        email: (data.email ?? "").trim().toLowerCase(),
-        telefon: (data.phone ?? "").trim(),
-        adress: toStartCase((data.address ?? "").trim()),
-        postnummer: (data.postalCode ?? "").trim(),
-        ort: toStartCase((data.city ?? "").trim()),
-      }),
-      Barn: JSON.stringify(children),
-      Övrigt: JSON.stringify({
-        kommentar: (data.comment ?? "").trim(),
-        instrumentHemma: data.instrumentAtHome ?? "",
-        forväntningar: Array.isArray(data.expectations) ? data.expectations : [],
-        frekvens: data.frequency ?? "",
-        lektionslängd: data.lessonLength ?? "",
-        startpreferens: data.startPreference ?? "",
-      }),
-      UTM: JSON.stringify({
-        source: data.meta?.utmSource ?? null,
-        medium: data.meta?.utmMedium ?? null,
-        campaign: data.meta?.utmCampaign ?? null,
-        term: data.meta?.utmTerm ?? null,
-        content: data.meta?.utmContent ?? null,
+      Elevnamn: firstChildName || undefined,
+      Gata: gata,
+      Gatunummer: gatunummer || undefined,
+      Ort: toStartCase((data.city ?? "").trim()),
+      Postnummer: (data.postalCode ?? "").trim(),
+      "E-post": (data.email ?? "").trim().toLowerCase(),
+      Telefon: (data.phone ?? "").trim(),
+      "Hur snart vill ni komma igång": data.startPreference
+        ? mapStartPreference(data.startPreference)
+        : undefined,
+      "Tillgång till instrument": data.instrumentAtHome
+        ? mapInstrumentAtHome(data.instrumentAtHome)
+        : undefined,
+      "Vad hoppas ni fått ut av undervisning": Array.isArray(data.expectations) && data.expectations.length > 0
+        ? data.expectations
+        : undefined,
+      "Något annat vi bör veta?": (data.comment ?? "").trim() || undefined,
+      "Anmälningskommentar (intern)": JSON.stringify({
+        utmSource: data.meta?.utmSource ?? null,
+        utmMedium: data.meta?.utmMedium ?? null,
+        utmCampaign: data.meta?.utmCampaign ?? null,
+        utmTerm: data.meta?.utmTerm ?? null,
+        utmContent: data.meta?.utmContent ?? null,
         referrer: data.meta?.referrer ?? "",
         referralCode: data.meta?.referralCode ?? null,
       }),
     };
 
-    const response = await fetch(
-      `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ fields }),
-      }
-    );
-
-    if (!response.ok) {
-      const error = await response.text();
-      console.error("Airtable error:", error);
-      return NextResponse.json({ success: false }, { status: 500 });
+    if (elevRecordIds.length > 0) {
+      vardnaFields["Elev"] = elevRecordIds.map((id) => ({ id }));
     }
 
-    const airtableRecord = await response.json();
-    const recordId: string = airtableRecord.id;
+    const vardnaRecord = await airtablePost(apiKey, VARDNADSHAVARE_TABLE_ID, vardnaFields);
 
+    // 3. Back-link Elev records to Vårdnadshavare
+    for (const elevId of elevRecordIds) {
+      await fetch(`https://api.airtable.com/v0/${BASE_ID}/${ELEV_TABLE_ID}/${elevId}`, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ fields: { Vårdnadshavare: [{ id: vardnaRecord.id }] } }),
+      });
+    }
+
+    // 4. Geocoding (fire-and-forget)
     const geocodeToken = process.env.GEOCODE_API_TOKEN;
-    if (geocodeToken && recordId) {
-      const address = `${toStartCase((data.address ?? "").trim())}, ${(data.postalCode ?? "").trim()} ${toStartCase((data.city ?? "").trim())}`;
+    if (geocodeToken) {
+      const fullAddress = `${gata}${gatunummer ? ` ${gatunummer}` : ""}, ${(data.postalCode ?? "").trim()} ${toStartCase((data.city ?? "").trim())}`;
       fetch("https://geocode-126597579756.europe-west1.run.app", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${geocodeToken}`,
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: `Bearer ${geocodeToken}`, "Content-Type": "application/json" },
         body: JSON.stringify({
-          table: "Elevanmälningar",
-          record_id: recordId,
-          address,
+          table: "Vårdnadshavare",
+          record_id: vardnaRecord.id,
+          address: fullAddress,
         }),
       }).catch((err) => console.error("Geocoding error:", err));
     }
 
+    // 5. Meta CAPI Lead event
     const accessToken = process.env.META_ACCESS_TOKEN;
     if (accessToken) {
       try {
