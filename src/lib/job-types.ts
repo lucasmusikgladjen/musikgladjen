@@ -50,6 +50,7 @@ export const JOB_HOW_FOUND = [
 
 export const AREA_SUGGESTIONS = [
   // Stockholms stad – innerstad
+  "Innerstan",
   "Vasastan",
   "Södermalm",
   "Östermalm",
