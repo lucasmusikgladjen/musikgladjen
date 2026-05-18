@@ -134,11 +134,8 @@ export default function JobStepCalculator({ onNext, onBack }: JobStepCalculatorP
             {formatPrice(perMonth)}{" "}
             <span className="text-xl font-semibold text-text-secondary">kr/mån</span>
           </p>
-          <p className="text-sm text-text-secondary mt-1">
-            för {studentCount} {studentCount === 1 ? "elev" : "elever"}
-          </p>
           <p className="text-sm text-text-secondary mt-2">
-            {ageGroup} · {rate} kr/timme
+            {studentCount} {studentCount === 1 ? "elev" : "elever"} · {ageGroup} · {rate} kr/timme
           </p>
         </div>
       </div>
