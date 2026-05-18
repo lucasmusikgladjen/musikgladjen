@@ -21,7 +21,7 @@ export default function ElevConfirmation({ data }: ElevConfirmationProps) {
                 Tack för er anmälan!
               </h1>
               <p className="text-sm text-text-secondary mb-8">
-                Vi hör av oss inom kort för att kunna hitta rätt lärare till er.
+                Vi hör av oss inom kort<br />för att kunna hitta rätt lärare till er.
               </p>
               <a
                 href="https://www.musikgladjen.se"
