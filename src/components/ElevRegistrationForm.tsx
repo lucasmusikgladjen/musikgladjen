@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { ElevFormData, emptyChild } from "@/lib/elev-types";
 import { PRICE_TABLE } from "@/lib/types";
-import { pushEvent, getUTMParams, getReferralCodeFromURL, getReferrer, getUserAgent, trackMetaLead } from "@/lib/tracking";
+import { pushEvent, trackMetaLead } from "@/lib/tracking";
 import FormHeader from "./FormHeader";
 import ProgressBar from "./ProgressBar";
 import ElevStepGrade from "./ElevStepGrade";
@@ -116,9 +116,6 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
     const getCookie = (name: string) =>
       document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"))?.[2];
 
-    const utmParams = getUTMParams();
-    const refCode = getReferralCodeFromURL();
-
     const payload = {
       ...formData,
       eventId,
@@ -127,10 +124,6 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
       eventSourceUrl: window.location.href,
       meta: {
         submittedAt: new Date().toISOString(),
-        ...utmParams,
-        referrer: getReferrer(),
-        userAgent: getUserAgent(),
-        referralCode: refCode,
       },
     };
 

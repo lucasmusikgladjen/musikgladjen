@@ -22,28 +22,12 @@ export interface FormData {
   formVariant: "A" | "B";
 }
 
-export interface UTMParams {
-  utmSource: string | null;
-  utmMedium: string | null;
-  utmCampaign: string | null;
-  utmTerm: string | null;
-  utmContent: string | null;
-}
-
 export interface WebhookPayload extends Omit<FormData, "formVariant" | "instrumentOther"> {
   formVariant: string;
   instrumentOther: string | null;
   honeypot?: string;
   meta: {
     submittedAt: string;
-    utmSource: string | null;
-    utmMedium: string | null;
-    utmCampaign: string | null;
-    utmTerm: string | null;
-    utmContent: string | null;
-    referrer: string;
-    userAgent: string;
-    referralCode: string | null;
   };
 }
 
