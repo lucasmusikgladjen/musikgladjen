@@ -21,7 +21,7 @@ export default function JobConfirmation({ data }: JobConfirmationProps) {
               Tack för din ansökan!
             </h1>
             <p className="text-sm text-text-secondary mb-8">
-              Vi går igenom ansökningar löpande och<br />hör av oss om din profil matchar vad vi söker.
+              Vi går nu igenom din ansökan<br />och hör av oss om vi tror att du passar.
             </p>
             <a
               href="https://www.musikgladjen.se/jobb"
