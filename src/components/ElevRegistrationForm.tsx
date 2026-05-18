@@ -14,8 +14,7 @@ import StepPricing from "./StepPricing";
 
 type View = "grade" | "instrument" | "children" | "contact" | "pricing";
 
-// 3 main phases: Barn (0), Kontakt (1), Pris (2)
-const TOTAL_PHASES = 3;
+const TOTAL_PHASES = 5;
 
 interface ElevRegistrationFormProps {
   onComplete: (data: ElevFormData) => void;
@@ -50,7 +49,7 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
   }, []);
 
   const progressStep =
-    currentView === "contact" ? 1 : currentView === "pricing" ? 2 : 0;
+    { grade: 0, instrument: 1, children: 2, contact: 3, pricing: 4 }[currentView];
 
   // Grade (step 1) — updates first child's grade
   const handleGradeChange = useCallback((grade: string) => {
