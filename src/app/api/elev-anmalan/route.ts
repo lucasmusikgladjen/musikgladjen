@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
       "Vad hoppas ni fått ut av undervisning": Array.isArray(data.expectations) && data.expectations.length > 0
         ? data.expectations
         : undefined,
-      "Något annat vi bör veta?": (data.comment ?? "").trim() || undefined,
+      "Anteckning": (data.comment ?? "").trim() || undefined,
       "Anmälningskommentar (intern)": JSON.stringify({
         utmSource: data.meta?.utmSource ?? null,
         utmMedium: data.meta?.utmMedium ?? null,
