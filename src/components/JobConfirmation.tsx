@@ -15,7 +15,7 @@ export default function JobConfirmation({ data }: JobConfirmationProps) {
       <JobFormHeader />
 
       <div className="flex-1 flex items-center justify-center px-6 py-12">
-        <div className="w-full max-w-[560px] flex flex-col md:flex-row items-center gap-10 md:gap-12">
+        <div className="w-full max-w-[560px] flex flex-col-reverse md:flex-row items-center gap-10 md:gap-12">
           <div className="flex-1 text-center md:text-left">
             <h1 className="text-2xl font-bold text-text-primary mb-2">
               Tack för din ansökan!
