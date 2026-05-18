@@ -268,22 +268,17 @@ export default function JobStepContact({
           <div>
             <label className={labelClass}>Hur hittade du Musikglädjen?</label>
             <div ref={howFoundRef} className="relative">
-              <div className="flex items-center rounded-full border border-gray-200 bg-white p-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-                <div className={`flex-1 rounded-full py-2.5 px-5 text-center text-sm font-semibold transition-colors ${howFound ? "bg-[#8B1A00] text-white" : "text-gray-400"}`}>
-                  {howFound || "Välj ett alternativ"}
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setHowFoundOpen((o) => !o)}
-                  className="flex-shrink-0 px-4 py-2 bg-white rounded-full text-sm font-semibold text-gray-500 flex items-center gap-1.5"
-                >
-                  Välj
-                  <svg className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${howFoundOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-              </div>
-              <div className={`absolute right-0 top-full mt-2 w-full bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden z-10 transition-all duration-200 origin-top-right ${howFoundOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-1 pointer-events-none"}`}>
+              <button
+                type="button"
+                onClick={() => setHowFoundOpen((o) => !o)}
+                className={`w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] bg-bg-white text-left text-sm flex items-center justify-between ${howFound ? "text-text-primary" : "text-gray-400"}`}
+              >
+                {howFound || "Välj ett alternativ"}
+                <svg className={`w-4 h-4 text-gray-400 transition-transform duration-200 flex-shrink-0 ${howFoundOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className={`absolute left-0 top-full mt-1 w-full bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden z-10 transition-all duration-200 origin-top ${howFoundOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-1 pointer-events-none"}`}>
                 {JOB_HOW_FOUND.map((option, i) => (
                   <button
                     key={option}
