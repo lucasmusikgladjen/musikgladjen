@@ -156,9 +156,9 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
   return (
     <div className="w-full min-h-screen flex flex-col" data-ga-form="musikgladjen_signup" data-ga-form-variant="elev">
       <FormHeader />
+      <ProgressBar currentStep={progressStep} totalSteps={TOTAL_PHASES} />
 
       <div className="w-full max-w-[560px] mx-auto flex-1 flex flex-col">
-        <ProgressBar currentStep={progressStep} totalSteps={TOTAL_PHASES} />
 
         <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", top: "-9999px" }}>
           <input
