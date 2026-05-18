@@ -156,9 +156,19 @@ export default function JobStepCalculator({ onNext, onBack }: JobStepCalculatorP
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
-            <p className="text-sm font-semibold text-text-secondary mb-0.5">Hur beräknas lönen?</p>
+            <p className="text-sm font-semibold text-text-secondary mb-0.5">Din timlön</p>
             <p className="text-sm text-text-secondary leading-relaxed">
-              Lönen räknas ut på 4 lektioner per elev och månad. Lönenivån sätts det kalenderår du fyller {AGE_MIN[ageGroup]} år.
+              Våra löneklasser baseras på året du når en ny åldersgrupp, och alltså inte födelsedag.
+            </p>
+          </div>
+        </div>
+        <div className="flex gap-3">
+          <svg className="w-3.5 h-3.5 text-gray-300 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div>
+            <p className="text-xs text-gray-400 leading-relaxed">
+              Lönen räknas ut på antalet lektioner per elev och månad och är alltså endast preliminär.
             </p>
           </div>
         </div>
