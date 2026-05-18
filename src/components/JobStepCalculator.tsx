@@ -158,7 +158,7 @@ export default function JobStepCalculator({ onNext, onBack }: JobStepCalculatorP
           <div>
             <p className="text-sm font-semibold text-text-secondary mb-0.5">Hur beräknas lönen?</p>
             <p className="text-sm text-text-secondary leading-relaxed">
-              Lönen är baserat på 4 antal lektioner per elev och månad, och är alltså endast preliminär.
+              Lönen är uträknad på 4 genomförda lektioner per elev och månad, och är alltså endast preliminär.
             </p>
           </div>
         </div>
