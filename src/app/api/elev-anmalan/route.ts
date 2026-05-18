@@ -82,8 +82,17 @@ export async function POST(req: NextRequest) {
       "Vad hoppas ni fått ut av undervisning": Array.isArray(data.expectations) && data.expectations.length > 0
         ? data.expectations
         : undefined,
-      "Anteckning": (data.comment ?? "").trim() || undefined,
-      "Anmälningskommentar (intern)": JSON.stringify({
+      "Anteckning": JSON.stringify({
+        VårdnadshavareAnteckning: (data.comment ?? "").trim(),
+        OnboardingAnteckning: "",
+        FörstaLektionAnteckning: "",
+      }),
+      "Anmälningsinfo": JSON.stringify({
+        hurSnart: data.startPreference ? mapStartPreference(data.startPreference) : "",
+        vadHoppas: Array.isArray(data.expectations) ? data.expectations.join(", ") : "",
+        tillgangInstrument: data.instrumentAtHome ?? "",
+        annatViBorVeta: (data.comment ?? "").trim(),
+        kommunikationspreferens: "",
         utmSource: data.meta?.utmSource ?? null,
         utmMedium: data.meta?.utmMedium ?? null,
         utmCampaign: data.meta?.utmCampaign ?? null,
