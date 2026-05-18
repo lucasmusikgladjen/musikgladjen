@@ -158,7 +158,18 @@ export default function JobStepCalculator({ onNext, onBack }: JobStepCalculatorP
           <div>
             <p className="text-sm font-semibold text-text-secondary mb-0.5">Hur beräknas lönen?</p>
             <p className="text-sm text-text-secondary leading-relaxed">
-              Lönen beräknas på att du har 4 lektioner i månaden med samtliga av dina elever. Lönen sätts det år du fyller {AGE_MIN[ageGroup]} år.
+              Lönen beräknas på att du har 4 lektioner i månaden med samtliga av dina elever.
+            </p>
+          </div>
+        </div>
+        <div className="flex gap-3">
+          <svg className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div>
+            <p className="text-sm font-semibold text-text-secondary mb-0.5">Hur sätts lönen baserat på ålder?</p>
+            <p className="text-sm text-text-secondary leading-relaxed">
+              Du får den lönenivå som gäller det kalenderår du fyller {AGE_MIN[ageGroup]} år — oavsett om din födelsedag är i januari eller december.
             </p>
           </div>
         </div>
