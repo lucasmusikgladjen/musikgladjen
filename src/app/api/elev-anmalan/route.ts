@@ -25,11 +25,6 @@ function mapStartPreference(v: string): string {
   return "Så snart som möjligt";
 }
 
-function mapInstrumentAtHome(v: string): string {
-  if (v === "Nej, men planerar att köpa") return "Vi planerar att skaffa inom kort";
-  return v; // "Ja, vi har ett instrument" and "Nej, behöver råd" map to Airtable values directly (close enough)
-}
-
 async function airtablePost(apiKey: string, tableId: string, fields: Record<string, unknown>) {
   const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${tableId}`, {
     method: "POST",
@@ -82,9 +77,7 @@ export async function POST(req: NextRequest) {
       "Hur snart vill ni komma igång": data.startPreference
         ? mapStartPreference(data.startPreference)
         : undefined,
-      "Tillgång till instrument": data.instrumentAtHome
-        ? mapInstrumentAtHome(data.instrumentAtHome)
-        : undefined,
+      "Tillgång till instrument": data.instrumentAtHome || undefined,
       "Vad hoppas ni fått ut av undervisning": Array.isArray(data.expectations) && data.expectations.length > 0
         ? data.expectations
         : undefined,
