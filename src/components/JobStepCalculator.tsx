@@ -180,7 +180,7 @@ export default function JobStepCalculator({ onNext, onBack }: JobStepCalculatorP
           <div>
             <p className="text-sm font-semibold text-text-secondary mb-0.5">Kul att veta</p>
             <p className="text-sm text-text-secondary leading-relaxed">
-              Med den lönen kan du köpa ungefär {Math.floor(perMonth / MONSTER_PRICE)} Monster i månaden.
+              Det räcker till {Math.floor(perMonth / MONSTER_PRICE)} Monster i månaden.
             </p>
           </div>
         </div>
