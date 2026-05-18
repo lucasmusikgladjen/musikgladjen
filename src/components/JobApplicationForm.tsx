@@ -151,6 +151,7 @@ export default function JobApplicationForm({ onComplete }: JobApplicationFormPro
               onAreasChange={(v) => updateField("areas", v)}
               onNext={goNext}
               onBack={goBack}
+              enableAutocomplete
             />
           )}
           {step === 3 && (
