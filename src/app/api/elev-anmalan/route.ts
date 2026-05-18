@@ -54,40 +54,47 @@ export async function POST(req: NextRequest) {
     for (const child of data.children ?? []) {
       const instruments = resolveInstruments(child.instruments ?? [], child.instrumentOther ?? "");
       const elevRecord = await airtablePost(apiKey, ELEV_TABLE_ID, {
-        Förnamn: toStartCase((child.name ?? "").trim()),
+        Namn: toStartCase((child.name ?? "").trim()),
         Instrument: instruments,
         Födelseår: (child.birthYear ?? "").trim(),
-        "Kort om eleven (från anmälan)": child.grade ? `Årskurs: ${child.grade}` : "",
+        Barn: JSON.stringify([{
+          namn: toStartCase((child.name ?? "").trim()),
+          födelseår: (child.birthYear ?? "").trim(),
+          årkurs: child.grade ?? "",
+          instrument: instruments,
+        }]),
       });
       elevRecordIds.push(elevRecord.id);
     }
 
     // 2. Create Vårdnadshavare record linked to all Elev records
     const { gata, gatunummer } = splitAddress(data.address ?? "");
-    const firstChildName = toStartCase(((data.children?.[0]?.name) ?? "").trim().split(" ")[0]);
 
     const vardnaFields: Record<string, unknown> = {
       Namn: toStartCase((data.guardianName ?? "").trim()),
-      Elevnamn: firstChildName || undefined,
-      Gata: gata,
-      Gatunummer: gatunummer || undefined,
-      Ort: toStartCase((data.city ?? "").trim()),
-      Postnummer: (data.postalCode ?? "").trim(),
-      "E-post": (data.email ?? "").trim().toLowerCase(),
-      Telefon: (data.phone ?? "").trim(),
-      "Hur snart vill ni komma igång": data.startPreference
-        ? mapStartPreference(data.startPreference)
-        : undefined,
-      "Tillgång till instrument": data.instrumentAtHome || undefined,
-      "Vad hoppas ni fått ut av undervisning": Array.isArray(data.expectations) && data.expectations.length > 0
-        ? data.expectations
-        : undefined,
-      "Anmälningsinfo": JSON.stringify({
+      Kontaktuppgifter: JSON.stringify({
+        epost: (data.email ?? "").trim().toLowerCase(),
+        telefon: (data.phone ?? "").trim(),
+        gata: gata,
+        gatunummer: gatunummer || "",
+        postnummer: (data.postalCode ?? "").trim(),
+        ort: toStartCase((data.city ?? "").trim()),
+      }),
+      Anmälningsinfo: JSON.stringify({
         hurSnart: data.startPreference ? mapStartPreference(data.startPreference) : "",
         vadHoppas: Array.isArray(data.expectations) ? data.expectations.join(", ") : "",
         tillgangInstrument: data.instrumentAtHome ?? "",
         annatViBorVeta: (data.comment ?? "").trim(),
-        kommunikationspreferens: "",
+        kommunikationspreferens: data.frequency === "biweekly" ? "varannan vecka" : "",
+      }),
+      Abonnemangsupplägg: JSON.stringify({
+        upplägg: "veckovis",
+        längd: (() => {
+          const len = data.lessonLength ?? "";
+          if (len === "90") return 90;
+          if (len === "120") return 120;
+          return 60;
+        })(),
       }),
     };
 
