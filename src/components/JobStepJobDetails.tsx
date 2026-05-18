@@ -101,7 +101,7 @@ export default function JobStepJobDetails({
           <span className="text-error">*</span>
         </label>
         <p className="text-xs text-text-secondary mb-2">
-          Skriv gärna flera områden, t.ex. där du bor, pluggar eller pendlar.
+          Skriv gärna flera områden, t.ex. där du bor, pluggar eller pendlar. Välj från listan eller skriv egna.
         </p>
         <div ref={containerRef} className="relative">
           <div
