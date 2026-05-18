@@ -131,25 +131,14 @@ export default function JobStepCalculator({ onNext, onBack }: JobStepCalculatorP
         {/* Result */}
         <div className="px-5 py-6 text-center">
           <p className="text-5xl font-extrabold text-text-primary tracking-tight">
-            {formatPrice(perHour)}{" "}
-            <span className="text-xl font-semibold text-text-secondary">kr/timme</span>
+            {formatPrice(perMonth)}{" "}
+            <span className="text-xl font-semibold text-text-secondary">kr/mån</span>
+          </p>
+          <p className="text-sm text-text-secondary mt-1">
+            för {studentCount} {studentCount === 1 ? "elev" : "elever"}
           </p>
           <p className="text-sm text-text-secondary mt-2">
-            {ageGroup} · {studentCount} {studentCount === 1 ? "elev" : "elever"}
-          </p>
-          <p className="text-sm text-text-secondary mt-0.5">
-            ≈ {formatPrice(perMonth)} kr/mån vid 4 lektioner
-          </p>
-          <p className="flex items-center justify-center gap-1 text-sm text-text-secondary mt-0.5">
-            <svg
-              className="w-3.5 h-3.5 text-text-secondary flex-shrink-0"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-            </svg>
-            Inkl. semesterersättning (12%)
+            {ageGroup} · {rate} kr/timme
           </p>
         </div>
       </div>
