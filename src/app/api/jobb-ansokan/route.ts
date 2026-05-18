@@ -22,12 +22,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Configuration error" }, { status: 500 });
     }
 
-    const instrumentStr = [
+    const instrumentArray = [
       ...data.instruments.filter((i: string) => i !== "Annat"),
       ...(data.instruments.includes("Annat") && data.instrumentOther
-        ? [`Annat (${data.instrumentOther})`]
+        ? [data.instrumentOther.trim()]
         : []),
-    ].join(", ");
+    ];
 
     const areasStr = Array.isArray(data.areas)
       ? data.areas.map((a: string) => toStartCase(a.trim())).join(", ")
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     const fields: Record<string, unknown> = {
       Namn: toStartCase(data.name.trim()),
       Födelseår: data.birthYear,
-      Instrument: instrumentStr,
+      Instrument: instrumentArray,
       Kontaktuppgifter: JSON.stringify({
         email: data.email.trim().toLowerCase(),
         telefon: data.phone.trim(),
