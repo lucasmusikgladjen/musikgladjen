@@ -9,6 +9,7 @@ interface JobStepAboutYouProps {
   onChildrenExperienceChange: (value: string) => void;
   onNext: () => void;
   onBack: () => void;
+  noValidation?: boolean;
 }
 
 export default function JobStepAboutYou({
@@ -18,6 +19,7 @@ export default function JobStepAboutYou({
   onChildrenExperienceChange,
   onNext,
   onBack,
+  noValidation = false,
 }: JobStepAboutYouProps) {
   const canProceed =
     musicExperience.trim().length >= 10 &&
@@ -28,7 +30,7 @@ export default function JobStepAboutYou({
       onBack={onBack}
       onNext={onNext}
       ctaText="Nästa"
-      ctaDisabled={!canProceed}
+      ctaDisabled={!noValidation && !canProceed}
     >
       <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">
         Om dig

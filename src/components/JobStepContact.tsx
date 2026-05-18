@@ -14,6 +14,7 @@ interface JobStepContactProps {
   email: string;
   howFound: string;
   howFoundLocked?: boolean;
+  noValidation?: boolean;
   onNameChange: (v: string) => void;
   onBirthYearChange: (v: string) => void;
   onAddressChange: (v: string) => void;
@@ -38,6 +39,7 @@ export default function JobStepContact({
   email,
   howFound,
   howFoundLocked = false,
+  noValidation = false,
   onNameChange,
   onBirthYearChange,
   onAddressChange,
@@ -92,6 +94,7 @@ export default function JobStepContact({
   const canSubmit = Object.values(errors).every((e) => e === null);
 
   const handleSubmit = () => {
+    if (noValidation) { onSubmit(); return; }
     setTouched({ name: true, birthYear: true, address: true, postnummer: true, city: true, phone: true, email: true });
     if (canSubmit) onSubmit();
   };

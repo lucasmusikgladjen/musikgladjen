@@ -9,6 +9,7 @@ interface JobStepInstrumentsProps {
   onChange: (instruments: string[]) => void;
   onOtherChange: (value: string) => void;
   onNext: () => void;
+  noValidation?: boolean;
 }
 
 export default function JobStepInstruments({
@@ -17,6 +18,7 @@ export default function JobStepInstruments({
   onChange,
   onOtherChange,
   onNext,
+  noValidation = false,
 }: JobStepInstrumentsProps) {
   const toggle = (name: string) => {
     if (value.includes(name)) {
@@ -32,7 +34,7 @@ export default function JobStepInstruments({
     <StepWrapper
       onNext={onNext}
       ctaText="Nästa"
-      ctaDisabled={value.length === 0}
+      ctaDisabled={!noValidation && value.length === 0}
       showBack={false}
     >
       <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">

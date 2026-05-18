@@ -11,6 +11,7 @@ interface JobStepJobDetailsProps {
   onAreasChange: (value: string[]) => void;
   onNext: () => void;
   onBack: () => void;
+  noValidation?: boolean;
 }
 
 export default function JobStepJobDetails({
@@ -20,6 +21,7 @@ export default function JobStepJobDetails({
   onAreasChange,
   onNext,
   onBack,
+  noValidation = false,
 }: JobStepJobDetailsProps) {
   const [areaInput, setAreaInput] = useState("");
 
@@ -59,7 +61,7 @@ export default function JobStepJobDetails({
       onBack={onBack}
       onNext={onNext}
       ctaText="Nästa"
-      ctaDisabled={!canProceed}
+      ctaDisabled={!noValidation && !canProceed}
     >
       <h2 className="text-2xl font-bold text-text-primary mb-6 mt-2">Om jobbet</h2>
 

@@ -134,6 +134,7 @@ export default function JobTestApplicationForm({ onComplete }: JobTestApplicatio
               onChange={(v) => updateField("instruments", v)}
               onOtherChange={(v) => updateField("instrumentOther", v)}
               onNext={goNext}
+              noValidation
             />
           )}
           {step === 1 && (
@@ -152,6 +153,7 @@ export default function JobTestApplicationForm({ onComplete }: JobTestApplicatio
               onAreasChange={(v) => updateField("areas", v)}
               onNext={goNext}
               onBack={goBack}
+              noValidation
             />
           )}
           {step === 3 && (
@@ -164,6 +166,7 @@ export default function JobTestApplicationForm({ onComplete }: JobTestApplicatio
               }
               onNext={goNext}
               onBack={goBack}
+              noValidation
             />
           )}
           {step === 4 && (
@@ -192,6 +195,7 @@ export default function JobTestApplicationForm({ onComplete }: JobTestApplicatio
               onBack={goBack}
               isSubmitting={isSubmitting}
               submitError={submitError}
+              noValidation
             />
           )}
         </div>
