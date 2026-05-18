@@ -18,10 +18,10 @@ export default function JobConfirmation({ data }: JobConfirmationProps) {
         <div className="w-full max-w-[560px] flex flex-col md:flex-row items-center gap-10 md:gap-12">
           <div className="flex-1 text-center md:text-left">
             <h1 className="text-2xl font-bold text-text-primary mb-2">
-              Vad kul att du vill jobba hos oss!
+              Tack för din ansökan!
             </h1>
             <p className="text-sm text-text-secondary mb-8">
-              Vi ringer upp dig inom de närmaste dagarna.
+              Vi går igenom ansökningar löpande och hör av oss om din profil matchar vad vi söker.
             </p>
             <a
               href="https://www.musikgladjen.se/jobb"
