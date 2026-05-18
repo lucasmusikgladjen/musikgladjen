@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createHash } from "crypto";
+import { resolveInstruments } from "@/lib/instrument-utils";
 
 const BASE_ID = "app1l4NwAMtwlTIUC";
 const TABLE_ID = "tblnJd5fEqh2qXC2R";
@@ -22,12 +23,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Configuration error" }, { status: 500 });
     }
 
-    const instrumentArray = [
-      ...data.instruments.filter((i: string) => i !== "Annat"),
-      ...(data.instruments.includes("Annat") && data.instrumentOther
-        ? [data.instrumentOther.trim()]
-        : []),
-    ];
+    const instrumentArray = resolveInstruments(data.instruments, data.instrumentOther ?? "");
 
     const areasStr = Array.isArray(data.areas)
       ? data.areas.map((a: string) => toStartCase(a.trim())).join(", ")
