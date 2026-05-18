@@ -52,7 +52,7 @@ export default function JobStepInstruments({
               key={name}
               type="button"
               onClick={() => toggle(name)}
-              className={`flex items-center gap-2.5 px-3 py-3.5 rounded-xl text-left transition-all duration-200 border shadow-[0_1px_2px_rgba(0,0,0,0.04)] ${
+              className={`flex items-center gap-3 px-4 py-4 rounded-xl text-left transition-all duration-200 border shadow-[0_1px_2px_rgba(0,0,0,0.04)] min-h-[56px] ${
                 selected
                   ? "bg-accent-soft border-primary text-primary"
                   : "bg-bg-white border-gray-200 hover:border-primary/40 hover:bg-accent-soft/50 text-text-primary"
@@ -79,7 +79,7 @@ export default function JobStepInstruments({
                   </svg>
                 )}
               </span>
-              <span className="text-sm font-medium flex-1">{name}</span>
+              <span className="text-base font-medium flex-1">{name}</span>
               {badge && (
                 <span className="text-[10px] bg-orange-100 text-orange-700 px-2 py-1 rounded-full whitespace-nowrap flex-shrink-0 leading-tight font-medium">
                   {badge}
