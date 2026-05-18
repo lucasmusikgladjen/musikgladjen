@@ -6,7 +6,7 @@ import StepWrapper from "./StepWrapper";
 const AGE_GROUPS = ["15–17 år", "18 år", "19 år", "20+ år"] as const;
 type AgeGroup = (typeof AGE_GROUPS)[number];
 
-const STUDENT_COUNTS = [1, 3, 5] as const;
+const STUDENT_COUNTS = [2, 3, 5] as const;
 type StudentCount = (typeof STUDENT_COUNTS)[number];
 
 const RATES: Record<AgeGroup, number> = {
@@ -130,7 +130,7 @@ export default function JobStepCalculator({ onNext, onBack }: JobStepCalculatorP
                     selected ? "bg-[#8B1A00] text-white" : "bg-white text-gray-500"
                   }`}
                 >
-                  {count} {count === 1 ? "elev" : "elever"}
+                  {count} {"elever"}
                 </button>
               );
             })}
@@ -144,7 +144,7 @@ export default function JobStepCalculator({ onNext, onBack }: JobStepCalculatorP
             <span className="text-xl font-semibold text-text-secondary">kr/mån</span>
           </p>
           <p className="text-sm text-text-secondary mt-2">
-            {studentCount} {studentCount === 1 ? "elev" : "elever"} · {ageGroup} · {rate} kr/timme
+            {studentCount} elever · {ageGroup} · {rate} kr/timme
           </p>
         </div>
       </div>
@@ -158,7 +158,7 @@ export default function JobStepCalculator({ onNext, onBack }: JobStepCalculatorP
           <div>
             <p className="text-sm font-semibold text-text-secondary mb-0.5">Hur beräknas lönen?</p>
             <p className="text-sm text-text-secondary leading-relaxed">
-              Lönen är uträknad på 4 genomförda lektioner per elev och månad, och är alltså endast preliminär.
+              Lönen är uträknad på 4 genomförda lektioner per elev och månad, och baserat på året du fyller år, inte din faktiska födelsedag.
             </p>
           </div>
         </div>
@@ -167,9 +167,9 @@ export default function JobStepCalculator({ onNext, onBack }: JobStepCalculatorP
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
-            <p className="text-sm font-semibold text-text-secondary mb-0.5">Din timlön</p>
+            <p className="text-sm font-semibold text-text-secondary mb-0.5">Hur många elever kan jag ha?</p>
             <p className="text-sm text-text-secondary leading-relaxed">
-              Vi följer fasta löneklasser baserat på året du fyller år, inte din faktiska födelsedag.
+              Det är upp till dig hur många elever du vill ta, så länge du hinner med alla. Varje elev har ett fast lektionsschema som ska gälla varje vecka.
             </p>
           </div>
         </div>
