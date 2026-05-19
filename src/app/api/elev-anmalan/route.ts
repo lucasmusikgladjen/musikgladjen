@@ -75,12 +75,15 @@ export async function POST(req: NextRequest) {
       new Set(childEntries.flatMap((c) => c.instrument))
     );
 
+    const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm" }).format(new Date());
+
     const elevFields: Record<string, unknown> = {
       Namn: joinSwedish(childEntries.map((c) => c.namn)),
       Instrument: allInstruments,
       Födelseår: joinSwedish(childEntries.map((c) => c.födelseår)),
       Status: "Söker lärare",
       Barn: JSON.stringify(childEntries),
+      Händelser: `${today}: Anmälan`,
     };
 
     const elevRecord = await airtablePost(apiKey, ELEV_TABLE_ID, elevFields);
@@ -122,7 +125,12 @@ export async function POST(req: NextRequest) {
 
     const vardnaRecord = await airtablePost(apiKey, VARDNADSHAVARE_TABLE_ID, vardnaFields);
 
-    // Inverse link Elev.Vårdnadshavare is auto-populated by Airtable.
+    // Back-link Elev → Vårdnadshavare (inverse-sync visade sig inte ske automatiskt)
+    await fetch(`https://api.airtable.com/v0/${BASE_ID}/${ELEV_TABLE_ID}/${elevRecord.id}`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ fields: { Vårdnadshavare: [{ id: vardnaRecord.id }] } }),
+    });
 
     // 3. Trigger email module
     fetch(EMAIL_WEBHOOK_URL, {
