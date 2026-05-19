@@ -29,17 +29,42 @@ function joinSwedish(parts: string[]): string {
   return `${arr.slice(0, -1).join(", ")} och ${arr[arr.length - 1]}`;
 }
 
-async function airtablePost(apiKey: string, tableId: string, fields: Record<string, unknown>) {
+async function airtablePost(
+  apiKey: string,
+  tableId: string,
+  fields: Record<string, unknown>,
+  options: { typecast?: boolean } = {},
+) {
+  const body: Record<string, unknown> = { fields };
+  if (options.typecast) body.typecast = true;
   const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${tableId}`, {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ fields, typecast: true }),
+    body: JSON.stringify(body),
   });
   if (!res.ok) {
     const err = await res.text();
-    throw new Error(`Airtable error (${tableId}): ${err}`);
+    throw new Error(`Airtable POST error (${tableId}): ${err}`);
   }
   return res.json() as Promise<{ id: string }>;
+}
+
+async function airtablePatch(
+  apiKey: string,
+  tableId: string,
+  recordId: string,
+  fields: Record<string, unknown>,
+) {
+  const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${tableId}/${recordId}`, {
+    method: "PATCH",
+    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ fields }),
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Airtable PATCH error (${tableId}/${recordId}): ${err}`);
+  }
+  return res.json();
 }
 
 export async function POST(req: NextRequest) {
@@ -86,7 +111,7 @@ export async function POST(req: NextRequest) {
       Händelser: `${today}: Anmälan`,
     };
 
-    const elevRecord = await airtablePost(apiKey, ELEV_TABLE_ID, elevFields);
+    const elevRecord = await airtablePost(apiKey, ELEV_TABLE_ID, elevFields, { typecast: true });
 
     // 2. Create Vårdnadshavare record linked to the Elev record
     const { gata, gatunummer } = splitAddress(data.address ?? "");
@@ -121,15 +146,13 @@ export async function POST(req: NextRequest) {
       }),
     };
 
-    vardnaFields["Elev"] = [{ id: elevRecord.id }];
+    vardnaFields["Elev"] = [elevRecord.id];
 
     const vardnaRecord = await airtablePost(apiKey, VARDNADSHAVARE_TABLE_ID, vardnaFields);
 
-    // Back-link Elev → Vårdnadshavare (inverse-sync visade sig inte ske automatiskt)
-    await fetch(`https://api.airtable.com/v0/${BASE_ID}/${ELEV_TABLE_ID}/${elevRecord.id}`, {
-      method: "PATCH",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ fields: { Vårdnadshavare: [{ id: vardnaRecord.id }] } }),
+    // Back-link Elev → Vårdnadshavare
+    await airtablePatch(apiKey, ELEV_TABLE_ID, elevRecord.id, {
+      Vårdnadshavare: [vardnaRecord.id],
     });
 
     // 3. Trigger email module
