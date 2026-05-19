@@ -21,11 +21,19 @@ function splitAddress(address: string): { gata: string; gatunummer: string } {
   return { gata: toStartCase(address.trim()), gatunummer: "" };
 }
 
+function joinSwedish(parts: string[]): string {
+  const arr = parts.map((p) => (p ?? "").trim()).filter(Boolean);
+  if (arr.length === 0) return "";
+  if (arr.length === 1) return arr[0];
+  if (arr.length === 2) return `${arr[0]} & ${arr[1]}`;
+  return `${arr.slice(0, -1).join(", ")} och ${arr[arr.length - 1]}`;
+}
+
 async function airtablePost(apiKey: string, tableId: string, fields: Record<string, unknown>) {
   const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${tableId}`, {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ fields }),
+    body: JSON.stringify({ fields, typecast: true }),
   });
   if (!res.ok) {
     const err = await res.text();
@@ -44,25 +52,40 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Configuration error" }, { status: 500 });
     }
 
-    // 1. Create one Elev record per child
-    const elevRecordIds: string[] = [];
-    for (const child of data.children ?? []) {
-      const instruments = resolveInstruments(child.instruments ?? [], child.instrumentOther ?? "");
-      const elevRecord = await airtablePost(apiKey, ELEV_TABLE_ID, {
-        Namn: toStartCase((child.name ?? "").trim()),
-        Instrument: instruments,
-        Födelseår: (child.birthYear ?? "").trim(),
-        Barn: JSON.stringify([{
-          namn: toStartCase((child.name ?? "").trim()),
-          födelseår: (child.birthYear ?? "").trim(),
-          årkurs: child.grade ?? "",
-          instrument: instruments,
-        }]),
-      });
-      elevRecordIds.push(elevRecord.id);
-    }
+    // 1. Create one Elev record per family with all children in Barn JSON
+    const children = (data.children ?? []) as Array<{
+      name?: string;
+      birthYear?: string;
+      grade?: string;
+      instruments?: string[];
+      instrumentOther?: string;
+    }>;
 
-    // 2. Create Vårdnadshavare record linked to all Elev records
+    const childEntries = children.map((child) => {
+      const instruments = resolveInstruments(child.instruments ?? [], child.instrumentOther ?? "");
+      return {
+        namn: toStartCase((child.name ?? "").trim()),
+        födelseår: (child.birthYear ?? "").trim(),
+        årkurs: child.grade ?? "",
+        instrument: instruments,
+      };
+    });
+
+    const allInstruments = Array.from(
+      new Set(childEntries.flatMap((c) => c.instrument))
+    );
+
+    const elevFields: Record<string, unknown> = {
+      Namn: joinSwedish(childEntries.map((c) => c.namn)),
+      Instrument: allInstruments,
+      Födelseår: joinSwedish(childEntries.map((c) => c.födelseår)),
+      Status: "Söker lärare",
+      Barn: JSON.stringify(childEntries),
+    };
+
+    const elevRecord = await airtablePost(apiKey, ELEV_TABLE_ID, elevFields);
+
+    // 2. Create Vårdnadshavare record linked to the Elev record
     const { gata, gatunummer } = splitAddress(data.address ?? "");
 
     const kommunikationspreferens: string[] =
@@ -95,22 +118,13 @@ export async function POST(req: NextRequest) {
       }),
     };
 
-    if (elevRecordIds.length > 0) {
-      vardnaFields["Elev"] = elevRecordIds.map((id) => ({ id }));
-    }
+    vardnaFields["Elev"] = [{ id: elevRecord.id }];
 
     const vardnaRecord = await airtablePost(apiKey, VARDNADSHAVARE_TABLE_ID, vardnaFields);
 
-    // 3. Back-link Elev records to Vårdnadshavare
-    for (const elevId of elevRecordIds) {
-      await fetch(`https://api.airtable.com/v0/${BASE_ID}/${ELEV_TABLE_ID}/${elevId}`, {
-        method: "PATCH",
-        headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ fields: { Vårdnadshavare: [{ id: vardnaRecord.id }] } }),
-      });
-    }
+    // Inverse link Elev.Vårdnadshavare is auto-populated by Airtable.
 
-    // 4. Trigger email module
+    // 3. Trigger email module
     fetch(EMAIL_WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -121,7 +135,7 @@ export async function POST(req: NextRequest) {
       }),
     }).catch((err) => console.error("Email webhook error:", err));
 
-    // 5. Geocoding (fire-and-forget)
+    // 4. Geocoding (fire-and-forget)
     const geocodeToken = process.env.GEOCODE_API_TOKEN;
     if (geocodeToken) {
       const adress = `${gata}${gatunummer ? ` ${gatunummer}` : ""}`;
@@ -137,7 +151,7 @@ export async function POST(req: NextRequest) {
       }).catch((err) => console.error("Geocoding error:", err));
     }
 
-    // 6. Meta CAPI Lead event
+    // 5. Meta CAPI Lead event
     const accessToken = process.env.META_ACCESS_TOKEN;
     if (accessToken) {
       try {
