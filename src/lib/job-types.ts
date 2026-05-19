@@ -26,6 +26,30 @@ export const JOB_INSTRUMENTS = [
   { name: "Annat", badge: null },
 ];
 
+export const JOB_INSTRUMENT_SUGGESTIONS = [
+  "Ukulele",
+  "Flöjt",
+  "Saxofon",
+  "Cello",
+  "Klarinett",
+  "Trumpet",
+  "Trombon",
+  "Oboe",
+  "Fagott",
+  "Harpa",
+  "Kontrabas",
+  "Elgitarr",
+  "Elbas",
+  "Pukor",
+  "Percussion",
+  "Mandolin",
+  "Banjo",
+  "Dragspel",
+  "Munspel",
+  "Synth",
+  "Musikproduktion",
+];
+
 export const JOB_STUDENT_COUNTS = [
   { value: "1-2 elever", label: "1-2 elever" },
   { value: "3-4 elever", label: "3-4 elever" },

@@ -11,7 +11,10 @@ function sha256(value: string): string {
 }
 
 const toStartCase = (s: string) =>
-  s.replace(/\S+/g, (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+  s.replace(
+    /\S+/g,
+    (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase(),
+  );
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,10 +23,16 @@ export async function POST(req: NextRequest) {
     const apiKey = process.env.AIRTABLE_API_KEY;
     if (!apiKey) {
       console.error("AIRTABLE_API_KEY not set");
-      return NextResponse.json({ success: false, error: "Configuration error" }, { status: 500 });
+      return NextResponse.json(
+        { success: false, error: "Configuration error" },
+        { status: 500 },
+      );
     }
 
-    const instrumentArray = resolveInstruments(data.instruments, data.instrumentOther ?? "");
+    const instrumentArray = resolveInstruments(
+      data.instruments,
+      data.instrumentOther ?? "",
+    );
 
     const areasStr = Array.isArray(data.areas)
       ? data.areas.map((a: string) => toStartCase(a.trim())).join(", ")
@@ -46,8 +55,10 @@ export async function POST(req: NextRequest) {
       }),
       Övrigt: JSON.stringify({
         undervisningsomraden: areasStr,
-        antalElever: data.studentCount,
-        vadVillDuHaUtAvJobbet: Array.isArray(data.motivations) ? data.motivations : [],
+        ...(data.studentCount ? { antalElever: data.studentCount } : {}),
+        vadVillDuHaUtAvJobbet: Array.isArray(data.motivations)
+          ? data.motivations
+          : [],
         hurHittadeJobbet: data.howFound,
       }),
     };
@@ -61,7 +72,7 @@ export async function POST(req: NextRequest) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ fields }),
-      }
+      },
     );
 
     if (!response.ok) {
@@ -107,30 +118,38 @@ export async function POST(req: NextRequest) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              data: [{
-                event_name: "Lead",
-                event_time: Math.floor(Date.now() / 1000),
-                action_source: "website",
-                event_id: data.eventId,
-                event_source_url: data.eventSourceUrl,
-                user_data: {
-                  em: data.email ? [sha256(data.email)] : undefined,
-                  ph: data.phone ? [sha256(data.phone.replace(/\D/g, ""))] : undefined,
-                  fn: firstName ? [sha256(firstName)] : undefined,
-                  ln: lastName ? [sha256(lastName)] : undefined,
-                  zp: data.postnummer ? [sha256(data.postnummer)] : undefined,
-                  ct: data.city ? [sha256(data.city)] : undefined,
-                  country: [sha256("se")],
-                  db: data.birthYear && String(data.birthYear).length === 4 ? [sha256(String(data.birthYear) + "0101")] : undefined,
-                  external_id: data.email ? [sha256(data.email)] : undefined,
-                  client_ip_address: ip,
-                  client_user_agent: req.headers.get("user-agent") ?? undefined,
-                  fbp: data.fbp,
-                  fbc: data.fbc,
+              data: [
+                {
+                  event_name: "Lead",
+                  event_time: Math.floor(Date.now() / 1000),
+                  action_source: "website",
+                  event_id: data.eventId,
+                  event_source_url: data.eventSourceUrl,
+                  user_data: {
+                    em: data.email ? [sha256(data.email)] : undefined,
+                    ph: data.phone
+                      ? [sha256(data.phone.replace(/\D/g, ""))]
+                      : undefined,
+                    fn: firstName ? [sha256(firstName)] : undefined,
+                    ln: lastName ? [sha256(lastName)] : undefined,
+                    zp: data.postnummer ? [sha256(data.postnummer)] : undefined,
+                    ct: data.city ? [sha256(data.city)] : undefined,
+                    country: [sha256("se")],
+                    db:
+                      data.birthYear && String(data.birthYear).length === 4
+                        ? [sha256(String(data.birthYear) + "0101")]
+                        : undefined,
+                    external_id: data.email ? [sha256(data.email)] : undefined,
+                    client_ip_address: ip,
+                    client_user_agent:
+                      req.headers.get("user-agent") ?? undefined,
+                    fbp: data.fbp,
+                    fbc: data.fbc,
+                  },
                 },
-              }],
+              ],
             }),
-          }
+          },
         );
         if (!capiRes.ok) {
           const capiError = await capiRes.text();
