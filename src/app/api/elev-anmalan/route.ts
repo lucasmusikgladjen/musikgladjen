@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
         kommunikationspreferens,
       }),
       Abonnemangsupplägg: JSON.stringify({
-        upplägg: "veckovis",
+        upplägg: data.frequency === "biweekly" ? "varannan vecka" : "veckovis",
         längd: (() => {
           const len = data.lessonLength ?? "";
           if (len === "90") return 90;
