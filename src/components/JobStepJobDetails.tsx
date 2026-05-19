@@ -31,6 +31,7 @@ export default function JobStepJobDetails({
 }: JobStepJobDetailsProps) {
   const [areaInput, setAreaInput] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const suggestions =
