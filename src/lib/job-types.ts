@@ -23,10 +23,6 @@ export const JOB_INSTRUMENTS = [
   { name: "Fiol", badge: null },
   { name: "Trummor", badge: null },
   { name: "Bas", badge: null },
-  { name: "Cello", badge: null },
-  { name: "Saxofon", badge: null },
-  { name: "Flöjt", badge: null },
-  { name: "Ukulele", badge: null },
   { name: "Annat", badge: null },
 ];
 
