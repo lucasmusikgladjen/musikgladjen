@@ -136,7 +136,6 @@ export default function JobApplicationForm({
               onChange={(v) => updateField("instruments", v)}
               onOtherChange={(v) => updateField("instrumentOther", v)}
               onNext={goNext}
-              noValidation
             />
           )}
           {step === 1 && (
@@ -155,7 +154,6 @@ export default function JobApplicationForm({
               onAreasChange={(v) => updateField("areas", v)}
               onNext={goNext}
               onBack={goBack}
-              noValidation
               enableAutocomplete
               showStudentCount={false}
               showAreasFieldLabel={false}
@@ -171,7 +169,6 @@ export default function JobApplicationForm({
               }
               onNext={goNext}
               onBack={goBack}
-              noValidation
             />
           )}
           {step === 4 && <JobStepCalculator onNext={goNext} onBack={goBack} />}
@@ -198,7 +195,6 @@ export default function JobApplicationForm({
               onBack={goBack}
               isSubmitting={isSubmitting}
               submitError={submitError}
-              noValidation
             />
           )}
         </div>
