@@ -43,15 +43,6 @@ export default function ElevConfirmation({ data }: ElevConfirmationProps) {
               />
             </div>
           </div>
-
-{data.email && (
-            <div className="p-4 rounded-xl bg-white border border-gray-200 text-sm text-text-secondary">
-              <p>
-                <span className="font-semibold text-text-primary">Bekräftelse skickas till:</span>{" "}
-                {data.email}
-              </p>
-            </div>
-          )}
         </div>
       </div>
     </div>
