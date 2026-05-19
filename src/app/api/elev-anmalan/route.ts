@@ -21,11 +21,6 @@ function splitAddress(address: string): { gata: string; gatunummer: string } {
   return { gata: toStartCase(address.trim()), gatunummer: "" };
 }
 
-function mapStartPreference(v: string): string {
-  if (v === "next_term") return "Nästa termin";
-  return "Så snart som möjligt";
-}
-
 async function airtablePost(apiKey: string, tableId: string, fields: Record<string, unknown>) {
   const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${tableId}`, {
     method: "POST",
@@ -84,7 +79,6 @@ export async function POST(req: NextRequest) {
         ort: toStartCase((data.city ?? "").trim()),
       }),
       Anmälningsinfo: JSON.stringify({
-        hurSnart: data.startPreference ? mapStartPreference(data.startPreference) : "",
         vadHoppas: Array.isArray(data.expectations) ? data.expectations.join(", ") : "",
         tillgangInstrument: data.instrumentAtHome ?? "",
         annatViBorVeta: (data.comment ?? "").trim(),

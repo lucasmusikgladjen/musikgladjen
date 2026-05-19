@@ -27,7 +27,5 @@ export type ElevFormData = {
   expectations: string[];
   frequency: "weekly" | "biweekly";
   lessonLength: "45-60" | "90" | "120";
-  startPreference: "asap" | "within_month" | "next_term";
   formVariant: string;
 };
-
