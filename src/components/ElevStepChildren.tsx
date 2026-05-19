@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Child } from "@/lib/elev-types";
 import StepWrapper from "./StepWrapper";
 
@@ -30,15 +31,56 @@ export default function ElevStepChildren({
 
   const removeChild = (idx: number) => {
     onChange(children.filter((_, i) => i !== idx));
+    setTouched((t) => {
+      const next: Record<string, boolean> = {};
+      for (const [key, val] of Object.entries(t)) {
+        const m = key.match(/^(name|birthYear)-(\d+)$/);
+        if (!m) continue;
+        const k = m[1];
+        const i = parseInt(m[2], 10);
+        if (i < idx) next[key] = val;
+        else if (i > idx) next[`${k}-${i - 1}`] = val;
+      }
+      return next;
+    });
   };
 
-  const canProceed = true;
+  const currentYear = new Date().getFullYear();
+  const isValidBirthYear = (y: string) =>
+    /^\d{4}$/.test(y) && parseInt(y) >= 1925 && parseInt(y) <= currentYear;
+
+  const childErrors = children.map((c) => ({
+    name: c.name.trim().length < 1 ? "Ange elevens namn" : null,
+    birthYear: !isValidBirthYear(c.birthYear)
+      ? c.birthYear.length === 0
+        ? "Ange födelseår"
+        : "Ange ett giltigt födelseår (1925–" + currentYear + ")"
+      : null,
+  }));
+  const canProceed = childErrors.every((e) => !e.name && !e.birthYear);
+
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const touch = (field: string) => setTouched((t) => ({ ...t, [field]: true }));
+
+  const handleNext = () => {
+    if (canProceed) {
+      onNext();
+      return;
+    }
+    const next: Record<string, boolean> = {};
+    children.forEach((_, i) => {
+      next[`name-${i}`] = true;
+      next[`birthYear-${i}`] = true;
+    });
+    setTouched(next);
+  };
 
   const inputClass = "w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white placeholder:text-gray-400 placeholder:text-sm focus:border-primary transition-colors";
   const labelClass = "block text-sm font-semibold text-text-primary mb-1";
+  const errorClass = "mt-1 text-xs text-error";
 
   return (
-    <StepWrapper onBack={onBack} onNext={onNext} ctaText="Gå vidare" ctaDisabled={!canProceed} gaStep="steg-3">
+    <StepWrapper onBack={onBack} onNext={handleNext} ctaText="Gå vidare" gaStep="steg-3">
       <div className="mb-4 pb-4 border-b border-gray-100">
         <p className="flex items-center gap-1.5 text-sm font-semibold text-text-secondary mb-0.5">
           <svg className="w-4 h-4 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -80,6 +122,7 @@ export default function ElevStepChildren({
                   type="text"
                   value={child.name}
                   onChange={(e) => updateChild(i, { name: e.target.value })}
+                  onBlur={() => touch(`name-${i}`)}
                   placeholder="Förnamn"
                   maxLength={50}
                   autoComplete="off"
@@ -88,7 +131,7 @@ export default function ElevStepChildren({
               </div>
               <div className="w-24">
                 <label htmlFor={`birthYear-${i}`} className={labelClass}>
-                  Födelseår
+                  Födelseår <span className="text-error">*</span>
                 </label>
                 <input
                   id={`birthYear-${i}`}
@@ -96,12 +139,19 @@ export default function ElevStepChildren({
                   inputMode="numeric"
                   value={child.birthYear}
                   onChange={(e) => updateChild(i, { birthYear: e.target.value.replace(/\D/g, "").slice(0, 4) })}
+                  onBlur={() => touch(`birthYear-${i}`)}
                   placeholder="2018"
                   maxLength={4}
                   className={inputClass}
                 />
               </div>
             </div>
+            {touched[`name-${i}`] && childErrors[i].name && (
+              <p className={errorClass}>{childErrors[i].name}</p>
+            )}
+            {touched[`birthYear-${i}`] && childErrors[i].birthYear && (
+              <p className={errorClass}>{childErrors[i].birthYear}</p>
+            )}
           </div>
         ))}
       </div>

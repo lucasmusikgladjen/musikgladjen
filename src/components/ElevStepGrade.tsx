@@ -16,7 +16,7 @@ export default function ElevStepGrade({
   onNext,
 }: ElevStepGradeProps) {
   return (
-    <StepWrapper onNext={onNext} ctaText="Nästa" showBack={false} gaStep="steg-1">
+    <StepWrapper onNext={onNext} ctaText="Nästa" ctaDisabled={!grade} showBack={false} gaStep="steg-1">
       <div className="flex items-stretch gap-4 mb-4 pb-4 border-b border-gray-100">
         <img
           src="/loka.jpeg"

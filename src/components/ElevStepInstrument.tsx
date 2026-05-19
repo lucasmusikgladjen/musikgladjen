@@ -29,12 +29,15 @@ export default function ElevStepInstrument({
   const showOtherField = value.includes("Annat");
   const displayName = childName.trim() || "eleven";
 
+  const canProceed =
+    value.length > 0 && (!showOtherField || otherValue.trim().length > 0);
+
   return (
     <StepWrapper
       onBack={onBack}
       onNext={onNext}
       ctaText="Nästa"
-      ctaDisabled={false}
+      ctaDisabled={!canProceed}
       gaStep="steg-2"
     >
       <div className="mb-4 pb-4 border-b border-gray-100">
