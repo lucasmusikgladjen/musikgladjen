@@ -76,16 +76,21 @@ export async function POST(req: NextRequest) {
       Kontaktuppgifter: JSON.stringify({
         epost: (data.email ?? "").trim().toLowerCase(),
         telefon: (data.phone ?? "").trim(),
-        adress,
+        gata,
+        gatunummer,
         postnummer: (data.postalCode ?? "").trim(),
         ort: toStartCase((data.city ?? "").trim()),
       }),
       Anmälningsinfo: JSON.stringify({
         hurSnart: data.startPreference ? mapStartPreference(data.startPreference) : "",
-        vadHoppas: Array.isArray(data.expectations) ? data.expectations.join(", ") : "",
+        vadHoppas: Array.isArray(data.expectations) ? data.expectations : [],
         tillgangInstrument: data.instrumentAtHome ?? "",
         annatViBorVeta: (data.comment ?? "").trim(),
-        kommunikationspreferens: data.frequency === "biweekly" ? "varannan vecka" : "",
+        kommunikationspreferens: Array.isArray(data.frequency)
+          ? data.frequency
+          : data.frequency
+          ? [data.frequency === "biweekly" ? "varannan vecka" : "veckovis"]
+          : [],
       }),
       Abonnemangsupplägg: JSON.stringify({
         upplägg: "veckovis",
