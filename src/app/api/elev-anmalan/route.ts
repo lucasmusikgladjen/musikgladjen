@@ -69,14 +69,17 @@ export async function POST(req: NextRequest) {
 
     // 2. Create Vårdnadshavare record linked to all Elev records
     const { gata, gatunummer } = splitAddress(data.address ?? "");
-    const adress = `${gata}${gatunummer ? ` ${gatunummer}` : ""}`;
+
+    const kommunikationspreferens: string[] =
+      data.frequency === "biweekly" ? ["varannan vecka"] : [];
 
     const vardnaFields: Record<string, unknown> = {
       Namn: toStartCase((data.guardianName ?? "").trim()),
       Kontaktuppgifter: JSON.stringify({
         epost: (data.email ?? "").trim().toLowerCase(),
         telefon: (data.phone ?? "").trim(),
-        adress,
+        gata,
+        gatunummer,
         postnummer: (data.postalCode ?? "").trim(),
         ort: toStartCase((data.city ?? "").trim()),
       }),
@@ -85,7 +88,7 @@ export async function POST(req: NextRequest) {
         vadHoppas: Array.isArray(data.expectations) ? data.expectations.join(", ") : "",
         tillgangInstrument: data.instrumentAtHome ?? "",
         annatViBorVeta: (data.comment ?? "").trim(),
-        kommunikationspreferens: data.frequency === "biweekly" ? "varannan vecka" : "",
+        kommunikationspreferens,
       }),
       Abonnemangsupplägg: JSON.stringify({
         upplägg: "veckovis",
@@ -127,6 +130,7 @@ export async function POST(req: NextRequest) {
     // 5. Geocoding (fire-and-forget)
     const geocodeToken = process.env.GEOCODE_API_TOKEN;
     if (geocodeToken) {
+      const adress = `${gata}${gatunummer ? ` ${gatunummer}` : ""}`;
       const fullAddress = `${adress}, ${(data.postalCode ?? "").trim()} ${toStartCase((data.city ?? "").trim())}`;
       fetch("https://geocode-126597579756.europe-west1.run.app", {
         method: "POST",
