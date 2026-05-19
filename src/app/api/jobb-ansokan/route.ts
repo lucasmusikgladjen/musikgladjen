@@ -55,7 +55,6 @@ export async function POST(req: NextRequest) {
       }),
       Övrigt: JSON.stringify({
         undervisningsomraden: areasStr,
-        ...(data.studentCount ? { antalElever: data.studentCount } : {}),
         vadVillDuHaUtAvJobbet: Array.isArray(data.motivations)
           ? data.motivations
           : [],
