@@ -15,7 +15,6 @@ interface JobStepJobDetailsProps {
   enableAutocomplete?: boolean;
   showStudentCount?: boolean;
   showAreasFieldLabel?: boolean;
-  showCityQuickPicks?: boolean;
 }
 
 export default function JobStepJobDetails({
@@ -29,82 +28,19 @@ export default function JobStepJobDetails({
   enableAutocomplete = false,
   showStudentCount = true,
   showAreasFieldLabel = true,
-  showCityQuickPicks = false,
 }: JobStepJobDetailsProps) {
   const [areaInput, setAreaInput] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const cityFilteredSuggestions =
-    selectedCity === "Stockholm"
-      ? AREA_SUGGESTIONS.filter((s) =>
-          [
-            "Innerstan",
-            "Vasastan",
-            "Södermalm",
-            "Östermalm",
-            "Norrmalm",
-            "Kungsholmen",
-            "Gamla Stan",
-            "Djurgården",
-            "Hammarby Sjöstad",
-            "Gärdet",
-            "Odenplan",
-            "Hornstull",
-            "Skanstull",
-            "Fridhemsplan",
-            "Bromma",
-            "Hägersten",
-            "Mälarhöjden",
-            "Aspudden",
-            "Midsommarkransen",
-            "Telefonplan",
-            "Liljeholmen",
-            "Alvik",
-            "Skärholmen",
-            "Älvsjö",
-            "Enskede",
-            "Farsta",
-            "Farsta Strand",
-            "Skarpnäck",
-            "Bagarmossen",
-            "Bandhagen",
-            "Rågsved",
-            "Vällingby",
-            "Hässelby",
-            "Spånga",
-            "Tensta",
-            "Rinkeby",
-            "Kista",
-            "Järva",
-            "Stockholm",
-            "Solna",
-            "Sundbyberg",
-            "Nacka",
-            "Lidingö",
-            "Huddinge",
-            "Täby",
-            "Tyresö",
-            "Järfälla",
-            "Sollentuna",
-          ].includes(s),
-        )
-      : selectedCity === "Göteborg"
-        ? ["Göteborg"]
-        : selectedCity === "Malmö"
-          ? ["Malmö"]
-          : AREA_SUGGESTIONS;
-
   const suggestions =
     enableAutocomplete && areaInput.trim()
-      ? cityFilteredSuggestions
-          .filter(
-            (s) =>
-              s.toLowerCase().includes(areaInput.toLowerCase()) &&
-              !areas.includes(s),
-          )
-          .slice(0, 6)
+      ? AREA_SUGGESTIONS.filter(
+          (s) =>
+            s.toLowerCase().includes(areaInput.toLowerCase()) &&
+            !areas.includes(s),
+        ).slice(0, 6)
       : [];
 
   const addTag = (raw: string) => {
@@ -155,8 +91,6 @@ export default function JobStepJobDetails({
     ? studentCount !== "" && areas.length > 0
     : areas.length > 0;
 
-  const CITY_QUICK_PICKS = ["Stockholm", "Göteborg", "Malmö"] as const;
-
   return (
     <StepWrapper
       onBack={onBack}
@@ -165,18 +99,12 @@ export default function JobStepJobDetails({
       ctaDisabled={!noValidation && !canProceed}
     >
       <h2 className="text-2xl font-bold text-text-primary mb-1 mt-2">
-        Inom vilka områden kan du ta elever?
+        Vart kan du ta elever?
       </h2>
       <p className="text-sm text-text-secondary mb-6">
         Skriv gärna flera områden, t.ex. där du bor, pluggar eller pendlar. Välj
         från listan eller skriv egna.
       </p>
-      {showCityQuickPicks && (
-        <p className="text-xs text-text-secondary mb-2">
-          Välj stad för relevanta förslag, och skriv sedan område (t.ex.
-          Vasastan).
-        </p>
-      )}
 
       <div className="mb-8">
         {showAreasFieldLabel && (
@@ -192,30 +120,6 @@ export default function JobStepJobDetails({
               Välj från listan eller skriv egna.
             </p>
           </>
-        )}
-        {showCityQuickPicks && (
-          <div className="mb-3 flex flex-wrap gap-2">
-            {CITY_QUICK_PICKS.map((city) => {
-              const selected = areas.includes(city);
-              return (
-                <button
-                  key={city}
-                  type="button"
-                  onClick={() => {
-                    setSelectedCity(city);
-                    document.getElementById("areas")?.focus();
-                  }}
-                  className={`px-3 py-1.5 rounded-full text-xs border transition-colors ${
-                    selectedCity === city
-                      ? "bg-accent-soft border-primary/40 text-primary"
-                      : "bg-white border-gray-200 text-text-secondary hover:text-text-primary hover:border-gray-300"
-                  }`}
-                >
-                  {city}
-                </button>
-              );
-            })}
-          </div>
         )}
         <div ref={containerRef} className="relative">
           <div

@@ -159,7 +159,6 @@ export default function JobTestApplicationForm({
               enableAutocomplete
               showStudentCount={false}
               showAreasFieldLabel={false}
-              showCityQuickPicks
             />
           )}
           {step === 3 && (
