@@ -19,12 +19,14 @@ interface JobTestApplicationFormProps {
   onComplete: (data: JobFormData) => void;
 }
 
-export default function JobTestApplicationForm({ onComplete }: JobTestApplicationFormProps) {
+export default function JobTestApplicationForm({
+  onComplete,
+}: JobTestApplicationFormProps) {
   const searchParams = useSearchParams();
   const fromParam = searchParams.get("from") ?? "";
-  const lockedSource = JOB_HOW_FOUND.find(
-    (s) => s.toLowerCase() === fromParam.toLowerCase()
-  ) ?? "";
+  const lockedSource =
+    JOB_HOW_FOUND.find((s) => s.toLowerCase() === fromParam.toLowerCase()) ??
+    "";
 
   const [step, setStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -54,7 +56,7 @@ export default function JobTestApplicationForm({ onComplete }: JobTestApplicatio
     <K extends keyof JobFormData>(key: K, value: JobFormData[K]) => {
       setFormData((prev) => ({ ...prev, [key]: value }));
     },
-    []
+    [],
   );
 
   const goNext = useCallback(() => {
@@ -99,7 +101,7 @@ export default function JobTestApplicationForm({ onComplete }: JobTestApplicatio
     } catch (err) {
       console.error("Submit error:", err);
       setSubmitError(
-        "Något gick fel. Kontrollera din internetanslutning och försök igen."
+        "Något gick fel. Kontrollera din internetanslutning och försök igen.",
       );
     } finally {
       setIsSubmitting(false);
@@ -155,6 +157,8 @@ export default function JobTestApplicationForm({ onComplete }: JobTestApplicatio
               onBack={goBack}
               noValidation
               enableAutocomplete
+              showStudentCount={false}
+              showAreasFieldLabel={false}
             />
           )}
           {step === 3 && (
@@ -170,9 +174,7 @@ export default function JobTestApplicationForm({ onComplete }: JobTestApplicatio
               noValidation
             />
           )}
-          {step === 4 && (
-            <JobStepCalculator onNext={goNext} onBack={goBack} />
-          )}
+          {step === 4 && <JobStepCalculator onNext={goNext} onBack={goBack} />}
           {step === 5 && (
             <JobStepContact
               name={formData.name}
