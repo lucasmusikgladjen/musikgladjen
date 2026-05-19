@@ -163,10 +163,10 @@ export default function JobStepInstruments({
             htmlFor="instrumentOther"
             className="block text-sm font-medium text-text-primary mb-1"
           >
-            Lägg till egna instrument
+            Lägg till andra instrument
           </label>
           <p className="text-xs text-text-secondary mb-2">
-            Skriv och välj från listan, eller skapa ett eget nischat instrument.
+            Välj eller skriv andra instrument du kan spela
           </p>
           <div ref={containerRef} className="relative">
             <div
