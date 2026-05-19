@@ -223,7 +223,7 @@ export default function JobStepInstruments({
             </div>
 
             {(suggestions.length > 0 || otherInput.trim()) && (
-              <ul className="absolute z-10 left-0 right-0 mt-1 bg-bg-white border border-gray-200 rounded-xl shadow-md overflow-hidden">
+              <ul className="absolute z-10 left-0 right-0 bottom-full mb-1 bg-bg-white border border-gray-200 rounded-xl shadow-md overflow-hidden">
                 {otherInput.trim() &&
                   !otherTags.some(
                     (tag) =>

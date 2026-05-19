@@ -31,6 +31,10 @@ export const JOB_INSTRUMENTS = [
 ];
 
 export const JOB_INSTRUMENT_SUGGESTIONS = [
+  "Ukulele",
+  "Flöjt",
+  "Saxofon",
+  "Cello",
   "Klarinett",
   "Trumpet",
   "Trombon",
