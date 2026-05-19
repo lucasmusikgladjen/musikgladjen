@@ -7,11 +7,9 @@ import StepWrapper from "./StepWrapper";
 interface StepPricingProps {
   frequency: "weekly" | "biweekly";
   lessonLength: "45-60" | "90" | "120";
-  startPreference: "asap" | "within_month" | "next_term";
   expectations: string[];
   onFrequencyChange: (v: "weekly" | "biweekly") => void;
   onLessonLengthChange: (v: "45-60" | "90" | "120") => void;
-  onStartPreferenceChange: (v: "asap" | "within_month" | "next_term") => void;
   onExpectationsChange: (v: string[]) => void;
   onSubmit: () => void;
   onBack: () => void;
@@ -41,11 +39,9 @@ const sectionLabel = "text-sm font-semibold text-text-primary mb-2.5";
 export default function StepPricing({
   frequency,
   lessonLength,
-  startPreference,
   expectations,
   onFrequencyChange,
   onLessonLengthChange,
-  onStartPreferenceChange,
   onExpectationsChange,
   onSubmit,
   onBack,
