@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
         ort: toStartCase((data.city ?? "").trim()),
       }),
       Anmälningsinfo: JSON.stringify({
-        vadHoppas: Array.isArray(data.expectations) ? data.expectations.join(", ") : "",
+        vadHoppas: Array.isArray(data.expectations) ? data.expectations : [],
         tillgangInstrument: data.instrumentAtHome ?? "",
         annatViBorVeta: (data.comment ?? "").trim(),
         kommunikationspreferens,
