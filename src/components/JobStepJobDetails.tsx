@@ -33,15 +33,78 @@ export default function JobStepJobDetails({
 }: JobStepJobDetailsProps) {
   const [areaInput, setAreaInput] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const cityFilteredSuggestions =
+    selectedCity === "Stockholm"
+      ? AREA_SUGGESTIONS.filter((s) =>
+          [
+            "Innerstan",
+            "Vasastan",
+            "Södermalm",
+            "Östermalm",
+            "Norrmalm",
+            "Kungsholmen",
+            "Gamla Stan",
+            "Djurgården",
+            "Hammarby Sjöstad",
+            "Gärdet",
+            "Odenplan",
+            "Hornstull",
+            "Skanstull",
+            "Fridhemsplan",
+            "Bromma",
+            "Hägersten",
+            "Mälarhöjden",
+            "Aspudden",
+            "Midsommarkransen",
+            "Telefonplan",
+            "Liljeholmen",
+            "Alvik",
+            "Skärholmen",
+            "Älvsjö",
+            "Enskede",
+            "Farsta",
+            "Farsta Strand",
+            "Skarpnäck",
+            "Bagarmossen",
+            "Bandhagen",
+            "Rågsved",
+            "Vällingby",
+            "Hässelby",
+            "Spånga",
+            "Tensta",
+            "Rinkeby",
+            "Kista",
+            "Järva",
+            "Stockholm",
+            "Solna",
+            "Sundbyberg",
+            "Nacka",
+            "Lidingö",
+            "Huddinge",
+            "Täby",
+            "Tyresö",
+            "Järfälla",
+            "Sollentuna",
+          ].includes(s),
+        )
+      : selectedCity === "Göteborg"
+        ? ["Göteborg"]
+        : selectedCity === "Malmö"
+          ? ["Malmö"]
+          : AREA_SUGGESTIONS;
 
   const suggestions =
     enableAutocomplete && areaInput.trim()
-      ? AREA_SUGGESTIONS.filter(
-          (s) =>
-            s.toLowerCase().includes(areaInput.toLowerCase()) &&
-            !areas.includes(s),
-        ).slice(0, 6)
+      ? cityFilteredSuggestions
+          .filter(
+            (s) =>
+              s.toLowerCase().includes(areaInput.toLowerCase()) &&
+              !areas.includes(s),
+          )
+          .slice(0, 6)
       : [];
 
   const addTag = (raw: string) => {
@@ -108,6 +171,12 @@ export default function JobStepJobDetails({
         Skriv gärna flera områden, t.ex. där du bor, pluggar eller pendlar. Välj
         från listan eller skriv egna.
       </p>
+      {showCityQuickPicks && (
+        <p className="text-xs text-text-secondary mb-2">
+          Välj stad för relevanta förslag, och skriv sedan område (t.ex.
+          Vasastan).
+        </p>
+      )}
 
       <div className="mb-8">
         {showAreasFieldLabel && (
@@ -132,9 +201,12 @@ export default function JobStepJobDetails({
                 <button
                   key={city}
                   type="button"
-                  onClick={() => addTag(city)}
+                  onClick={() => {
+                    setSelectedCity(city);
+                    document.getElementById("areas")?.focus();
+                  }}
                   className={`px-3 py-1.5 rounded-full text-xs border transition-colors ${
-                    selected
+                    selectedCity === city
                       ? "bg-accent-soft border-primary/40 text-primary"
                       : "bg-white border-gray-200 text-text-secondary hover:text-text-primary hover:border-gray-300"
                   }`}
