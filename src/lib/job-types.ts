@@ -23,7 +23,31 @@ export const JOB_INSTRUMENTS = [
   { name: "Fiol", badge: null },
   { name: "Trummor", badge: null },
   { name: "Bas", badge: null },
+  { name: "Cello", badge: null },
+  { name: "Saxofon", badge: null },
+  { name: "Flöjt", badge: null },
+  { name: "Ukulele", badge: null },
   { name: "Annat", badge: null },
+];
+
+export const JOB_INSTRUMENT_SUGGESTIONS = [
+  "Klarinett",
+  "Trumpet",
+  "Trombon",
+  "Oboe",
+  "Fagott",
+  "Harpa",
+  "Kontrabas",
+  "Elgitarr",
+  "Elbas",
+  "Pukor",
+  "Percussion",
+  "Mandolin",
+  "Banjo",
+  "Dragspel",
+  "Munspel",
+  "Synth",
+  "Musikproduktion",
 ];
 
 export const JOB_STUDENT_COUNTS = [

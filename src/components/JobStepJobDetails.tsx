@@ -166,15 +166,6 @@ export default function JobStepJobDetails({
                 autoComplete="off"
                 className="flex-1 min-w-0 outline-none text-sm bg-transparent text-text-primary placeholder:text-gray-400 placeholder:text-sm"
               />
-              {areaInput.trim() && (
-                <button
-                  type="button"
-                  onClick={() => addTag(areaInput)}
-                  className="flex-shrink-0 px-2.5 py-1.5 rounded-md bg-primary text-white text-xs font-semibold hover:bg-primary/90 transition-colors"
-                >
-                  Lägg till “{areaInput.trim()}”
-                </button>
-              )}
             </div>
           </div>
 
