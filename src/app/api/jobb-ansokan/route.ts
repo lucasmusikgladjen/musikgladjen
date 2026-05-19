@@ -34,9 +34,9 @@ export async function POST(req: NextRequest) {
       Födelseår: data.birthYear,
       Instrument: instrumentArray,
       Kontaktuppgifter: JSON.stringify({
-        email: data.email.trim().toLowerCase(),
+        epost: data.email.trim().toLowerCase(),
         telefon: data.phone.trim(),
-        adress: toStartCase(data.address.trim()),
+        gata: toStartCase(data.address.trim()),
         postnummer: data.postnummer.trim(),
         ort: toStartCase(data.city.trim()),
       }),
