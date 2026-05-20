@@ -265,7 +265,7 @@ function FileUploadField({
   name: string;
   accept: string;
   helpText?: string;
-  fileRef: React.RefObject<HTMLInputElement>;
+  fileRef: React.RefObject<HTMLInputElement | null>;
   required?: boolean;
 }) {
   const [fileName, setFileName] = useState<string | null>(null);
