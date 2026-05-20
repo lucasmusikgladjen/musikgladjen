@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Anmäl barn till musiklektioner",
+  title: "Anmäl ditt barn musiklektioner",
   robots: { index: false, follow: false },
 };
 
