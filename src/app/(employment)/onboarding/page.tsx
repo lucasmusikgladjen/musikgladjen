@@ -36,6 +36,7 @@ const BIO_MIN = 150;
 const BIO_MAX = 700;
 
 function splitTags(str: string): string[] {
+  if (typeof str !== 'string') return [];
   return str.split(/[,;]+/).map((s) => s.trim()).filter(Boolean);
 }
 

@@ -42,7 +42,10 @@ export async function GET(request: NextRequest) {
       ort,
       epost: (record.get('E-post') as string) || '',
       telefon: (record.get('Telefon') as string) || '',
-      instrument: (record.get('Instrument') as string) || '',
+      instrument: (() => {
+        const v = record.get('Instrument');
+        return Array.isArray(v) ? (v as string[]).join(', ') : ((v as string) || '');
+      })(),
       undervisningsomraden: (() => {
         const v = record.get('Undervisningsområden');
         return Array.isArray(v) ? (v as string[]).join(', ') : ((v as string) || '');
