@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
       };
     });
 
-    const allInstruments = Array.from(new Set(childEntries.flatMap((c) => c.instrument)));
+    const allInstruments = childEntries[0]?.instrument ?? [];
 
     const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm" }).format(new Date());
 
