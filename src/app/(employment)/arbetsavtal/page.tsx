@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas-pro';
 
 type PageState = 'loading' | 'show-agreement' | 'signing' | 'signed' | 'already-signed' | 'error';
 

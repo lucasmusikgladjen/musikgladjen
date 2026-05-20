@@ -378,7 +378,8 @@ function OnboardingForm() {
         setOmradenTags(splitTags(data.undervisningsomraden));
         setState('form');
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error('Onboarding data fetch failed:', err);
         setState('error');
         setErrorMessage('Kunde inte hämta dina uppgifter. Kontrollera att länken är korrekt.');
       });
