@@ -24,7 +24,6 @@ export type ElevFormData = {
   email: string;
   comment: string;
   instrumentAtHome: string;
-  expectations: string[];
   frequency: "weekly" | "biweekly";
   lessonLength: "45-60" | "90" | "120";
   formVariant: string;

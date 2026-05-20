@@ -20,10 +20,6 @@ export const instrumentSchema = z.object({
   instrumentOther: z.string().max(100).optional().default(""),
 });
 
-export const expectationsSchema = z.object({
-  expectations: z.array(z.string()).default([]),
-});
-
 export const contactSchema = z.object({
   studentName: z
     .string()
