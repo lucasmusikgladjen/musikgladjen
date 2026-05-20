@@ -43,6 +43,8 @@ function toStartCase(s: string): string {
   return s.replace(/\S+/g, (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
 }
 
+// Format personnummer: accepts 12-digit (YYYYMMDD+XXXX) or 10-digit (YYMMDD+XXXX).
+// Dash auto-inserted after 8 digits for 12-digit input, after 6 digits for 10-digit.
 function formatPersonnummer(raw: string): string {
   const digits = raw.replace(/\D/g, '').slice(0, 12);
   const is12digit = digits.length >= 9 && (digits.startsWith('19') || digits.startsWith('20'));
@@ -51,12 +53,15 @@ function formatPersonnummer(raw: string): string {
   return digits;
 }
 
+
+// Format postnummer: NNN NN display (max 5 digits)
 function formatPostnummer(raw: string): string {
   const digits = raw.replace(/\D/g, '').slice(0, 5);
   if (digits.length > 3) return digits.slice(0, 3) + ' ' + digits.slice(3);
   return digits;
 }
 
+// Format telefon: NNN-NNN NN NN display (070-123 45 67)
 function formatTelefon(raw: string): string {
   const d = raw.replace(/\D/g, '').slice(0, 10);
   let r = d.slice(0, 3);
@@ -66,6 +71,7 @@ function formatTelefon(raw: string): string {
   return r;
 }
 
+// Format kontonummer: auto-group digits NNN NNN NNN, user places dash wherever their bank requires
 function formatKontonummer(raw: string): string {
   const cleaned = raw.replace(/[^\d-]/g, '').replace(/-+/g, '-');
   const dashIdx = cleaned.indexOf('-');
@@ -85,6 +91,9 @@ function isValidPersonnummer(pnr: string): boolean {
   return /^\d{8}-\d{4}$/.test(pnr) || /^\d{6}-\d{4}$/.test(pnr);
 }
 
+// Källa: lista över platser/områden. Hårdkodad kopia — Airtable är källa för
+// nya värden (skapas automatiskt när lärare skriver in en ny). Synka med
+// musikgladjen/src/lib/job-types.ts AREA_SUGGESTIONS.
 const AREA_SUGGESTIONS = [
   'Innerstan','Vasastan','Södermalm','Östermalm','Norrmalm','Kungsholmen','Gamla Stan',
   'Djurgården','Hammarby Sjöstad','Gärdet','Odenplan','Hornstull','Skanstull','Fridhemsplan',
@@ -227,7 +236,7 @@ function TagInput({
                 className="w-full text-left px-3 py-2 text-sm font-medium hover:opacity-80"
                 style={{ background: '#ede8e2', color: 'var(--groovy-brown)' }}
               >
-                Lägg till "{toStartCase(input.trim())}"
+                Lägg till “{toStartCase(input.trim())}”
               </button>
             </li>
           )}
@@ -348,16 +357,19 @@ function OnboardingForm() {
         return res.json();
       })
       .then((data: TeacherData) => {
+        // Parse bankkontonummer into clearing + kontonummer
         const [rawClearing, ...restParts] = (data.bankkontonummer || '').split(',');
         setClearingnummer(rawClearing?.trim() ?? '');
         setKontonummer(formatKontonummer(restParts.join(',').trim()));
 
+        // Parse bank — if it's not a known bank, treat as Övriga
         const knownBanks = BANKS.slice(0, -1);
         if (data.bank && !knownBanks.includes(data.bank)) {
           setBankOvrigaText(data.bank);
           data = { ...data, bank: 'Övriga' };
         }
 
+        // Format postnummer for display (NNN NN)
         data = { ...data, postnummer: formatPostnummer(data.postnummer || '') };
         data = { ...data, telefon: formatTelefon(data.telefon || '') };
 
@@ -421,10 +433,12 @@ function OnboardingForm() {
       formData.append('id', id);
       formData.append('sig', sig);
 
+      // Text fields — normalize postnummer (strip space) and bank (resolve Övriga)
       const bankValue = form.bank === 'Övriga' ? bankOvrigaText.trim() : form.bank;
       const postnummerValue = form.postnummer.replace(/\s/g, '');
       const bankkontonummerValue = `${clearingnummer.trim()}, ${kontonummer.trim()}`;
 
+      // Convert personnummer: 12-digit (YYYYMMDD-XXXX) → 10-digit (YYMMDD-XXXX)
       const pnrDigits = form.personnummer.replace(/\D/g, '');
       const personnummerValue = pnrDigits.length === 12
         ? pnrDigits.slice(2, 8) + '-' + pnrDigits.slice(8)
@@ -441,6 +455,7 @@ function OnboardingForm() {
       formData.append('instrument', instrumentTags.join(', '));
       formData.append('undervisningsomraden', omradenTags.join(', '));
 
+      // Files
       const profilbildFile = profilbildRef.current?.files?.[0];
       if (profilbildFile) formData.append('profilbild', profilbildFile);
 
@@ -497,6 +512,8 @@ function OnboardingForm() {
 
         {state === 'form' && (
           <form onSubmit={handleSubmit} className="space-y-8">
+
+            {/* Section: Kontaktuppgifter */}
             <section>
               <h3
                 className="text-lg font-semibold mb-4"
@@ -591,6 +608,7 @@ function OnboardingForm() {
               </div>
             </section>
 
+            {/* Section: Instrument */}
             <section>
               <h3
                 className="text-lg font-semibold mb-4"
@@ -614,6 +632,7 @@ function OnboardingForm() {
               </div>
             </section>
 
+            {/* Section: Undervisningsområden */}
             <section>
               <h3
                 className="text-lg font-semibold mb-4"
@@ -638,6 +657,7 @@ function OnboardingForm() {
               </div>
             </section>
 
+            {/* Section: Personnummer & bankuppgifter */}
             <section>
               <h3
                 className="text-lg font-semibold mb-4"
@@ -646,6 +666,8 @@ function OnboardingForm() {
                 Personnummer & bankuppgifter
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                {/* Personnummer */}
                 <div className="sm:col-span-2 sm:max-w-xs">
                   <label className="block text-sm font-medium mb-1" style={{ color: 'var(--groovy-brown)' }}>
                     Personnummer<span className="text-red-500 ml-0.5">*</span>
@@ -664,6 +686,7 @@ function OnboardingForm() {
                   <FieldError message={errors.personnummer} />
                 </div>
 
+                {/* Bank — full width if known bank, half width if Övriga */}
                 <div className={form.bank !== 'Övriga' ? 'sm:col-span-2' : ''}>
                   <label className="block text-sm font-medium mb-1" style={{ color: 'var(--groovy-brown)' }}>
                     Bank<span className="text-red-500 ml-0.5">*</span>
@@ -682,6 +705,7 @@ function OnboardingForm() {
                   </select>
                 </div>
 
+                {/* Övriga banknamn — visas i kolumn 2 på samma rad som Bank-dropdown */}
                 {form.bank === 'Övriga' && (
                   <div>
                     <label className="block text-sm font-medium mb-1" style={{ color: 'var(--groovy-brown)' }}>
@@ -700,6 +724,7 @@ function OnboardingForm() {
                   </div>
                 )}
 
+                {/* Clearingnummer */}
                 <div>
                   <label className="block text-sm font-medium mb-1" style={{ color: 'var(--groovy-brown)' }}>
                     Clearingnummer<span className="text-red-500 ml-0.5">*</span>
@@ -718,6 +743,7 @@ function OnboardingForm() {
                   <FieldError message={errors.clearingnummer} />
                 </div>
 
+                {/* Kontonummer */}
                 <div>
                   <label className="block text-sm font-medium mb-1" style={{ color: 'var(--groovy-brown)' }}>
                     Kontonummer<span className="text-red-500 ml-0.5">*</span>
@@ -735,9 +761,11 @@ function OnboardingForm() {
                   />
                   <FieldError message={errors.kontonummer} />
                 </div>
+
               </div>
             </section>
 
+            {/* Section: Lärarprofil */}
             <section>
               <h3
                 className="text-lg font-semibold mb-1"
@@ -784,6 +812,7 @@ function OnboardingForm() {
               </div>
             </section>
 
+            {/* Section: Dokument */}
             <section>
               <h3
                 className="text-lg font-semibold mb-4"
@@ -847,6 +876,7 @@ function OnboardingForm() {
               </div>
             </section>
 
+            {/* Submit */}
             <div className="border-t-2 pt-6" style={{ borderColor: 'var(--groovy-cream)' }}>
               <button
                 type="submit"
@@ -917,6 +947,7 @@ function OnboardingForm() {
 export default function OnboardingPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
+      {/* Decorative background elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div
           className="absolute -top-20 -right-20 w-64 h-64 rounded-full opacity-10"
@@ -933,6 +964,7 @@ export default function OnboardingPage() {
       </div>
 
       <div className="relative w-full max-w-2xl">
+        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl sm:text-5xl mb-2" style={{ color: 'var(--groovy-brown)' }}>
             Musikglädjen
@@ -960,6 +992,7 @@ export default function OnboardingPage() {
           <OnboardingForm />
         </Suspense>
 
+        {/* Footer */}
         <p className="text-center text-sm mt-6" style={{ color: 'var(--groovy-rust)' }}>
           &copy; {new Date().getFullYear()} Musikglädjen
         </p>

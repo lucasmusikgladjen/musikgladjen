@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+.employment-root {
+  --groovy-orange: #E85D04;
+  --groovy-yellow: #FFBA08;
+  --groovy-brown: #6B4423;
+  --groovy-cream: #FAF3E0;
+  --groovy-teal: #048A81;
+  --groovy-rust: #9D4E15;
+  --groovy-olive: #606C38;
+  --groovy-pink: #E07BE0;
+
+  --status-success: #22C55E;
+  --status-warning: #EAB308;
+  --status-error: #EF4444;
+  --status-neutral: #9CA3AF;
+
+  font-family: 'Outfit', sans-serif;
+  background-color: #F5F4F2;
+  min-height: 100vh;
+}
+
+.employment-root * {
+  box-sizing: border-box;
+}
+
+.employment-root h1,
+.employment-root h2,
+.employment-root h3,
+.employment-root h4,
+.employment-root h5,
+.employment-root h6 {
+  font-family: 'Righteous', cursive;
+}
+
+.employment-root .btn-retro {
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  transition: all 200ms;
+  box-shadow: 4px 4px 0px 0px var(--groovy-brown);
+}
+
+.employment-root .btn-retro:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px var(--groovy-brown);
+}
+
+.employment-root .btn-retro:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px 0px var(--groovy-brown);
+}
+
+.employment-root .vinyl-record {
+  position: relative;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #1a1a1a 0deg,
+    #333 10deg,
+    #1a1a1a 20deg,
+    #333 30deg,
+    #1a1a1a 40deg,
+    #333 50deg,
+    #1a1a1a 60deg,
+    #333 70deg,
+    #1a1a1a 80deg,
+    #333 90deg,
+    #1a1a1a 100deg,
+    #333 110deg,
+    #1a1a1a 120deg,
+    #333 130deg,
+    #1a1a1a 140deg,
+    #333 150deg,
+    #1a1a1a 160deg,
+    #333 170deg,
+    #1a1a1a 180deg,
+    #333 190deg,
+    #1a1a1a 200deg,
+    #333 210deg,
+    #1a1a1a 220deg,
+    #333 230deg,
+    #1a1a1a 240deg,
+    #333 250deg,
+    #1a1a1a 260deg,
+    #333 270deg,
+    #1a1a1a 280deg,
+    #333 290deg,
+    #1a1a1a 300deg,
+    #333 310deg,
+    #1a1a1a 320deg,
+    #333 330deg,
+    #1a1a1a 340deg,
+    #333 350deg,
+    #1a1a1a 360deg
+  );
+}
+
+.employment-root .vinyl-record::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  background: var(--groovy-orange);
+}
+
+.employment-root .loading-vinyl {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.employment-root .filter-chip {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 200ms;
+  cursor: pointer;
+}
+
+.employment-root .filter-chip:hover {
+  transform: scale(1.05);
+}
+
+.employment-root .filter-chip.active {
+  box-shadow: 3px 3px 0px 0px var(--groovy-brown);
+}
+
+.employment-root .warm-input::placeholder {
+  color: #b8a898;
+}
+
+.employment-root .scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.employment-root .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

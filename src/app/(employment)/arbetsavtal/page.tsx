@@ -82,6 +82,7 @@ function SignaturePad({ onSignatureChange }: { onSignatureChange: (hasSignature:
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    // Set canvas resolution
     canvas.width = 600;
     canvas.height = 200;
   }, []);
@@ -134,6 +135,7 @@ function AgreementContent() {
       setErrorMessage('Ogiltig länk. Kontrollera att du klickade på rätt länk i mejlet.');
       return;
     }
+    // Fetch teacher data
     fetch(`/api/arbetsavtal/data?id=${encodeURIComponent(id)}&sig=${sig}`)
       .then(res => {
         if (!res.ok) throw new Error('Kunde inte hämta data');
@@ -158,6 +160,7 @@ function AgreementContent() {
     setState('signing');
 
     try {
+      // Capture the agreement as PNG using html2canvas
       const canvas = await html2canvas(agreementRef.current, {
         scale: 2,
         useCORS: true,
@@ -204,6 +207,7 @@ function AgreementContent() {
 
         {state === 'show-agreement' && teacher && (
           <>
+            {/* Agreement content to be captured as PNG */}
             <div ref={agreementRef} className="bg-white">
               <h2 className="text-2xl sm:text-3xl mb-6 text-center" style={{ color: 'var(--groovy-brown)' }}>
                 Arbetsavtal
@@ -211,6 +215,7 @@ function AgreementContent() {
 
               <div className="prose prose-lg max-w-none space-y-4 text-gray-700 leading-relaxed text-sm sm:text-base">
 
+                {/* 1. Parter */}
                 <h3 className="text-lg font-semibold" style={{ color: 'var(--groovy-brown)', fontFamily: "'Outfit', sans-serif" }}>
                   1. Parter
                 </h3>
@@ -233,6 +238,7 @@ function AgreementContent() {
                   </div>
                 </div>
 
+                {/* 2. Din anställning */}
                 <h3 className="text-lg font-semibold" style={{ color: 'var(--groovy-brown)', fontFamily: "'Outfit', sans-serif" }}>
                   2. Din anställning
                 </h3>
@@ -246,6 +252,7 @@ function AgreementContent() {
                   <strong>Arbetstider:</strong> Du bestämmer själv dina arbetstider i samråd med dina elever och deras vårdnadshavare.
                 </p>
 
+                {/* 3. Dina arbetsuppgifter */}
                 <h3 className="text-lg font-semibold" style={{ color: 'var(--groovy-brown)', fontFamily: "'Outfit', sans-serif" }}>
                   3. Dina arbetsuppgifter
                 </h3>
@@ -253,6 +260,7 @@ function AgreementContent() {
                   Som musiklärare på Musikglädjen undervisar du barn i deras hem. Du planerar och genomför lektioner anpassade efter varje elevs nivå och mål. Efter varje lektion skickar du en kort lektionsrapport med läxa till eleven via lärarsidan.
                 </p>
 
+                {/* 4. Ansvar för dina elever */}
                 <h3 className="text-lg font-semibold" style={{ color: 'var(--groovy-brown)', fontFamily: "'Outfit', sans-serif" }}>
                   4. Ansvar för dina elever
                 </h3>
@@ -260,6 +268,7 @@ function AgreementContent() {
                   Du väljer själv hur många elever du vill ha. När du väl har tagit på dig en elev ansvarar du för att den eleven får sin lektion varje vecka. Detta eftersom våra kunder har ett abonnemang som inkluderar en fast lektion per vecka. Du lägger själv in lektioner och hanterar din kalender via lärarsidan. Vid behov av att byta lektionstid kommunicerar du direkt med elevens vårdnadshavare.
                 </p>
 
+                {/* 5. Rapportering och lön */}
                 <h3 className="text-lg font-semibold" style={{ color: 'var(--groovy-brown)', fontFamily: "'Outfit', sans-serif" }}>
                   5. Rapportering och lön
                 </h3>
@@ -301,7 +310,9 @@ function AgreementContent() {
                     Utöver timlönen har du en personlig lönebonus på {teacher.lonepalagg} kr.
                   </p>
                 )}
+               
 
+                {/* 6. Sjukdom eller annan frånvaro */}
                 <h3 className="text-lg font-semibold" style={{ color: 'var(--groovy-brown)', fontFamily: "'Outfit', sans-serif" }}>
                   6. Sjukdom eller annan frånvaro
                 </h3>
@@ -309,6 +320,7 @@ function AgreementContent() {
                   Om du blir sjuk eller av annan anledning inte kan genomföra en lektion ska du meddela elevens vårdnadshavare direkt på morgonen samma dag. Ni kommer tillsammans överens om en ersättningslektion.
                 </p>
 
+                {/* 7. Ditt ansvar */}
                 <h3 className="text-lg font-semibold" style={{ color: 'var(--groovy-brown)', fontFamily: "'Outfit', sans-serif" }}>
                   7. Ditt ansvar
                 </h3>
@@ -320,6 +332,7 @@ function AgreementContent() {
                   {' '}Du representerar Musikglädjen i möten med elever och vårdnadshavare och förväntas uppträda professionellt och ansvarsfullt.
                 </p>
 
+                {/* 8. Avtalets upphörande */}
                 <h3 className="text-lg font-semibold" style={{ color: 'var(--groovy-brown)', fontFamily: "'Outfit', sans-serif" }}>
                   8. Avtalets upphörande
                 </h3>
@@ -327,6 +340,7 @@ function AgreementContent() {
                   Anställningen kan avslutas av båda parter med 14 dagars uppsägningstid. Vid brott mot anställningsvillkoren, såsom olämpligt beteende, kan anställningen avslutas i förtid i enlighet med gällande lagstiftning.
                 </p>
 
+                {/* 9. Behandling av personuppgifter */}
                 <h3 className="text-lg font-semibold" style={{ color: 'var(--groovy-brown)', fontFamily: "'Outfit', sans-serif" }}>
                   9. Behandling av personuppgifter
                 </h3>
@@ -335,6 +349,7 @@ function AgreementContent() {
                   <a href="http://musikgladjen.se/integritetspolicy" className="underline" style={{ color: 'var(--groovy-orange)' }}>musikgladjen.se/integritetspolicy</a>.
                 </p>
 
+                {/* 10. Underskrifter */}
                 <h3 className="text-lg font-semibold" style={{ color: 'var(--groovy-brown)', fontFamily: "'Outfit', sans-serif" }}>
                   10. Underskrifter
                 </h3>
@@ -367,6 +382,7 @@ function AgreementContent() {
               </div>
             </div>
 
+            {/* Sign button */}
             <div className="border-t-2 pt-6 mt-6" style={{ borderColor: 'var(--groovy-cream)' }}>
               <p className="text-sm text-gray-500 mb-4">
                 Genom att klicka på knappen nedan signerar du avtalet med din digitala signatur ovan.
@@ -451,9 +467,10 @@ function AgreementContent() {
   );
 }
 
-export default function ArbetsavtalPage() {
+export default function JobbavtalPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
+      {/* Decorative background elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full opacity-10"
           style={{ background: 'var(--groovy-yellow)' }} />
@@ -464,6 +481,7 @@ export default function ArbetsavtalPage() {
       </div>
 
       <div className="relative w-full max-w-2xl">
+        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl sm:text-5xl mb-2" style={{ color: 'var(--groovy-brown)' }}>
             Musikglädjen
@@ -484,6 +502,7 @@ export default function ArbetsavtalPage() {
           <AgreementContent />
         </Suspense>
 
+        {/* Footer */}
         <p className="text-center text-sm mt-6" style={{ color: 'var(--groovy-rust)' }}>
           &copy; {new Date().getFullYear()} Musikglädjen
         </p>
