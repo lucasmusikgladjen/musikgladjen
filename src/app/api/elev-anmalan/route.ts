@@ -82,9 +82,6 @@ export async function POST(req: NextRequest) {
     // 2. Create Vårdnadshavare record linked to the Elev record
     const { gata, gatunummer } = splitAddress(data.address ?? "");
 
-    const kommunikationspreferens: string[] =
-      data.frequency === "biweekly" ? ["varannan vecka"] : [];
-
     const lessonLengthMinutes = (() => {
       const len = data.lessonLength ?? "";
       if (len === "90") return 90;
@@ -103,10 +100,8 @@ export async function POST(req: NextRequest) {
         ort: toStartCase((data.city ?? "").trim()),
       }),
       Anmälningsinfo: JSON.stringify({
-        vadHoppas: Array.isArray(data.expectations) ? data.expectations : [],
         tillgangInstrument: data.instrumentAtHome ?? "",
         annatViBorVeta: (data.comment ?? "").trim(),
-        kommunikationspreferens,
       }),
       Abonnemangsupplägg: JSON.stringify({
         upplägg: data.frequency === "biweekly" ? "varannan vecka" : "veckovis",
