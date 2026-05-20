@@ -134,7 +134,7 @@ function AgreementContent() {
       setErrorMessage('Ogiltig länk. Kontrollera att du klickade på rätt länk i mejlet.');
       return;
     }
-    fetch(`/api/anstallning/arbetsavtal/data?id=${encodeURIComponent(id)}&sig=${sig}`)
+    fetch(`/api/arbetsavtal/data?id=${encodeURIComponent(id)}&sig=${sig}`)
       .then(res => {
         if (!res.ok) throw new Error('Kunde inte hämta data');
         return res.json();
@@ -166,7 +166,7 @@ function AgreementContent() {
       });
       const imageData = canvas.toDataURL('image/png');
 
-      const res = await fetch('/api/anstallning/arbetsavtal/sign', {
+      const res = await fetch('/api/arbetsavtal/sign', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, sig, imageData }),

@@ -342,7 +342,7 @@ function OnboardingForm() {
       setErrorMessage('Ogiltig länk. Kontrollera att du klickade på rätt länk i mejlet.');
       return;
     }
-    fetch(`/api/anstallning/onboarding/data?id=${encodeURIComponent(id)}&sig=${sig}`)
+    fetch(`/api/onboarding/data?id=${encodeURIComponent(id)}&sig=${sig}`)
       .then((res) => {
         if (!res.ok) throw new Error('Kunde inte hämta data');
         return res.json();
@@ -450,7 +450,7 @@ function OnboardingForm() {
       const belastningsregisterFile = belastningsregisterRef.current?.files?.[0];
       if (belastningsregisterFile) formData.append('belastningsregister', belastningsregisterFile);
 
-      const res = await fetch('/api/anstallning/onboarding/submit', {
+      const res = await fetch('/api/onboarding/submit', {
         method: 'POST',
         body: formData,
       });

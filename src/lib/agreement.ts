@@ -23,7 +23,6 @@ export function verifyAgreementSignature(larareRecordId: string, signature: stri
  */
 export function buildAgreementUrl(larareRecordId: string): string {
   const sig = signLarareId(larareRecordId);
-  const baseUrl =
-    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
-  return `${baseUrl}/anstallning/arbetsavtal?id=${encodeURIComponent(larareRecordId)}&sig=${sig}`;
+  const baseUrl = 'https://anstallning.musikgladjen.se';
+  return `${baseUrl}/arbetsavtal?id=${encodeURIComponent(larareRecordId)}&sig=${sig}`;
 }

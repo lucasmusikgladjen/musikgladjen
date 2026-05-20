@@ -23,7 +23,6 @@ export function verifyOnboardingSignature(larareRecordId: string, signature: str
  */
 export function buildOnboardingUrl(larareRecordId: string): string {
   const sig = signOnboardingId(larareRecordId);
-  const baseUrl =
-    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
-  return `${baseUrl}/anstallning/onboarding?id=${encodeURIComponent(larareRecordId)}&sig=${sig}`;
+  const baseUrl = 'https://anstallning.musikgladjen.se';
+  return `${baseUrl}/onboarding?id=${encodeURIComponent(larareRecordId)}&sig=${sig}`;
 }
