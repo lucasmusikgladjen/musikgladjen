@@ -1,16 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { PRICE_TABLE, EXPECTATIONS } from "@/lib/types";
+import { PRICE_TABLE } from "@/lib/types";
 import StepWrapper from "./StepWrapper";
 
 interface StepPricingProps {
   frequency: "weekly" | "biweekly";
   lessonLength: "45-60" | "90" | "120";
-  expectations: string[];
   onFrequencyChange: (v: "weekly" | "biweekly") => void;
   onLessonLengthChange: (v: "45-60" | "90" | "120") => void;
-  onExpectationsChange: (v: string[]) => void;
   onSubmit: () => void;
   onBack: () => void;
   isSubmitting: boolean;
@@ -39,10 +37,8 @@ const sectionLabel = "text-sm font-semibold text-text-primary mb-2.5";
 export default function StepPricing({
   frequency,
   lessonLength,
-  expectations,
   onFrequencyChange,
   onLessonLengthChange,
-  onExpectationsChange,
   onSubmit,
   onBack,
   isSubmitting,
@@ -62,14 +58,6 @@ export default function StepPricing({
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [freqOpen]);
-
-  const toggleExpectation = (exp: string) => {
-    if (expectations.includes(exp)) {
-      onExpectationsChange(expectations.filter((e) => e !== exp));
-    } else {
-      onExpectationsChange([...expectations, exp]);
-    }
-  };
 
   return (
     <StepWrapper

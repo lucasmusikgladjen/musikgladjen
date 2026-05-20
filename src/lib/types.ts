@@ -4,8 +4,6 @@ export interface FormData {
   // Step 2
   instruments: string[];
   instrumentOther: string;
-  // Step 3 (Variant A only)
-  expectations: string[];
   // Contact
   studentName: string;
   guardianName: string;
@@ -60,17 +58,9 @@ export const INSTRUMENTS = [
   { name: "Annat", emoji: "\u2728" },
 ];
 
-export const EXPECTATIONS = [
-  "En rolig fritidsaktivitet",
-  "Att eleven utvecklas och lär sig spela instrumentet",
-  "En äldre förebild för eleven",
-  "Bättre koncentrationsförmåga",
-  "En aktivitet som inte kräver planering och logistik",
-];
-
 export const STEP_NAMES_A = ["Årskurs", "Instrument", "Önskemål", "Kontakt", "Pris & upplägg"];
 export const STEP_NAMES_B = ["Årskurs", "Instrument", "Kontakt", "Pris & upplägg"];
 export const STEP_NAMES_B_SHORT = ["Årskurs", "Instrument", "Kontakt", "Pris"];
 
-export const STEP_TRACKING_NAMES_A = ["grade", "instrument", "expectations", "contact", "pricing"];
+export const STEP_TRACKING_NAMES_A = ["grade", "instrument", "contact", "pricing"];
 export const STEP_TRACKING_NAMES_B = ["grade", "instrument", "contact", "pricing"];

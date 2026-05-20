@@ -37,7 +37,6 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
     email: "",
     comment: "",
     instrumentAtHome: "",
-    expectations: [],
     frequency: "weekly",
     lessonLength: "45-60",
     formVariant: "elev",
@@ -223,10 +222,8 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
             <StepPricing
               frequency={formData.frequency}
               lessonLength={formData.lessonLength}
-              expectations={formData.expectations}
               onFrequencyChange={(v) => updateFormField("frequency", v)}
               onLessonLengthChange={(v) => updateFormField("lessonLength", v)}
-              onExpectationsChange={(v) => updateFormField("expectations", v)}
               onSubmit={handleSubmit}
               onBack={() => setCurrentView("contact")}
               isSubmitting={isSubmitting}
