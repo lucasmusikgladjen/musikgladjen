@@ -16,6 +16,20 @@ type View = "grade" | "instrument" | "children" | "contact" | "pricing";
 
 const TOTAL_PHASES = 5;
 
+const ELEV_STEPS: { view: View; slug: string }[] = [
+  { view: "grade", slug: "arskurs" },
+  { view: "instrument", slug: "instrument" },
+  { view: "children", slug: "elev" },
+  { view: "contact", slug: "kontaktuppgifter" },
+  { view: "pricing", slug: "abonnemang" },
+];
+
+const slugForView = (view: View) =>
+  ELEV_STEPS.find((s) => s.view === view)!.slug;
+
+const viewForSlug = (slug: string): View | null =>
+  ELEV_STEPS.find((s) => s.slug === slug)?.view ?? null;
+
 interface ElevRegistrationFormProps {
   onComplete: (data: ElevFormData) => void;
 }
@@ -44,6 +58,29 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
 
   useEffect(() => {
     pushEvent("form_start", { form_name: "musikgladjen_signup", form_variant: "elev" });
+    // Form data is not persisted across reloads, so always start at step 1
+    // and rewrite the URL so deep-loads of later steps reset cleanly.
+    window.history.replaceState(null, "", `/elev/${slugForView("grade")}`);
+  }, []);
+
+  useEffect(() => {
+    const handler = () => {
+      const slug = window.location.pathname.split("/").filter(Boolean).pop() ?? "";
+      const view = viewForSlug(slug);
+      if (view) setCurrentView(view);
+    };
+    window.addEventListener("popstate", handler);
+    return () => window.removeEventListener("popstate", handler);
+  }, []);
+
+  const goToView = useCallback((view: View) => {
+    window.history.pushState(null, "", `/elev/${slugForView(view)}`);
+    setCurrentView(view);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  const goBack = useCallback(() => {
+    window.history.back();
   }, []);
 
   const progressStep =
@@ -170,7 +207,7 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
             <ElevStepGrade
               grade={firstChild.grade}
               onGradeChange={handleGradeChange}
-              onNext={() => setCurrentView("instrument")}
+              onNext={() => goToView("instrument")}
             />
           )}
 
@@ -181,8 +218,8 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
               otherValue={firstChild.instrumentOther}
               onChange={handleInstrumentsChange}
               onOtherChange={handleInstrumentOtherChange}
-              onNext={() => setCurrentView("children")}
-              onBack={() => setCurrentView("grade")}
+              onNext={() => goToView("children")}
+              onBack={goBack}
             />
           )}
 
@@ -190,8 +227,8 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
             <ElevStepChildren
               children={formData.children}
               onChange={handleChildrenChange}
-              onNext={() => setCurrentView("contact")}
-              onBack={() => setCurrentView("instrument")}
+              onNext={() => goToView("contact")}
+              onBack={goBack}
             />
           )}
 
@@ -213,8 +250,8 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
               onEmailChange={(v) => handleContactFieldChange("email", v)}
               onCommentChange={(v) => setFormData((prev) => ({ ...prev, comment: v }))}
               onInstrumentAtHomeChange={(v) => setFormData((prev) => ({ ...prev, instrumentAtHome: v }))}
-              onNext={() => setCurrentView("pricing")}
-              onBack={() => setCurrentView("children")}
+              onNext={() => goToView("pricing")}
+              onBack={goBack}
             />
           )}
 
@@ -225,7 +262,7 @@ export default function ElevRegistrationForm({ onComplete }: ElevRegistrationFor
               onFrequencyChange={(v) => updateFormField("frequency", v)}
               onLessonLengthChange={(v) => updateFormField("lessonLength", v)}
               onSubmit={handleSubmit}
-              onBack={() => setCurrentView("contact")}
+              onBack={goBack}
               isSubmitting={isSubmitting}
               submitError={submitError}
             />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { JobFormData, JOB_HOW_FOUND } from "@/lib/job-types";
 import { trackMetaLead } from "@/lib/tracking";
@@ -14,6 +14,15 @@ import JobStepCalculator from "./JobStepCalculator";
 import JobStepContact from "./JobStepContact";
 
 const TOTAL_STEPS = 6;
+
+const JOB_STEP_SLUGS = [
+  "instrument",
+  "motivation",
+  "omraden",
+  "om-dig",
+  "loneberakning",
+  "kontaktuppgifter",
+] as const;
 
 interface JobApplicationFormProps {
   onComplete: (data: JobFormData) => void;
@@ -59,12 +68,39 @@ export default function JobApplicationForm({
     [],
   );
 
+  useEffect(() => {
+    // Form data is not persisted across reloads, so always start at step 1
+    // and rewrite the URL so deep-loads of later steps reset cleanly.
+    const url = new URL(window.location.href);
+    url.pathname = `/jobb/${JOB_STEP_SLUGS[0]}`;
+    window.history.replaceState(null, "", url.toString());
+  }, []);
+
+  useEffect(() => {
+    const handler = () => {
+      const slug = window.location.pathname.split("/").filter(Boolean).pop() ?? "";
+      const idx = (JOB_STEP_SLUGS as readonly string[]).indexOf(slug);
+      if (idx >= 0) setStep(idx);
+    };
+    window.addEventListener("popstate", handler);
+    return () => window.removeEventListener("popstate", handler);
+  }, []);
+
   const goNext = useCallback(() => {
-    setStep((s) => Math.min(s + 1, TOTAL_STEPS - 1));
+    setStep((s) => {
+      const next = Math.min(s + 1, TOTAL_STEPS - 1);
+      if (next !== s) {
+        const url = new URL(window.location.href);
+        url.pathname = `/jobb/${JOB_STEP_SLUGS[next]}`;
+        window.history.pushState(null, "", url.toString());
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      return next;
+    });
   }, []);
 
   const goBack = useCallback(() => {
-    setStep((s) => Math.max(s - 1, 0));
+    window.history.back();
   }, []);
 
   const handleSubmit = useCallback(async () => {
