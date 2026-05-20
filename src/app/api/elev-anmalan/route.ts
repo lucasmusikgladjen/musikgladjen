@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
         Födelseår: joinSwedish(childEntries.map((c) => c.födelseår)),
         Status: "Söker lärare",
         Elevinfo: JSON.stringify({
-          årskurs: joinSwedish(childEntries.map((c) => c.årkurs)),
+          årskurs: childEntries[0]?.årkurs ?? "",
         }),
         Händelser: `${today}: Anmälan`,
       },
