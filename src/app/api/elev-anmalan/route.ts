@@ -80,7 +80,6 @@ export async function POST(req: NextRequest) {
       Instrument: allInstruments,
       Födelseår: joinSwedish(childEntries.map((c) => c.födelseår)),
       Status: "Söker lärare",
-      Barn: JSON.stringify(childEntries),
       Elevinfo: JSON.stringify({
         årskurs: joinSwedish(childEntries.map((c) => c.årkurs)),
       }),
