@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
     const base = new Airtable({ apiKey }).base(BASE_ID);
 
-    // 1. Create one Elev record per family with all children in Barn JSON
+    // 1. Create one Elev record per family
     const children = (data.children ?? []) as Array<{
       name?: string;
       birthYear?: string;
@@ -71,7 +71,9 @@ export async function POST(req: NextRequest) {
         Instrument: allInstruments,
         Födelseår: joinSwedish(childEntries.map((c) => c.födelseår)),
         Status: "Söker lärare",
-        Barn: JSON.stringify(childEntries),
+        Elevinfo: JSON.stringify({
+          årskurs: joinSwedish(childEntries.map((c) => c.årkurs)),
+        }),
         Händelser: `${today}: Anmälan`,
       },
       { typecast: true },
