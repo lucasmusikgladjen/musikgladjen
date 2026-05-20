@@ -81,6 +81,9 @@ export async function POST(req: NextRequest) {
       Födelseår: joinSwedish(childEntries.map((c) => c.födelseår)),
       Status: "Söker lärare",
       Barn: JSON.stringify(childEntries),
+      Elevinfo: JSON.stringify({
+        årskurs: joinSwedish(childEntries.map((c) => c.årkurs)),
+      }),
     };
 
     const elevRecord = await airtablePost(apiKey, ELEV_TABLE_ID, elevFields);
