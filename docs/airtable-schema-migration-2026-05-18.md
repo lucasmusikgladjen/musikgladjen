@@ -64,7 +64,7 @@ Kod som använder fältnamn (t.ex. `fields["Önskar"]`) bryts. Kod som använder
 | Fält | Field ID | Typ | JSON-schema |
 |---|---|---|---|
 | Barn | fldF8leCYv6NK3EXb | multilineText | `[{"namn": "", "födelseår": "", "årkurs": "", "instrument": []}]` |
-| Lektionsupplägg | fldU2BIH4aHpw1R8O | multilineText | `{"form": "", "längd": 0, "lektionstid": "", "reservtid": "", "terminsmål": "", "kommentar": ""}` |
+| Lektionsupplägg | fldU2BIH4aHpw1R8O | multilineText | `{"lektionstid": "", "reservtid": "", "terminsmål": "", "kommentar": ""}` — per-elev. Lektionsform/längd ligger på Vårdnadshavare.Abonnemangsupplägg. |
 | LärareÖnskarKommentar | fld4ju4lMaMU2vFsm | multilineText | Fritext |
 
 ### Borttagna fält
@@ -134,7 +134,7 @@ Kod som använder fältnamn (t.ex. `fields["Önskar"]`) bryts. Kod som använder
 | Reservtid | Lektionsupplägg.reservtid |
 | Terminsmål | Lektionsupplägg.terminsmål |
 | Kommentar | Lektionsupplägg.kommentar |
-| Lektionsform (ej i Elev direkt) | Lektionsupplägg.form |
+| Lektionsform | Härleds från Vårdnadshavare.Abonnemangsupplägg.längd (60→Individuell, 90→Delad, 120→Dubbel) |
 | Instrument (string) | Instrument (multipleSelects array) |
 | Förnamn, Födelseår, Instrument per barn | Barn[*].namn, Barn[*].födelseår, Barn[*].instrument |
 
@@ -512,7 +512,7 @@ Måste hanteras i **både** create och update:
 | Reservtid | Lektionsupplägg | `.reservtid` |
 | Terminsmål | Lektionsupplägg | `.terminsmål` |
 | Kommentar | Lektionsupplägg | `.kommentar` |
-| Lektionsform | Lektionsupplägg | `.form` |
+| Lektionsform | (härleds från Vårdnadshavare.Abonnemangsupplägg.längd) | — |
 | Barn-info (namn, födelseår, instrument per barn) | Barn | JSON-array |
 
 ### C. Typändringar
