@@ -1,6 +1,8 @@
 "use client";
 
 import { INSTRUMENTS } from "@/lib/types";
+import { JOB_INSTRUMENT_SUGGESTIONS } from "@/lib/job-types";
+import OtherInstrumentTagInput from "./OtherInstrumentTagInput";
 import StepWrapper from "./StepWrapper";
 
 interface ElevStepInstrumentProps {
@@ -29,12 +31,15 @@ export default function ElevStepInstrument({
   const showOtherField = value.includes("Annat");
   const displayName = childName.trim() || "eleven";
 
+  const canProceed =
+    value.length > 0 && (!showOtherField || otherValue.trim().length > 0);
+
   return (
     <StepWrapper
       onBack={onBack}
       onNext={onNext}
       ctaText="Nästa"
-      ctaDisabled={false}
+      ctaDisabled={!canProceed}
       gaStep="steg-2"
     >
       <div className="mb-4 pb-4 border-b border-gray-100">
@@ -83,18 +88,14 @@ export default function ElevStepInstrument({
       </div>
 
       {showOtherField && (
-        <div className="mt-4 animate-fade-in-up">
-          <label htmlFor="instrumentOther" className="block text-sm font-medium text-text-primary mb-1">
-            Vilket instrument?
-          </label>
-          <input
-            id="instrumentOther"
-            type="text"
+        <div className="animate-fade-in-up">
+          <OtherInstrumentTagInput
             value={otherValue}
-            onChange={(e) => onOtherChange(e.target.value)}
+            onChange={onOtherChange}
+            suggestions={JOB_INSTRUMENT_SUGGESTIONS}
+            label="Vilket instrument?"
+            description="Välj eller skriv instrumentet"
             placeholder="T.ex. ukulele, cello..."
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none text-base bg-bg-white"
-            maxLength={100}
           />
         </div>
       )}

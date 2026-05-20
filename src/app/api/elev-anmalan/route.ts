@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createHash } from "crypto";
+import Airtable from "airtable";
 import { resolveInstruments } from "@/lib/instrument-utils";
 
 const BASE_ID = "app1l4NwAMtwlTIUC";
-const ELEV_TABLE_ID = "tblAj4VVugqhdPWnR";
-const VARDNADSHAVARE_TABLE_ID = "tblfYUEqhO9gtSQMh";
+const ELEV_TABLE = "Elev";
+const VARDNADSHAVARE_TABLE = "Vårdnadshavare";
 const META_PIXEL_ID = "835715892143915";
 const EMAIL_WEBHOOK_URL = "https://hook.eu1.make.com/zis8yskrx6r5kejrp1abqhygt6eud54p";
 
@@ -29,19 +30,6 @@ function joinSwedish(parts: string[]): string {
   return `${arr.slice(0, -1).join(", ")} och ${arr[arr.length - 1]}`;
 }
 
-async function airtablePost(apiKey: string, tableId: string, fields: Record<string, unknown>) {
-  const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${tableId}`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ fields, typecast: true }),
-  });
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Airtable error (${tableId}): ${err}`);
-  }
-  return res.json() as Promise<{ id: string }>;
-}
-
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
@@ -52,7 +40,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Configuration error" }, { status: 500 });
     }
 
-    // 1. Create one Elev record per family with all children in Barn JSON
+    const base = new Airtable({ apiKey }).base(BASE_ID);
+
+    // 1. Create one Elev record per family
     const children = (data.children ?? []) as Array<{
       name?: string;
       birthYear?: string;
@@ -71,21 +61,23 @@ export async function POST(req: NextRequest) {
       };
     });
 
-    const allInstruments = Array.from(
-      new Set(childEntries.flatMap((c) => c.instrument))
+    const allInstruments = Array.from(new Set(childEntries.flatMap((c) => c.instrument)));
+
+    const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm" }).format(new Date());
+
+    const elevRecord = await base(ELEV_TABLE).create(
+      {
+        Namn: joinSwedish(childEntries.map((c) => c.namn)),
+        Instrument: allInstruments,
+        Födelseår: joinSwedish(childEntries.map((c) => c.födelseår)),
+        Status: "Söker lärare",
+        Elevinfo: JSON.stringify({
+          årskurs: joinSwedish(childEntries.map((c) => c.årkurs)),
+        }),
+        Händelser: `${today}: Anmälan`,
+      },
+      { typecast: true },
     );
-
-    const elevFields: Record<string, unknown> = {
-      Namn: joinSwedish(childEntries.map((c) => c.namn)),
-      Instrument: allInstruments,
-      Födelseår: joinSwedish(childEntries.map((c) => c.födelseår)),
-      Status: "Söker lärare",
-      Elevinfo: JSON.stringify({
-        årskurs: joinSwedish(childEntries.map((c) => c.årkurs)),
-      }),
-    };
-
-    const elevRecord = await airtablePost(apiKey, ELEV_TABLE_ID, elevFields);
 
     // 2. Create Vårdnadshavare record linked to the Elev record
     const { gata, gatunummer } = splitAddress(data.address ?? "");
@@ -93,7 +85,14 @@ export async function POST(req: NextRequest) {
     const kommunikationspreferens: string[] =
       data.frequency === "biweekly" ? ["varannan vecka"] : [];
 
-    const vardnaFields: Record<string, unknown> = {
+    const lessonLengthMinutes = (() => {
+      const len = data.lessonLength ?? "";
+      if (len === "90") return 90;
+      if (len === "120") return 120;
+      return 60;
+    })();
+
+    const vardnaRecord = await base(VARDNADSHAVARE_TABLE).create({
       Namn: toStartCase((data.guardianName ?? "").trim()),
       Kontaktuppgifter: JSON.stringify({
         epost: (data.email ?? "").trim().toLowerCase(),
@@ -111,22 +110,17 @@ export async function POST(req: NextRequest) {
       }),
       Abonnemangsupplägg: JSON.stringify({
         upplägg: data.frequency === "biweekly" ? "varannan vecka" : "veckovis",
-        längd: (() => {
-          const len = data.lessonLength ?? "";
-          if (len === "90") return 90;
-          if (len === "120") return 120;
-          return 60;
-        })(),
+        längd: lessonLengthMinutes,
       }),
-    };
+      Elev: [elevRecord.id],
+    });
 
-    vardnaFields["Elev"] = [{ id: elevRecord.id }];
+    // 3. Back-link Elev → Vårdnadshavare
+    await base(ELEV_TABLE).update(elevRecord.id, {
+      Vårdnadshavare: [vardnaRecord.id],
+    });
 
-    const vardnaRecord = await airtablePost(apiKey, VARDNADSHAVARE_TABLE_ID, vardnaFields);
-
-    // Inverse link Elev.Vårdnadshavare is auto-populated by Airtable.
-
-    // 3. Trigger email module
+    // 4. Trigger email module
     fetch(EMAIL_WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -137,7 +131,7 @@ export async function POST(req: NextRequest) {
       }),
     }).catch((err) => console.error("Email webhook error:", err));
 
-    // 4. Geocoding (fire-and-forget)
+    // 5. Geocoding (fire-and-forget)
     const geocodeToken = process.env.GEOCODE_API_TOKEN;
     if (geocodeToken) {
       const adress = `${gata}${gatunummer ? ` ${gatunummer}` : ""}`;
@@ -153,7 +147,7 @@ export async function POST(req: NextRequest) {
       }).catch((err) => console.error("Geocoding error:", err));
     }
 
-    // 5. Meta CAPI Lead event
+    // 6. Meta CAPI Lead event
     const accessToken = process.env.META_ACCESS_TOKEN;
     if (accessToken) {
       try {
@@ -193,7 +187,7 @@ export async function POST(req: NextRequest) {
                 },
               }],
             }),
-          }
+          },
         );
         if (!capiRes.ok) {
           const capiError = await capiRes.text();
